@@ -123,11 +123,17 @@
 ### 작업 내용
 
 #### 1. Supabase SQL 스키마 (`supabase/schema.sql`)
-- **projects** 테이블: id(uuid), title, description, field, status(recruiting/in_progress/completed), leader_id(FK→auth.users), leader_name, leader_email, members, max_members, deadline, created_at
+- **research_projects** 테이블: id(uuid), title, description, field, status(recruiting/in_progress/completed), leader_id(FK→auth.users), leader_name, leader_email, members, max_members, deadline, created_at
+  - 기존 AHP용 `projects` 테이블과 충돌 방지를 위해 `research_projects`로 명명
 - **community_posts** 테이블: id(uuid), title, content, category(qna/review/study), author_id(FK→auth.users), author_name, author_email, views, replies, created_at
-- **comments** 테이블: id(uuid), post_id, post_type(project/community), author_id, author_name, content, created_at
+- **comments** 테이블: 기존 테이블 재사용
 - **RLS 정책**: SELECT 누구나, INSERT 인증 사용자, UPDATE/DELETE 작성자 또는 관리자
-- **인덱스**: field, status, category, post_id+post_type
+- **인덱스**: field, status, category
+
+#### Supabase 연결 완료
+- `.env` 설정: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
+- SQL 스키마 실행 완료 (research_projects, community_posts 테이블 생성 + RLS + 인덱스)
+- API 연결 확인 완료
 
 #### 2. Storage 유틸 확장
 - `src/utils/projectStorage.js` — `updateProject()`, `deleteProject()`, `getProjectsCount()` 추가
@@ -205,7 +211,8 @@
 ---
 
 ### 다음 단계 (TODO)
-- [x] Supabase 테이블 스키마 설정 (projects, community_posts, comments)
+- [x] Supabase 테이블 스키마 설정 (research_projects, community_posts + 기존 comments 재사용)
+- [x] Supabase 연결 설정 (.env + SQL 실행 완료)
 - [x] 프로젝트 생성 기능 구현
 - [x] 커뮤니티 글쓰기 기능 구현
 - [x] 관리자 대시보드 (프로젝트/커뮤니티 관리)
