@@ -1,15 +1,14 @@
 /**
  * 사이트 설정 파일
- * 하위 사이트의 브랜드, 메뉴, 푸터 등을 정의합니다.
- * 이 파일만 수정하면 Navbar/Footer가 자동으로 반영됩니다.
+ * Papers - 대학원생 논문작성 학습 & 연구 협업 플랫폼
  */
 
 const site = {
   // 사이트 기본 정보
-  name: 'DreamIT Books',
-  nameKo: '드림아이티 출판사',
-  description: 'DreamIT Biz 출판사 - 도서, 전자출판, 간행물',
-  url: 'https://books.dreamitbiz.com',
+  name: 'Papers',
+  nameKo: '논문작성 학습 & 연구 협업',
+  description: '대학원생을 위한 논문작성 학습 자료와 연구자 협업 플랫폼',
+  url: 'https://papers.dreamitbiz.com',
 
   // 부모 사이트
   parentSite: {
@@ -20,39 +19,56 @@ const site = {
   // 브랜드 로고 텍스트
   brand: {
     parts: [
-      { text: 'Dream', className: 'brand-dream' },
-      { text: 'IT', className: 'brand-it' },
-      { text: 'Books', className: 'brand-biz' }
+      { text: 'Pa', className: 'brand-dream' },
+      { text: 'pers', className: 'brand-it' }
     ]
   },
 
-  // 테마 컬러 (meta theme-color)
+  // 테마 컬러
   themeColor: '#0046C8',
 
   // 네비게이션 메뉴
-  // dropdown이 있으면 서브메뉴, 없으면 단일 링크
   menuItems: [
     { path: '/', labelKey: 'nav.home' },
     {
-      labelKey: 'site.nav.books',
-      path: '/books',
-      activePath: '/books',
+      labelKey: 'site.nav.writingGuide',
+      path: '/guide',
+      activePath: '/guide',
       dropdown: [
-        { path: '/books/it', labelKey: 'site.nav.itBooks' },
-        { path: '/books/education', labelKey: 'site.nav.eduBooks' }
+        { path: '/guide/structure', labelKey: 'site.nav.paperStructure' },
+        { path: '/guide/methodology', labelKey: 'site.nav.methodology' },
+        { path: '/guide/writing', labelKey: 'site.nav.academicWriting' },
+        { path: '/guide/reference', labelKey: 'site.nav.reference' },
+        { path: '/guide/statistics', labelKey: 'site.nav.statistics' },
+        { path: '/guide/ethics', labelKey: 'site.nav.ethics' }
       ]
     },
-    { path: '/shop', labelKey: 'shop.title', activePath: '/shop' }
+    {
+      labelKey: 'site.nav.fieldResources',
+      path: '/fields',
+      activePath: '/fields',
+      dropdown: [
+        { path: '/fields/humanities', labelKey: 'site.nav.humanities' },
+        { path: '/fields/natural-science', labelKey: 'site.nav.naturalScience' },
+        { path: '/fields/engineering', labelKey: 'site.nav.engineering' },
+        { path: '/fields/medical', labelKey: 'site.nav.medical' },
+        { path: '/fields/arts', labelKey: 'site.nav.arts' }
+      ]
+    },
+    { path: '/projects', labelKey: 'site.nav.projects', activePath: '/projects' },
+    { path: '/community', labelKey: 'nav.community', activePath: '/community' }
   ],
 
   // 푸터 바로가기 링크
   footerLinks: [
     { path: '/', labelKey: 'nav.home' },
-    { path: '/books', labelKey: 'site.nav.books' },
-    { path: '/shop', labelKey: 'shop.title' }
+    { path: '/guide', labelKey: 'site.nav.writingGuide' },
+    { path: '/fields', labelKey: 'site.nav.fieldResources' },
+    { path: '/projects', labelKey: 'site.nav.projects' },
+    { path: '/community', labelKey: 'nav.community' }
   ],
 
-  // Family Site 목록 (부모 사이트 + 형제 사이트)
+  // Family Site 목록
   familySites: [
     { name: 'DreamIT Biz (본사이트)', url: 'https://www.dreamitbiz.com' },
     { name: 'AHP 연구 플랫폼', url: 'https://ahp-basic.dreamitbiz.com' },

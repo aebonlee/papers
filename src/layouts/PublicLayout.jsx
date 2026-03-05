@@ -16,6 +16,27 @@ const OrderConfirmation = lazy(() => import('../pages/OrderConfirmation'));
 const OrderHistory = lazy(() => import('../pages/OrderHistory'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 
+// 논문작성 가이드
+const WritingGuide = lazy(() => import('../pages/WritingGuide'));
+const PaperStructure = lazy(() => import('../pages/PaperStructure'));
+const ResearchMethodology = lazy(() => import('../pages/ResearchMethodology'));
+const AcademicWriting = lazy(() => import('../pages/AcademicWriting'));
+const ReferenceManagement = lazy(() => import('../pages/ReferenceManagement'));
+const StatisticalAnalysis = lazy(() => import('../pages/StatisticalAnalysis'));
+const ResearchEthics = lazy(() => import('../pages/ResearchEthics'));
+
+// 분야별 자료
+const FieldResources = lazy(() => import('../pages/FieldResources'));
+const FieldDetail = lazy(() => import('../pages/FieldDetail'));
+
+// 연구 프로젝트
+const Projects = lazy(() => import('../pages/Projects'));
+const ProjectDetail = lazy(() => import('../pages/ProjectDetail'));
+
+// 커뮤니티
+const Community = lazy(() => import('../pages/Community'));
+const CommunityDetail = lazy(() => import('../pages/CommunityDetail'));
+
 const Loading = () => (
   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
     <div className="loading-spinner"></div>
@@ -44,13 +65,26 @@ const PublicLayout = () => {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-confirmation" element={<OrderConfirmation />} />
 
-            {/*
-              사이트 전용 페이지를 여기에 추가하세요.
-              예:
-              const Books = lazy(() => import('../pages/Books'));
-              <Route path="/books" element={<Books />} />
-              <Route path="/books/:category" element={<BookCategory />} />
-            */}
+            {/* 논문작성 가이드 */}
+            <Route path="/guide" element={<WritingGuide />} />
+            <Route path="/guide/structure" element={<PaperStructure />} />
+            <Route path="/guide/methodology" element={<ResearchMethodology />} />
+            <Route path="/guide/writing" element={<AcademicWriting />} />
+            <Route path="/guide/reference" element={<ReferenceManagement />} />
+            <Route path="/guide/statistics" element={<StatisticalAnalysis />} />
+            <Route path="/guide/ethics" element={<ResearchEthics />} />
+
+            {/* 분야별 자료 */}
+            <Route path="/fields" element={<FieldResources />} />
+            <Route path="/fields/:fieldId" element={<FieldDetail />} />
+
+            {/* 연구 프로젝트 */}
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:projectId" element={<ProjectDetail />} />
+
+            {/* 커뮤니티 */}
+            <Route path="/community" element={<Community />} />
+            <Route path="/community/:postId" element={<CommunityDetail />} />
 
             {/* 404 */}
             <Route path="*" element={<NotFound />} />

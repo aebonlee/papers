@@ -1,31 +1,31 @@
 export const translations = {
   ko: {
-    // ─── 공용 키 (본사이트와 동일) ───
+    // ─── 공용 키 ───
     nav: {
       home: '홈',
+      community: '커뮤니티',
       itServices: 'IT서비스',
       education: '교육',
       publishing: '출판',
       portfolio: '포트폴리오',
-      community: '커뮤니티',
       consulting: '컨설팅',
-      about: '회사소개',
+      about: '소개',
       contact: '연락처',
       rnd: '연구개발',
       services: 'IT서비스',
       blog: '블로그'
     },
     footer: {
-      tagline: '혁신적인 IT 솔루션으로 비즈니스의 미래를 만듭니다',
-      companyInfo: '회사 정보',
+      tagline: '대학원생의 성공적인 논문작성을 위한 학습과 협업의 공간',
+      companyInfo: '플랫폼 정보',
       contact: '연락처',
       quickLinks: '바로가기'
     },
     shop: {
       title: '스토어',
-      subtitle: '도서, 전자출판, 간행물, 온라인 강좌를 만나보세요',
+      subtitle: '학습 자료를 만나보세요',
       all: '전체',
-      book: '도서 & 교육교재',
+      book: '도서',
       ebook: '전자출판',
       periodical: '간행물',
       course: '강좌',
@@ -142,10 +142,10 @@ export const translations = {
       backToLogin: '로그인으로 돌아가기'
     },
     search: {
-      placeholder: '검색어를 입력하세요...',
+      placeholder: '논문작성 자료 검색...',
       searching: '검색 중...',
       noResults: '검색 결과가 없습니다.',
-      hint: '사이트 내 콘텐츠를 검색합니다.',
+      hint: '학습 자료, 프로젝트, 커뮤니티를 검색합니다.',
       blog: '블로그',
       board: '게시판',
       gallery: '갤러리'
@@ -173,15 +173,219 @@ export const translations = {
     // ─── 사이트 전용 키 ───
     site: {
       nav: {
-        books: '도서',
-        itBooks: 'IT 도서',
-        eduBooks: '교육 교재'
+        writingGuide: '논문작성 가이드',
+        paperStructure: '논문 구조',
+        methodology: '연구방법론',
+        academicWriting: '학술적 글쓰기',
+        reference: '참고문헌 관리',
+        statistics: '통계분석',
+        ethics: '연구윤리',
+        fieldResources: '분야별 자료',
+        humanities: '인문사회',
+        naturalScience: '자연과학',
+        engineering: '공학',
+        medical: '의학/보건',
+        arts: '예술/체육',
+        projects: '연구 프로젝트'
       },
       home: {
-        title: 'DreamIT Books',
-        subtitle: 'IT 전문 도서와 교육 교재를 만나보세요',
-        welcome: '드림아이티 출판사에 오신 것을 환영합니다.',
-        description: 'IT 전문 서적, 교육 교재, 전자출판물을 기획·제작·유통하고 있습니다.'
+        title: 'Papers',
+        subtitle: '대학원생을 위한 논문작성 학습 & 연구 협업 플랫폼',
+        heroDesc: '체계적인 논문작성 가이드부터 분야별 연구자료, 연구자 간 협업 프로젝트까지.\n성공적인 학위논문 완성을 위한 모든 것을 제공합니다.',
+        startLearning: '학습 시작하기',
+        exploreProjects: '프로젝트 탐색',
+        // Feature cards
+        featureGuide: '논문작성 가이드',
+        featureGuideDesc: '논문 구조, 연구방법론, 학술적 글쓰기, 참고문헌 관리, 통계분석, 연구윤리까지 체계적으로 학습하세요.',
+        featureFields: '분야별 자료',
+        featureFieldsDesc: '인문사회, 자연과학, 공학, 의학/보건, 예술/체육 등 전공별 맞춤 논문작성 자료를 제공합니다.',
+        featureProjects: '연구 프로젝트',
+        featureProjectsDesc: '동료 연구자들과 함께 주제별 논문 프로젝트를 진행하고 피드백을 주고받으세요.',
+        featureCommunity: '연구자 커뮤니티',
+        featureCommunityDesc: '논문작성 Q&A, 논문 리뷰, 스터디 그룹 모집 등 연구자 간 소통의 공간입니다.',
+        // Stats
+        statResources: '학습 자료',
+        statFields: '연구 분야',
+        statProjects: '진행 프로젝트',
+        statResearchers: '활성 연구자',
+        // CTA
+        ctaTitle: '지금 바로 논문작성 학습을 시작하세요',
+        ctaDesc: '체계적인 가이드와 동료 연구자들의 피드백으로 더 나은 논문을 작성할 수 있습니다.',
+        ctaButton: '무료로 시작하기'
+      },
+      guide: {
+        title: '논문작성 가이드',
+        subtitle: '성공적인 논문작성을 위한 체계적인 학습 로드맵',
+        desc: '논문의 기본 구조부터 연구윤리까지, 대학원생이 반드시 알아야 할 논문작성의 모든 것을 단계별로 안내합니다.',
+        stepByStep: '단계별 학습',
+        step: '단계'
+      },
+      structure: {
+        title: '논문 구조',
+        subtitle: '학위논문의 기본 구성과 각 장의 역할을 이해합니다',
+        sections: [
+          { title: '서론 (Introduction)', content: '연구의 배경, 목적, 필요성을 기술합니다. 연구 문제를 명확히 제시하고, 연구의 범위와 한계를 설정합니다. 독자가 왜 이 연구가 중요한지 이해할 수 있도록 논리적으로 전개해야 합니다.' },
+          { title: '이론적 배경 (Literature Review)', content: '선행연구를 체계적으로 검토하고 분석합니다. 기존 연구의 흐름, 주요 이론, 연구 간극(gap)을 파악하여 본 연구의 학술적 기여를 정당화합니다.' },
+          { title: '연구방법 (Methodology)', content: '연구 설계, 대상, 도구, 절차, 분석 방법을 상세히 기술합니다. 다른 연구자가 동일한 방법으로 연구를 재현할 수 있을 정도로 구체적이어야 합니다.' },
+          { title: '연구결과 (Results)', content: '수집된 데이터를 분석한 결과를 객관적으로 제시합니다. 표, 그래프, 통계치를 활용하여 결과를 명확하게 보여줍니다.' },
+          { title: '논의 및 결론 (Discussion & Conclusion)', content: '연구결과의 의미를 해석하고, 선행연구와 비교 분석합니다. 연구의 시사점, 한계, 후속 연구 제언을 포함합니다.' },
+          { title: '참고문헌 (References)', content: '논문에서 인용한 모든 출처를 학술 형식(APA, MLA, Chicago 등)에 맞춰 정리합니다.' }
+        ]
+      },
+      methodology: {
+        title: '연구방법론',
+        subtitle: '양적·질적·혼합 연구방법의 이해와 적용',
+        sections: [
+          { title: '양적 연구 (Quantitative Research)', content: '수치 데이터를 수집하고 통계적으로 분석하여 변인 간의 관계를 검증합니다. 설문조사, 실험연구, 종단연구 등이 대표적입니다. 가설 설정과 객관적 검증이 핵심입니다.', items: ['설문조사 설계', '실험연구 설계', '표본추출 방법', '변인의 조작적 정의'] },
+          { title: '질적 연구 (Qualitative Research)', content: '현상의 의미와 맥락을 깊이 있게 이해하기 위한 연구방법입니다. 인터뷰, 관찰, 문헌분석 등을 통해 풍부한 서술적 데이터를 수집합니다.', items: ['심층면담 기법', '참여관찰', '근거이론(Grounded Theory)', '현상학적 연구'] },
+          { title: '혼합 연구 (Mixed Methods)', content: '양적 연구와 질적 연구를 결합하여 연구 문제를 다각도로 탐구합니다. 순차적 설계, 동시적 설계 등 다양한 혼합 전략이 있습니다.', items: ['순차적 탐색 설계', '순차적 설명 설계', '동시적 삼각검증', '변환 설계'] }
+        ]
+      },
+      writing: {
+        title: '학술적 글쓰기',
+        subtitle: '명확하고 논리적인 학술 논문 작성법',
+        tips: [
+          { title: '객관적 어조 유지', content: '학술 논문은 1인칭 사용을 최소화하고, 객관적이고 중립적인 어조로 작성합니다. "~인 것으로 판단된다", "~할 수 있다"와 같은 표현을 사용합니다.' },
+          { title: '단락 구성의 원칙', content: '하나의 단락에는 하나의 주제만 다룹니다. 주제문(topic sentence)으로 시작하여 뒷받침 문장, 결론 문장으로 이어지는 구조를 갖춥니다.' },
+          { title: '논리적 전개', content: '주장-근거-예시의 구조로 논증합니다. 각 문장과 단락이 논리적으로 연결되어야 하며, 접속어와 전환어를 적절히 사용합니다.' },
+          { title: '인용과 패러프레이징', content: '직접 인용은 원문을 그대로 옮기며 인용부호로 표시합니다. 패러프레이징은 원문의 의미를 자신의 언어로 재구성하되, 반드시 출처를 밝힙니다.' },
+          { title: '학술 용어 사용', content: '전공 분야의 학술 용어를 정확하게 사용합니다. 처음 사용하는 용어는 정의를 먼저 제시하고, 일관된 용어 사용을 유지합니다.' },
+          { title: '퇴고와 교정', content: '초고 작성 후 반드시 여러 차례 퇴고합니다. 문법, 맞춤법, 논리적 일관성, 형식적 요건을 점검합니다.' }
+        ]
+      },
+      reference: {
+        title: '참고문헌 관리',
+        subtitle: '정확한 인용과 효율적인 문헌 관리 방법',
+        styles: [
+          { name: 'APA 7th Edition', desc: '사회과학 분야에서 가장 널리 사용되는 인용 형식입니다.', example: 'Kim, S. H. (2023). Research methodology. Seoul: Academic Press.' },
+          { name: 'MLA 9th Edition', desc: '인문학 분야에서 주로 사용되는 인용 형식입니다.', example: 'Kim, Soo Hyun. Research Methodology. Academic Press, 2023.' },
+          { name: 'Chicago/Turabian', desc: '역사학, 경영학 등에서 사용되며 각주/미주 방식과 저자-날짜 방식이 있습니다.', example: 'Kim, Soo Hyun. Research Methodology. Seoul: Academic Press, 2023.' },
+          { name: 'Vancouver', desc: '의학, 자연과학 분야에서 번호 순서 방식으로 사용됩니다.', example: '1. Kim SH. Research methodology. Seoul: Academic Press; 2023.' }
+        ],
+        tools: [
+          { name: 'Zotero', desc: '무료 오픈소스 문헌 관리 도구. 브라우저 확장으로 논문 저장이 편리합니다.' },
+          { name: 'Mendeley', desc: 'Elsevier에서 제공하는 무료 문헌 관리 도구. PDF 관리와 소셜 네트워킹 기능을 제공합니다.' },
+          { name: 'EndNote', desc: '가장 오래되고 강력한 유료 문헌 관리 도구. 대학 기관에서 라이선스를 제공하는 경우가 많습니다.' }
+        ]
+      },
+      statistics: {
+        title: '통계분석',
+        subtitle: '논문에서 자주 사용되는 통계분석 방법 안내',
+        methods: [
+          { name: '기술통계', desc: '평균, 표준편차, 빈도, 백분율 등 데이터의 기본 특성을 요약합니다.', when: '데이터의 전반적인 특성을 파악할 때' },
+          { name: 't-검정 (t-test)', desc: '두 집단 간 평균 차이의 통계적 유의성을 검정합니다.', when: '실험군과 대조군의 평균 비교 시' },
+          { name: '분산분석 (ANOVA)', desc: '세 집단 이상의 평균 차이를 동시에 비교합니다.', when: '3개 이상 집단의 평균 비교 시' },
+          { name: '상관분석', desc: '두 변인 간의 관련성 정도와 방향을 파악합니다.', when: '변인 간 관계의 강도와 방향 파악 시' },
+          { name: '회귀분석', desc: '독립변인이 종속변인에 미치는 영향을 분석합니다.', when: '변인 간 인과관계 또는 예측 모형 구축 시' },
+          { name: '카이제곱 검정', desc: '범주형 변인 간의 독립성 또는 적합도를 검정합니다.', when: '범주형 데이터의 관련성 분석 시' }
+        ],
+        tools: [
+          { name: 'SPSS', desc: '사회과학 분야에서 가장 널리 사용되는 통계 소프트웨어' },
+          { name: 'R / RStudio', desc: '무료 오픈소스 통계 프로그래밍 환경' },
+          { name: 'Python (pandas, scipy)', desc: '데이터 분석과 머신러닝에 강력한 프로그래밍 언어' },
+          { name: 'AMOS / LISREL', desc: '구조방정식 모형(SEM) 분석에 특화된 도구' }
+        ]
+      },
+      ethics: {
+        title: '연구윤리',
+        subtitle: '책임있는 연구 수행을 위한 윤리 가이드라인',
+        principles: [
+          { title: '표절 금지', content: '타인의 아이디어, 표현, 데이터를 출처 표시 없이 사용하는 것은 학술적 부정행위입니다. 직접 인용, 패러프레이징 모두 반드시 출처를 밝혀야 합니다.', icon: '1' },
+          { title: '데이터 조작/위조 금지', content: '연구 데이터를 의도적으로 변경(조작)하거나, 존재하지 않는 데이터를 만들어내는(위조) 행위는 연구 부정행위의 가장 심각한 형태입니다.', icon: '2' },
+          { title: '중복 게재 금지', content: '동일하거나 유사한 내용을 여러 학술지에 동시 또는 순차적으로 게재하는 것은 허용되지 않습니다.', icon: '3' },
+          { title: '저자 자격 준수', content: '연구에 실질적으로 기여한 사람만 저자로 포함해야 합니다. 명예 저자, 유령 저자는 연구윤리 위반입니다.', icon: '4' },
+          { title: 'IRB 승인', content: '인간 대상 연구는 반드시 기관생명윤리위원회(IRB)의 사전 승인을 받아야 합니다. 연구 참여자의 동의, 개인정보 보호가 필수입니다.', icon: '5' },
+          { title: '이해충돌 공개', content: '연구 결과에 영향을 미칠 수 있는 재정적, 개인적 이해관계를 투명하게 공개해야 합니다.', icon: '6' }
+        ]
+      },
+      fields: {
+        title: '분야별 자료',
+        subtitle: '전공 분야에 맞는 논문작성 가이드와 참고 자료',
+        desc: '각 학문 분야의 특성에 맞춘 논문작성 방법, 주요 학술지, 참고 자료를 제공합니다.',
+        humanities: {
+          name: '인문사회',
+          fullName: '인문사회과학',
+          desc: '문학, 역사, 철학, 사회학, 심리학, 교육학, 경영학, 경제학 등',
+          overview: '인문사회과학 분야의 논문은 이론적 논증과 문헌 분석이 핵심입니다. 질적 연구방법이 많이 활용되며, 비판적 사고와 논리적 글쓰기가 중요합니다.',
+          journals: ['한국사회학', '교육학연구', '경영학연구', '심리학회지', '한국어문학연구'],
+          tips: ['선행연구의 비판적 검토가 특히 중요합니다', 'APA 또는 Chicago 인용 형식을 주로 사용합니다', '이론적 프레임워크의 명확한 설정이 필요합니다', '질적 자료의 체계적 분석 방법을 숙지하세요']
+        },
+        naturalScience: {
+          name: '자연과학',
+          fullName: '자연과학',
+          desc: '물리학, 화학, 생물학, 수학, 지구과학, 천문학 등',
+          overview: '자연과학 분야의 논문은 실험과 관찰을 통한 객관적 데이터 수집과 통계적 검증이 핵심입니다. IMRAD 구조를 엄격히 따릅니다.',
+          journals: ['Nature Korea', '한국물리학회지', '대한화학회지', '한국생물과학협회지'],
+          tips: ['실험 설계의 재현 가능성이 매우 중요합니다', 'Vancouver 또는 APA 인용 형식을 사용합니다', '통계적 유의성 검정을 정확히 수행하세요', '그래프와 표를 효과적으로 활용하세요']
+        },
+        engineering: {
+          name: '공학',
+          fullName: '공학',
+          desc: '컴퓨터공학, 전자공학, 기계공학, 건축공학, 화학공학 등',
+          overview: '공학 분야의 논문은 기술적 문제 해결과 성능 검증에 초점을 맞춥니다. 알고리즘, 시뮬레이션, 프로토타입 개발 등의 방법론이 활용됩니다.',
+          journals: ['한국정보과학회', '대한전자공학회', '대한기계학회', '한국건축학회'],
+          tips: ['기술적 기여도(contribution)를 명확히 제시하세요', 'IEEE 또는 ACM 형식을 주로 사용합니다', '성능 비교 실험 결과를 체계적으로 제시하세요', '관련 기술의 동향 분석을 포함하세요']
+        },
+        medical: {
+          name: '의학/보건',
+          fullName: '의학·보건학',
+          desc: '의학, 간호학, 약학, 공중보건학, 재활의학 등',
+          overview: '의학·보건 분야의 논문은 임상 연구와 역학 연구가 중심입니다. CONSORT, STROBE 등 보고 가이드라인을 준수해야 하며, IRB 승인이 필수적입니다.',
+          journals: ['대한의학회지', '한국간호학회지', '약학회지', '보건행정학회지'],
+          tips: ['CONSORT/STROBE 가이드라인을 숙지하세요', 'Vancouver(숫자) 인용 형식을 사용합니다', 'IRB 승인 번호를 반드시 기재하세요', '임상시험 등록(ClinicalTrials.gov)을 확인하세요']
+        },
+        arts: {
+          name: '예술/체육',
+          fullName: '예술·체육학',
+          desc: '미술, 음악, 무용, 체육교육, 스포츠과학 등',
+          overview: '예술·체육 분야의 논문은 실기와 이론의 결합이 특징입니다. 작품 분석, 공연 분석, 운동역학 실험 등 다양한 연구방법이 활용됩니다.',
+          journals: ['한국예술연구', '체육과학연구', '한국스포츠심리학회지', '한국음악학회지'],
+          tips: ['실기/실습 요소의 학술적 의미를 부여하세요', 'APA 또는 분야별 고유 형식을 사용합니다', '시각 자료(사진, 악보, 동작 분석)를 적극 활용하세요', '작품/공연 분석 시 체계적 분석 틀을 제시하세요']
+        }
+      },
+      projects: {
+        title: '연구 프로젝트',
+        subtitle: '동료 연구자와 함께 논문 프로젝트를 진행하세요',
+        createProject: '프로젝트 만들기',
+        allFields: '전체 분야',
+        recruiting: '모집중',
+        inProgress: '진행중',
+        completed: '완료',
+        members: '참여 연구자',
+        maxMembers: '최대 인원',
+        deadline: '마감일',
+        leader: '프로젝트 리더',
+        joinProject: '참여 신청',
+        projectGoal: '연구 목표',
+        projectDesc: '프로젝트 설명',
+        timeline: '일정',
+        discussion: '토론',
+        noProjects: '등록된 프로젝트가 없습니다.',
+        createNew: '새 프로젝트 만들기',
+        projectName: '프로젝트명',
+        field: '연구 분야',
+        description: '상세 설명',
+        create: '만들기',
+        status: '상태',
+        viewDetail: '상세 보기'
+      },
+      community: {
+        title: '커뮤니티',
+        subtitle: '연구자들과 소통하고 피드백을 나누세요',
+        allPosts: '전체',
+        qna: 'Q&A',
+        review: '논문 리뷰',
+        study: '스터디 모집',
+        writePost: '글쓰기',
+        noPosts: '게시글이 없습니다.',
+        postTitle: '제목',
+        postContent: '내용',
+        category: '카테고리',
+        submit: '등록',
+        views: '조회',
+        replies: '답변',
+        author: '작성자',
+        date: '작성일'
       }
     }
   },
@@ -190,11 +394,11 @@ export const translations = {
     // ─── Shared keys ───
     nav: {
       home: 'Home',
+      community: 'Community',
       itServices: 'IT Services',
       education: 'Education',
       publishing: 'Publishing',
       portfolio: 'Portfolio',
-      community: 'Community',
       consulting: 'Consulting',
       about: 'About',
       contact: 'Contact',
@@ -203,16 +407,16 @@ export const translations = {
       blog: 'Blog'
     },
     footer: {
-      tagline: 'Creating the future of business with innovative IT solutions',
-      companyInfo: 'Company Info',
+      tagline: 'A learning and collaboration space for successful thesis writing',
+      companyInfo: 'Platform Info',
       contact: 'Contact',
       quickLinks: 'Quick Links'
     },
     shop: {
       title: 'Store',
-      subtitle: 'Explore books, e-publications, periodicals, and online courses',
+      subtitle: 'Explore learning materials',
       all: 'All',
-      book: 'Books & Education Materials',
+      book: 'Books',
       ebook: 'E-Publishing',
       periodical: 'Periodicals',
       course: 'Courses',
@@ -329,10 +533,10 @@ export const translations = {
       backToLogin: 'Back to Login'
     },
     search: {
-      placeholder: 'Search...',
+      placeholder: 'Search papers resources...',
       searching: 'Searching...',
       noResults: 'No results found.',
-      hint: 'Search site content.',
+      hint: 'Search learning materials, projects, and community.',
       blog: 'Blog',
       board: 'Board',
       gallery: 'Gallery'
@@ -360,15 +564,122 @@ export const translations = {
     // ─── Site-specific keys ───
     site: {
       nav: {
-        books: 'Books',
-        itBooks: 'IT Books',
-        eduBooks: 'Education Materials'
+        writingGuide: 'Writing Guide',
+        paperStructure: 'Paper Structure',
+        methodology: 'Methodology',
+        academicWriting: 'Academic Writing',
+        reference: 'References',
+        statistics: 'Statistics',
+        ethics: 'Research Ethics',
+        fieldResources: 'By Field',
+        humanities: 'Humanities & Social Sci.',
+        naturalScience: 'Natural Sciences',
+        engineering: 'Engineering',
+        medical: 'Medical / Health',
+        arts: 'Arts & Sports',
+        projects: 'Projects'
       },
       home: {
-        title: 'DreamIT Books',
-        subtitle: 'Discover IT books and educational materials',
-        welcome: 'Welcome to DreamIT Books.',
-        description: 'We plan, produce, and distribute IT books, educational materials, and e-publications.'
+        title: 'Papers',
+        subtitle: 'Thesis Writing & Research Collaboration for Graduate Students',
+        heroDesc: 'From systematic writing guides to field-specific resources and collaborative research projects.\nEverything you need to complete a successful thesis.',
+        startLearning: 'Start Learning',
+        exploreProjects: 'Explore Projects',
+        featureGuide: 'Writing Guide',
+        featureGuideDesc: 'Learn paper structure, methodology, academic writing, references, statistics, and research ethics step by step.',
+        featureFields: 'Field Resources',
+        featureFieldsDesc: 'Get specialized writing resources for humanities, sciences, engineering, medical, and arts fields.',
+        featureProjects: 'Research Projects',
+        featureProjectsDesc: 'Collaborate with fellow researchers on topic-based paper projects and exchange feedback.',
+        featureCommunity: 'Community',
+        featureCommunityDesc: 'A space for Q&A, paper reviews, and study group recruitment among researchers.',
+        statResources: 'Resources',
+        statFields: 'Fields',
+        statProjects: 'Projects',
+        statResearchers: 'Researchers',
+        ctaTitle: 'Start your thesis writing journey today',
+        ctaDesc: 'Improve your writing with systematic guides and peer feedback.',
+        ctaButton: 'Get Started Free'
+      },
+      guide: {
+        title: 'Writing Guide',
+        subtitle: 'A systematic learning roadmap for successful thesis writing',
+        desc: 'From the basics of paper structure to research ethics — a step-by-step guide covering everything graduate students need to know.',
+        stepByStep: 'Step-by-Step Learning',
+        step: 'Step'
+      },
+      structure: {
+        title: 'Paper Structure',
+        subtitle: 'Understanding the composition and role of each chapter in a thesis'
+      },
+      methodology: {
+        title: 'Research Methodology',
+        subtitle: 'Understanding and applying quantitative, qualitative, and mixed methods'
+      },
+      writing: {
+        title: 'Academic Writing',
+        subtitle: 'How to write clear and logical academic papers'
+      },
+      reference: {
+        title: 'Reference Management',
+        subtitle: 'Accurate citation and efficient literature management'
+      },
+      statistics: {
+        title: 'Statistical Analysis',
+        subtitle: 'Common statistical methods used in academic papers'
+      },
+      ethics: {
+        title: 'Research Ethics',
+        subtitle: 'Ethics guidelines for responsible research'
+      },
+      fields: {
+        title: 'Resources by Field',
+        subtitle: 'Thesis writing guides tailored to your academic discipline',
+        desc: 'We provide field-specific writing methods, major journals, and reference materials.'
+      },
+      projects: {
+        title: 'Research Projects',
+        subtitle: 'Collaborate with fellow researchers on paper projects',
+        createProject: 'Create Project',
+        allFields: 'All Fields',
+        recruiting: 'Recruiting',
+        inProgress: 'In Progress',
+        completed: 'Completed',
+        members: 'Members',
+        maxMembers: 'Max Members',
+        deadline: 'Deadline',
+        leader: 'Project Leader',
+        joinProject: 'Join',
+        projectGoal: 'Research Goal',
+        projectDesc: 'Description',
+        timeline: 'Timeline',
+        discussion: 'Discussion',
+        noProjects: 'No projects found.',
+        createNew: 'Create New Project',
+        projectName: 'Project Name',
+        field: 'Field',
+        description: 'Description',
+        create: 'Create',
+        status: 'Status',
+        viewDetail: 'View Details'
+      },
+      community: {
+        title: 'Community',
+        subtitle: 'Connect with researchers and share feedback',
+        allPosts: 'All',
+        qna: 'Q&A',
+        review: 'Paper Review',
+        study: 'Study Groups',
+        writePost: 'Write Post',
+        noPosts: 'No posts yet.',
+        postTitle: 'Title',
+        postContent: 'Content',
+        category: 'Category',
+        submit: 'Submit',
+        views: 'Views',
+        replies: 'Replies',
+        author: 'Author',
+        date: 'Date'
       }
     }
   }

@@ -1,0 +1,88 @@
+import { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
+import SEOHead from '../components/SEOHead';
+import CommentSection from '../components/CommentSection';
+import { getPostById } from '../utils/communityStorage';
+
+const categoryColors = { qna: '#0046C8', review: '#C87200', study: '#00855A' };
+
+const CommunityDetail = () => {
+  const { postId } = useParams();
+  const { t, lang } = useLanguage();
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      const data = await getPostById(postId);
+      setPost(data);
+      setLoading(false);
+    };
+    load();
+  }, [postId]);
+
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+        <div className="loading-spinner"></div>
+      </div>
+    );
+  }
+
+  if (!post) {
+    return (
+      <section className="section">
+        <div className="container text-center">
+          <h2>404</h2>
+          <p>{lang === 'ko' ? '게시글을 찾을 수 없습니다.' : 'Post not found.'}</p>
+          <Link to="/community" className="btn btn-primary" style={{ marginTop: '20px' }}>
+            {lang === 'ko' ? '커뮤니티로 돌아가기' : 'Back to Community'}
+          </Link>
+        </div>
+      </section>
+    );
+  }
+
+  const catKey = post.category === 'qna' ? 'qna' : post.category === 'review' ? 'review' : 'study';
+
+  return (
+    <>
+      <SEOHead title={post.title} description={post.content.slice(0, 160)} />
+
+      <section className="page-header">
+        <div className="container">
+          <span className="post-detail-category" style={{ background: categoryColors[post.category] }}>
+            {t(`site.community.${catKey}`)}
+          </span>
+          <h2>{post.title}</h2>
+          <div className="post-detail-meta">
+            <span>{post.author.name}</span>
+            <span>{post.createdAt}</span>
+            <span>{t('site.community.views')}: {post.views}</span>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="post-detail-content">
+            <p>{post.content}</p>
+          </div>
+
+          <div className="post-detail-comments">
+            <CommentSection contentType="community" contentId={postId} />
+          </div>
+
+          <div className="text-center mt-4">
+            <Link to="/community" className="btn btn-secondary">
+              {lang === 'ko' ? '← 목록으로 돌아가기' : '← Back to List'}
+            </Link>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default CommunityDetail;
