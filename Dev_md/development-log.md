@@ -112,11 +112,105 @@
 
 ---
 
+---
+
+## 2026-03-06 | Supabase 스키마 & 관리자 페이지 구현
+
+### 구현 계획 요약
+
+연구 프로젝트와 커뮤니티 기능이 로컬 샘플 데이터로만 동작하던 상태에서, Supabase DB 기반 실제 CRUD 운영과 관리자 대시보드를 추가 구현.
+
+### 작업 내용
+
+#### 1. Supabase SQL 스키마 (`supabase/schema.sql`)
+- **projects** 테이블: id(uuid), title, description, field, status(recruiting/in_progress/completed), leader_id(FK→auth.users), leader_name, leader_email, members, max_members, deadline, created_at
+- **community_posts** 테이블: id(uuid), title, content, category(qna/review/study), author_id(FK→auth.users), author_name, author_email, views, replies, created_at
+- **comments** 테이블: id(uuid), post_id, post_type(project/community), author_id, author_name, content, created_at
+- **RLS 정책**: SELECT 누구나, INSERT 인증 사용자, UPDATE/DELETE 작성자 또는 관리자
+- **인덱스**: field, status, category, post_id+post_type
+
+#### 2. Storage 유틸 확장
+- `src/utils/projectStorage.js` — `updateProject()`, `deleteProject()`, `getProjectsCount()` 추가
+- `src/utils/communityStorage.js` — `updatePost()`, `deletePost()`, `getPostsCount()` 추가
+- 모든 함수 Supabase 우선 + 로컬 폴백 패턴 유지
+
+#### 3. AdminGuard 컴포넌트 (`src/components/AdminGuard.jsx`)
+- `AuthGuard` 패턴 복사 + `isAdmin` 체크 추가
+- 비로그인 → `/login`, 비관리자 → `/` 리다이렉트
+
+#### 4. AdminSidebar 컴포넌트 (`src/components/AdminSidebar.jsx`)
+- 좌측 사이드바: 대시보드, 프로젝트 관리, 커뮤니티 관리 링크
+- 현재 경로 active 표시, 사이트 복귀 링크
+
+#### 5. Admin CSS (`src/styles/admin.css`)
+- `.admin-layout` (flex: sidebar + content)
+- `.admin-sidebar`, `.admin-content`, `.admin-stats-grid`, `.admin-stat-card`
+- `.admin-table`, `.admin-actions`, `.admin-form`
+- `.admin-filters`, `.admin-status-badge`
+- 반응형: 768px에서 sidebar → 상단 탭 전환
+
+#### 6. 관리자 페이지 (5개)
+| 페이지 | 경로 | 기능 |
+|--------|------|------|
+| `AdminDashboard.jsx` | `/admin` | 통계 카드 + 최근 프로젝트/게시글 테이블 |
+| `AdminProjects.jsx` | `/admin/projects` | 프로젝트 전체 목록 + 상태 필터 + 삭제 |
+| `AdminProjectForm.jsx` | `/admin/projects/new`, `/admin/projects/edit/:id` | 프로젝트 생성/수정 폼 |
+| `AdminCommunity.jsx` | `/admin/community` | 게시글 전체 목록 + 카테고리 필터 + 삭제 |
+| `AdminCommunityForm.jsx` | `/admin/community/new`, `/admin/community/edit/:id` | 게시글 생성/수정 폼 |
+
+#### 7. 사용자 작성 페이지 (2개)
+| 페이지 | 경로 | 기능 |
+|--------|------|------|
+| `ProjectCreate.jsx` | `/projects/create` | AuthGuard + 프로젝트 생성 폼 |
+| `CommunityWrite.jsx` | `/community/write` | AuthGuard + 게시글 작성 폼 |
+
+#### 8. 기존 페이지 수정
+- **`Projects.jsx`** — 로그인 시 "프로젝트 만들기" 버튼 추가 (→ `/projects/create`)
+- **`Community.jsx`** — 로그인 시 "글쓰기" 버튼 추가 (→ `/community/write`)
+- **`Navbar.jsx`** — 관리자 링크를 외부 URL에서 내부 `<Link to="/admin">`으로 변경
+- **`PublicLayout.jsx`** — 관리자 + 사용자 작성 라우트 9개 추가
+
+#### 9. i18n 추가 (`src/utils/translations.js`)
+- `site.admin.*` 키 추가 (ko/en 모두)
+- dashboard, projects, community, totalProjects, recruitingProjects, totalPosts, create, edit, delete, confirmDelete, save, cancel, field, status, title, description, category, author, date, actions, noData, viewAll, projectForm, communityForm, createProject, writePost
+
+### 생성/수정 파일 요약
+
+| 구분 | 파일 |
+|------|------|
+| 신규 | `supabase/schema.sql` |
+| 신규 | `src/components/AdminGuard.jsx` |
+| 신규 | `src/components/AdminSidebar.jsx` |
+| 신규 | `src/styles/admin.css` |
+| 신규 | `src/pages/admin/AdminDashboard.jsx` |
+| 신규 | `src/pages/admin/AdminProjects.jsx` |
+| 신규 | `src/pages/admin/AdminProjectForm.jsx` |
+| 신규 | `src/pages/admin/AdminCommunity.jsx` |
+| 신규 | `src/pages/admin/AdminCommunityForm.jsx` |
+| 신규 | `src/pages/ProjectCreate.jsx` |
+| 신규 | `src/pages/CommunityWrite.jsx` |
+| 수정 | `src/utils/projectStorage.js` — update/delete/count 추가 |
+| 수정 | `src/utils/communityStorage.js` — update/delete/count 추가 |
+| 수정 | `src/layouts/PublicLayout.jsx` — 라우트 9개 추가 |
+| 수정 | `src/components/layout/Navbar.jsx` — 관리자 내부 링크 |
+| 수정 | `src/pages/Projects.jsx` — 생성 버튼 추가 |
+| 수정 | `src/pages/Community.jsx` — 글쓰기 버튼 추가 |
+| 수정 | `src/utils/translations.js` — admin 번역 키 추가 |
+
+### 빌드 결과
+- Vite 빌드 성공 (1.94s)
+- 총 138개 모듈 변환
+- dist/ 출력 완료
+
+---
+
 ### 다음 단계 (TODO)
-- [ ] Supabase 테이블 스키마 설정 (projects, community_posts)
-- [ ] 프로젝트 생성/참여 기능 구현
-- [ ] 커뮤니티 글쓰기 기능 구현
-- [ ] 관리자 대시보드 (학습 자료 관리)
+- [x] Supabase 테이블 스키마 설정 (projects, community_posts, comments)
+- [x] 프로젝트 생성 기능 구현
+- [x] 커뮤니티 글쓰기 기능 구현
+- [x] 관리자 대시보드 (프로젝트/커뮤니티 관리)
 - [ ] 검색 기능 연동
 - [ ] 학습 자료 PDF/영상 업로드 기능
 - [ ] 논문 진행률 트래커 기능 검토
+- [ ] 프로젝트 참여 신청 기능
+- [ ] 댓글 수 자동 업데이트 트리거

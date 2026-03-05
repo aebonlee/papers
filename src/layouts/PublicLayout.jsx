@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import AuthGuard from '../components/AuthGuard';
+import AdminGuard from '../components/AdminGuard';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 
@@ -36,6 +37,17 @@ const ProjectDetail = lazy(() => import('../pages/ProjectDetail'));
 // 커뮤니티
 const Community = lazy(() => import('../pages/Community'));
 const CommunityDetail = lazy(() => import('../pages/CommunityDetail'));
+
+// 사용자 작성 페이지
+const ProjectCreate = lazy(() => import('../pages/ProjectCreate'));
+const CommunityWrite = lazy(() => import('../pages/CommunityWrite'));
+
+// 관리자 페이지
+const AdminDashboard = lazy(() => import('../pages/admin/AdminDashboard'));
+const AdminProjects = lazy(() => import('../pages/admin/AdminProjects'));
+const AdminProjectForm = lazy(() => import('../pages/admin/AdminProjectForm'));
+const AdminCommunity = lazy(() => import('../pages/admin/AdminCommunity'));
+const AdminCommunityForm = lazy(() => import('../pages/admin/AdminCommunityForm'));
 
 const Loading = () => (
   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
@@ -80,11 +92,22 @@ const PublicLayout = () => {
 
             {/* 연구 프로젝트 */}
             <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/create" element={<AuthGuard><ProjectCreate /></AuthGuard>} />
             <Route path="/projects/:projectId" element={<ProjectDetail />} />
 
             {/* 커뮤니티 */}
             <Route path="/community" element={<Community />} />
+            <Route path="/community/write" element={<AuthGuard><CommunityWrite /></AuthGuard>} />
             <Route path="/community/:postId" element={<CommunityDetail />} />
+
+            {/* 관리자 */}
+            <Route path="/admin" element={<AdminGuard><AdminDashboard /></AdminGuard>} />
+            <Route path="/admin/projects" element={<AdminGuard><AdminProjects /></AdminGuard>} />
+            <Route path="/admin/projects/new" element={<AdminGuard><AdminProjectForm /></AdminGuard>} />
+            <Route path="/admin/projects/edit/:id" element={<AdminGuard><AdminProjectForm /></AdminGuard>} />
+            <Route path="/admin/community" element={<AdminGuard><AdminCommunity /></AdminGuard>} />
+            <Route path="/admin/community/new" element={<AdminGuard><AdminCommunityForm /></AdminGuard>} />
+            <Route path="/admin/community/edit/:id" element={<AdminGuard><AdminCommunityForm /></AdminGuard>} />
 
             {/* 404 */}
             <Route path="*" element={<NotFound />} />

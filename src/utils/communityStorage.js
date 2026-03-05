@@ -97,3 +97,39 @@ export async function createPost(post) {
   samplePosts.unshift(newPost);
   return newPost;
 }
+
+export async function updatePost(id, updates) {
+  const supabase = getSupabase();
+  if (supabase) {
+    const { data, error } = await supabase.from('community_posts').update(updates).eq('id', id).select().single();
+    if (error) throw error;
+    return data;
+  }
+  const idx = samplePosts.findIndex(p => p.id === id);
+  if (idx !== -1) {
+    samplePosts[idx] = { ...samplePosts[idx], ...updates };
+    return samplePosts[idx];
+  }
+  return null;
+}
+
+export async function deletePost(id) {
+  const supabase = getSupabase();
+  if (supabase) {
+    const { error } = await supabase.from('community_posts').delete().eq('id', id);
+    if (error) throw error;
+    return true;
+  }
+  const idx = samplePosts.findIndex(p => p.id === id);
+  if (idx !== -1) samplePosts.splice(idx, 1);
+  return true;
+}
+
+export async function getPostsCount() {
+  const supabase = getSupabase();
+  if (supabase) {
+    const { count } = await supabase.from('community_posts').select('*', { count: 'exact', head: true });
+    return count || 0;
+  }
+  return samplePosts.length;
+}

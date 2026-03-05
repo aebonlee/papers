@@ -112,3 +112,39 @@ export async function createProject(project) {
   sampleProjects.unshift(newProject);
   return newProject;
 }
+
+export async function updateProject(id, updates) {
+  const supabase = getSupabase();
+  if (supabase) {
+    const { data, error } = await supabase.from('projects').update(updates).eq('id', id).select().single();
+    if (error) throw error;
+    return data;
+  }
+  const idx = sampleProjects.findIndex(p => p.id === id);
+  if (idx !== -1) {
+    sampleProjects[idx] = { ...sampleProjects[idx], ...updates };
+    return sampleProjects[idx];
+  }
+  return null;
+}
+
+export async function deleteProject(id) {
+  const supabase = getSupabase();
+  if (supabase) {
+    const { error } = await supabase.from('projects').delete().eq('id', id);
+    if (error) throw error;
+    return true;
+  }
+  const idx = sampleProjects.findIndex(p => p.id === id);
+  if (idx !== -1) sampleProjects.splice(idx, 1);
+  return true;
+}
+
+export async function getProjectsCount() {
+  const supabase = getSupabase();
+  if (supabase) {
+    const { count } = await supabase.from('projects').select('*', { count: 'exact', head: true });
+    return count || 0;
+  }
+  return sampleProjects.length;
+}

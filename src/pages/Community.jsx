@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useAuth } from '../contexts/AuthContext';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { getPosts } from '../utils/communityStorage';
@@ -10,6 +11,7 @@ const categoryColors = { qna: '#0046C8', review: '#C87200', study: '#00855A' };
 
 const Community = () => {
   const { t } = useLanguage();
+  const { isLoggedIn } = useAuth();
   useAOS();
   const [posts, setPosts] = useState([]);
   const [category, setCategory] = useState('');
@@ -42,6 +44,11 @@ const Community = () => {
 
       <section className="section">
         <div className="container">
+          {isLoggedIn && (
+            <div style={{ marginBottom: '24px', textAlign: 'right' }}>
+              <Link to="/community/write" className="btn btn-primary">{t('site.community.writePost')}</Link>
+            </div>
+          )}
           <div className="community-filters">
             <div className="filter-group">
               {categories.map(cat => (

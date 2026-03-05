@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useAuth } from '../contexts/AuthContext';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { getProjects } from '../utils/projectStorage';
@@ -14,6 +15,7 @@ const statusColors = { recruiting: '#00855A', in_progress: '#0046C8', completed:
 
 const Projects = () => {
   const { t, lang } = useLanguage();
+  const { isLoggedIn } = useAuth();
   useAOS();
   const [projects, setProjects] = useState([]);
   const [fieldFilter, setFieldFilter] = useState('');
@@ -43,6 +45,11 @@ const Projects = () => {
 
       <section className="section">
         <div className="container">
+          {isLoggedIn && (
+            <div style={{ marginBottom: '24px', textAlign: 'right' }}>
+              <Link to="/projects/create" className="btn btn-primary">{t('site.projects.createProject')}</Link>
+            </div>
+          )}
           <div className="project-filters">
             <div className="filter-group">
               <button className={`filter-btn ${!fieldFilter ? 'active' : ''}`} onClick={() => setFieldFilter('')}>
