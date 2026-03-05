@@ -79,7 +79,7 @@ const sampleProjects = [
 export async function getProjects(filter = {}) {
   const supabase = getSupabase();
   if (supabase) {
-    let query = supabase.from('projects').select('*').order('created_at', { ascending: false });
+    let query = supabase.from('research_projects').select('*').order('created_at', { ascending: false });
     if (filter.field) query = query.eq('field', filter.field);
     if (filter.status) query = query.eq('status', filter.status);
     const { data } = await query;
@@ -95,7 +95,7 @@ export async function getProjects(filter = {}) {
 export async function getProjectById(id) {
   const supabase = getSupabase();
   if (supabase) {
-    const { data } = await supabase.from('projects').select('*').eq('id', id).single();
+    const { data } = await supabase.from('research_projects').select('*').eq('id', id).single();
     return data;
   }
   return sampleProjects.find(p => p.id === id) || null;
@@ -104,7 +104,7 @@ export async function getProjectById(id) {
 export async function createProject(project) {
   const supabase = getSupabase();
   if (supabase) {
-    const { data, error } = await supabase.from('projects').insert(project).select().single();
+    const { data, error } = await supabase.from('research_projects').insert(project).select().single();
     if (error) throw error;
     return data;
   }
@@ -116,7 +116,7 @@ export async function createProject(project) {
 export async function updateProject(id, updates) {
   const supabase = getSupabase();
   if (supabase) {
-    const { data, error } = await supabase.from('projects').update(updates).eq('id', id).select().single();
+    const { data, error } = await supabase.from('research_projects').update(updates).eq('id', id).select().single();
     if (error) throw error;
     return data;
   }
@@ -131,7 +131,7 @@ export async function updateProject(id, updates) {
 export async function deleteProject(id) {
   const supabase = getSupabase();
   if (supabase) {
-    const { error } = await supabase.from('projects').delete().eq('id', id);
+    const { error } = await supabase.from('research_projects').delete().eq('id', id);
     if (error) throw error;
     return true;
   }
@@ -143,7 +143,7 @@ export async function deleteProject(id) {
 export async function getProjectsCount() {
   const supabase = getSupabase();
   if (supabase) {
-    const { count } = await supabase.from('projects').select('*', { count: 'exact', head: true });
+    const { count } = await supabase.from('research_projects').select('*', { count: 'exact', head: true });
     return count || 0;
   }
   return sampleProjects.length;

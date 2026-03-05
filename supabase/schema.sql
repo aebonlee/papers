@@ -1,10 +1,11 @@
 -- ============================================
 -- Papers - Supabase Schema
--- 프로젝트, 커뮤니티 게시글, 댓글 테이블
+-- 연구 프로젝트, 커뮤니티 게시글 테이블
+-- (comments 테이블은 기존 것 사용)
 -- ============================================
 
--- 1. Projects 테이블
-CREATE TABLE IF NOT EXISTS projects (
+-- 1. Research Projects 테이블 (기존 projects 테이블과 충돌 방지)
+CREATE TABLE IF NOT EXISTS research_projects (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   title TEXT NOT NULL,
   description TEXT,
@@ -33,37 +34,26 @@ CREATE TABLE IF NOT EXISTS community_posts (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
--- 3. Comments 테이블
-CREATE TABLE IF NOT EXISTS comments (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  post_id UUID NOT NULL,
-  post_type TEXT NOT NULL CHECK (post_type IN ('project', 'community')),
-  author_id UUID REFERENCES auth.users(id),
-  author_name TEXT,
-  content TEXT NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT now()
-);
-
 -- ============================================
 -- RLS (Row Level Security)
 -- ============================================
 
--- Projects RLS
-ALTER TABLE projects ENABLE ROW LEVEL SECURITY;
+-- Research Projects RLS
+ALTER TABLE research_projects ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "projects_select_all" ON projects
+CREATE POLICY "research_projects_select_all" ON research_projects
   FOR SELECT USING (true);
 
-CREATE POLICY "projects_insert_auth" ON projects
+CREATE POLICY "research_projects_insert_auth" ON research_projects
   FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
 
-CREATE POLICY "projects_update_owner_or_admin" ON projects
+CREATE POLICY "research_projects_update_owner_or_admin" ON research_projects
   FOR UPDATE USING (
     auth.uid() = leader_id
     OR auth.jwt() ->> 'email' IN ('aebon@kakao.com', 'aebon@kyonggi.ac.kr')
   );
 
-CREATE POLICY "projects_delete_owner_or_admin" ON projects
+CREATE POLICY "research_projects_delete_owner_or_admin" ON research_projects
   FOR DELETE USING (
     auth.uid() = leader_id
     OR auth.jwt() ->> 'email' IN ('aebon@kakao.com', 'aebon@kyonggi.ac.kr')
@@ -90,32 +80,10 @@ CREATE POLICY "community_posts_delete_owner_or_admin" ON community_posts
     OR auth.jwt() ->> 'email' IN ('aebon@kakao.com', 'aebon@kyonggi.ac.kr')
   );
 
--- Comments RLS
-ALTER TABLE comments ENABLE ROW LEVEL SECURITY;
-
-CREATE POLICY "comments_select_all" ON comments
-  FOR SELECT USING (true);
-
-CREATE POLICY "comments_insert_auth" ON comments
-  FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
-
-CREATE POLICY "comments_update_owner_or_admin" ON comments
-  FOR UPDATE USING (
-    auth.uid() = author_id
-    OR auth.jwt() ->> 'email' IN ('aebon@kakao.com', 'aebon@kyonggi.ac.kr')
-  );
-
-CREATE POLICY "comments_delete_owner_or_admin" ON comments
-  FOR DELETE USING (
-    auth.uid() = author_id
-    OR auth.jwt() ->> 'email' IN ('aebon@kakao.com', 'aebon@kyonggi.ac.kr')
-  );
-
 -- ============================================
 -- Indexes
 -- ============================================
 
-CREATE INDEX IF NOT EXISTS idx_projects_field ON projects(field);
-CREATE INDEX IF NOT EXISTS idx_projects_status ON projects(status);
+CREATE INDEX IF NOT EXISTS idx_research_projects_field ON research_projects(field);
+CREATE INDEX IF NOT EXISTS idx_research_projects_status ON research_projects(status);
 CREATE INDEX IF NOT EXISTS idx_community_posts_category ON community_posts(category);
-CREATE INDEX IF NOT EXISTS idx_comments_post ON comments(post_id, post_type);
