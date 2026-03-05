@@ -1,5 +1,27 @@
 import getSupabase from './supabase';
 
+// Supabase row(snake_case) → 컴포넌트 형식(camelCase + nested) 변환
+function normalizePost(row) {
+  if (!row) return null;
+  return {
+    ...row,
+    author: { name: row.author_name || '', email: row.author_email || '' },
+    createdAt: row.created_at ? row.created_at.split('T')[0] : row.createdAt,
+  };
+}
+
+// 컴포넌트 데이터 → Supabase insert용 변환
+function toSupabaseRow(data) {
+  return {
+    title: data.title,
+    content: data.content,
+    category: data.category,
+    author_id: data.author_id,
+    author_name: data.author_name || data.author?.name || '',
+    author_email: data.author_email || data.author?.email || '',
+  };
+}
+
 const samplePosts = [
   {
     id: '1',
@@ -69,7 +91,7 @@ export async function getPosts(filter = {}) {
     let query = supabase.from('community_posts').select('*').order('created_at', { ascending: false });
     if (filter.category) query = query.eq('category', filter.category);
     const { data } = await query;
-    return data || [];
+    return (data || []).map(normalizePost);
   }
 
   let result = [...samplePosts];
@@ -81,7 +103,7 @@ export async function getPostById(id) {
   const supabase = getSupabase();
   if (supabase) {
     const { data } = await supabase.from('community_posts').select('*').eq('id', id).single();
-    return data;
+    return normalizePost(data);
   }
   return samplePosts.find(p => p.id === id) || null;
 }
@@ -89,9 +111,10 @@ export async function getPostById(id) {
 export async function createPost(post) {
   const supabase = getSupabase();
   if (supabase) {
-    const { data, error } = await supabase.from('community_posts').insert(post).select().single();
+    const row = toSupabaseRow(post);
+    const { data, error } = await supabase.from('community_posts').insert(row).select().single();
     if (error) throw error;
-    return data;
+    return normalizePost(data);
   }
   const newPost = { ...post, id: String(Date.now()), views: 0, replies: 0, createdAt: new Date().toISOString().split('T')[0] };
   samplePosts.unshift(newPost);
@@ -101,9 +124,17 @@ export async function createPost(post) {
 export async function updatePost(id, updates) {
   const supabase = getSupabase();
   if (supabase) {
-    const { data, error } = await supabase.from('community_posts').update(updates).eq('id', id).select().single();
+    const row = {};
+    if (updates.title !== undefined) row.title = updates.title;
+    if (updates.content !== undefined) row.content = updates.content;
+    if (updates.category !== undefined) row.category = updates.category;
+    if (updates.author_name !== undefined || updates.author?.name !== undefined)
+      row.author_name = updates.author_name || updates.author?.name;
+    if (updates.author_email !== undefined || updates.author?.email !== undefined)
+      row.author_email = updates.author_email || updates.author?.email;
+    const { data, error } = await supabase.from('community_posts').update(row).eq('id', id).select().single();
     if (error) throw error;
-    return data;
+    return normalizePost(data);
   }
   const idx = samplePosts.findIndex(p => p.id === id);
   if (idx !== -1) {

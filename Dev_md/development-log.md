@@ -237,12 +237,68 @@
 
 ---
 
+## 2026-03-06 | Supabase CRUD 데이터 정규화
+
+### 이슈
+- Supabase 연결 후 CRUD가 작동하지 않음
+- 프로젝트/커뮤니티 목록 및 상세 페이지에서 런타임 에러 발생
+
+### 원인 분석
+Supabase DB와 React 컴포넌트 간 데이터 형식 불일치 (양방향):
+
+**읽기 방향 (Supabase → 컴포넌트):**
+| Supabase 반환 (snake_case flat) | 컴포넌트 기대 (camelCase nested) |
+|------|------|
+| `leader_name`, `leader_email` | `leader.name`, `leader.email` |
+| `max_members` | `maxMembers` |
+| `created_at` (ISO timestamp) | `createdAt` (YYYY-MM-DD) |
+| `author_name`, `author_email` | `author.name`, `author.email` |
+
+**쓰기 방향 (컴포넌트 → Supabase):**
+- `createProject()`가 `leader: { name, email }` (nested object)를 Supabase에 전송 → 존재하지 않는 컬럼으로 INSERT 에러
+- `maxMembers`와 `max_members`를 동시에 전송 → 불필요한 컬럼 에러
+
+### 수정 사항
+
+#### `src/utils/projectStorage.js`
+- `normalizeProject(row)` 함수 추가: Supabase snake_case → camelCase+nested 변환
+  - `leader_name`/`leader_email` → `leader: { name, email }`
+  - `max_members` → `maxMembers`
+  - `created_at` → `createdAt` (날짜 부분만 추출)
+- `toSupabaseRow(data)` 함수 추가: 컴포넌트 데이터 → Supabase 유효 컬럼만 추출
+  - nested `leader` 객체, `maxMembers` 등 제거
+  - `leader_name`, `leader_email`, `max_members` 등 유효 컬럼으로 매핑
+- `getProjects()`, `getProjectById()`: 반환 시 `normalizeProject` 적용
+- `createProject()`: `toSupabaseRow`로 변환 후 INSERT
+- `updateProject()`: 유효한 컬럼만 명시적으로 매핑 후 UPDATE
+
+#### `src/utils/communityStorage.js`
+- `normalizePost(row)` 함수 추가: `author_name`/`author_email` → `author: { name, email }`, `created_at` → `createdAt`
+- `toSupabaseRow(data)` 함수 추가: 유효 컬럼만 추출
+- `getPosts()`, `getPostById()`: 반환 시 `normalizePost` 적용
+- `createPost()`: `toSupabaseRow`로 변환 후 INSERT
+- `updatePost()`: 유효한 컬럼만 매핑 후 UPDATE
+
+### 수정 파일
+| 파일 | 변경 내용 |
+|------|-----------|
+| `src/utils/projectStorage.js` | normalizeProject + toSupabaseRow 추가, 모든 CRUD 함수에 적용 |
+| `src/utils/communityStorage.js` | normalizePost + toSupabaseRow 추가, 모든 CRUD 함수에 적용 |
+
+### 빌드 결과
+- Vite 빌드 성공 (3.09s)
+- 총 138개 모듈 변환
+- dist/ 출력 완료
+
+---
+
 ### 다음 단계 (TODO)
 - [x] Supabase 테이블 스키마 설정 (research_projects, community_posts + 기존 comments 재사용)
 - [x] Supabase 연결 설정 (.env + SQL 실행 완료)
 - [x] 프로젝트 생성 기능 구현
 - [x] 커뮤니티 글쓰기 기능 구현
 - [x] 관리자 대시보드 (프로젝트/커뮤니티 관리)
+- [x] Supabase CRUD 데이터 정규화 (snake_case ↔ camelCase 변환)
 - [ ] 검색 기능 연동
 - [ ] 학습 자료 PDF/영상 업로드 기능
 - [ ] 논문 진행률 트래커 기능 검토

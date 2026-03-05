@@ -1,5 +1,32 @@
 import getSupabase from './supabase';
 
+// Supabase row(snake_case) → 컴포넌트 형식(camelCase + nested) 변환
+function normalizeProject(row) {
+  if (!row) return null;
+  return {
+    ...row,
+    leader: { name: row.leader_name || '', email: row.leader_email || '' },
+    maxMembers: row.max_members ?? row.maxMembers,
+    createdAt: row.created_at ? row.created_at.split('T')[0] : row.createdAt,
+  };
+}
+
+// 컴포넌트 데이터 → Supabase insert/update용 변환
+function toSupabaseRow(data) {
+  return {
+    title: data.title,
+    description: data.description,
+    field: data.field,
+    status: data.status || 'recruiting',
+    leader_id: data.leader_id,
+    leader_name: data.leader_name || data.leader?.name || '',
+    leader_email: data.leader_email || data.leader?.email || '',
+    members: data.members ?? 1,
+    max_members: data.max_members ?? data.maxMembers ?? 5,
+    deadline: data.deadline || null,
+  };
+}
+
 // 샘플 프로젝트 데이터 (Supabase 미연결 시 사용)
 const sampleProjects = [
   {
@@ -83,7 +110,7 @@ export async function getProjects(filter = {}) {
     if (filter.field) query = query.eq('field', filter.field);
     if (filter.status) query = query.eq('status', filter.status);
     const { data } = await query;
-    return data || [];
+    return (data || []).map(normalizeProject);
   }
 
   let result = [...sampleProjects];
@@ -96,7 +123,7 @@ export async function getProjectById(id) {
   const supabase = getSupabase();
   if (supabase) {
     const { data } = await supabase.from('research_projects').select('*').eq('id', id).single();
-    return data;
+    return normalizeProject(data);
   }
   return sampleProjects.find(p => p.id === id) || null;
 }
@@ -104,9 +131,10 @@ export async function getProjectById(id) {
 export async function createProject(project) {
   const supabase = getSupabase();
   if (supabase) {
-    const { data, error } = await supabase.from('research_projects').insert(project).select().single();
+    const row = toSupabaseRow(project);
+    const { data, error } = await supabase.from('research_projects').insert(row).select().single();
     if (error) throw error;
-    return data;
+    return normalizeProject(data);
   }
   const newProject = { ...project, id: String(Date.now()), createdAt: new Date().toISOString().split('T')[0], members: 1 };
   sampleProjects.unshift(newProject);
@@ -116,9 +144,23 @@ export async function createProject(project) {
 export async function updateProject(id, updates) {
   const supabase = getSupabase();
   if (supabase) {
-    const { data, error } = await supabase.from('research_projects').update(updates).eq('id', id).select().single();
+    // update용: undefined 값 제거, 유효한 컬럼만 전송
+    const row = {};
+    if (updates.title !== undefined) row.title = updates.title;
+    if (updates.description !== undefined) row.description = updates.description;
+    if (updates.field !== undefined) row.field = updates.field;
+    if (updates.status !== undefined) row.status = updates.status;
+    if (updates.max_members !== undefined || updates.maxMembers !== undefined)
+      row.max_members = updates.max_members ?? updates.maxMembers;
+    if (updates.deadline !== undefined) row.deadline = updates.deadline;
+    if (updates.members !== undefined) row.members = updates.members;
+    if (updates.leader_name !== undefined || updates.leader?.name !== undefined)
+      row.leader_name = updates.leader_name || updates.leader?.name;
+    if (updates.leader_email !== undefined || updates.leader?.email !== undefined)
+      row.leader_email = updates.leader_email || updates.leader?.email;
+    const { data, error } = await supabase.from('research_projects').update(row).eq('id', id).select().single();
     if (error) throw error;
-    return data;
+    return normalizeProject(data);
   }
   const idx = sampleProjects.findIndex(p => p.id === id);
   if (idx !== -1) {
