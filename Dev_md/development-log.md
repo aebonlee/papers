@@ -210,6 +210,33 @@
 
 ---
 
+---
+
+## 2026-03-06 | UI 개선 — 로고 변경 & 메뉴명 수정
+
+### 작업 내용
+
+#### 1. 로고 변경
+- **변경 전:** `Papers` (Pa + pers)
+- **변경 후:** `DreamIT Biz - Papers` (Dream + IT + Biz + - + Papers)
+- `src/config/site.js`의 `brand.parts` 수정
+- Navbar와 Footer 모두 동일 설정 참조하므로 자동 반영
+
+#### 2. 메뉴명 수정
+- **변경 전:** "분야별 자료"
+- **변경 후:** "전공별 자료"
+- `src/utils/translations.js` — 네비게이션, 홈 카드, 페이지 타이틀 한국어 키 변경
+- `src/pages/FieldDetail.jsx` — "전공별 자료로 돌아가기" 텍스트 변경
+
+### 수정 파일
+| 파일 | 변경 내용 |
+|------|-----------|
+| `src/config/site.js` | brand.parts → DreamIT Biz - Papers |
+| `src/utils/translations.js` | 분야별 자료 → 전공별 자료 (3곳) |
+| `src/pages/FieldDetail.jsx` | 돌아가기 링크 텍스트 변경 (2곳) |
+
+---
+
 ### 다음 단계 (TODO)
 - [x] Supabase 테이블 스키마 설정 (research_projects, community_posts + 기존 comments 재사용)
 - [x] Supabase 연결 설정 (.env + SQL 실행 완료)
