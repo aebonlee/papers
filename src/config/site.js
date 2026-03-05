@@ -22,7 +22,7 @@ const site = {
       { text: 'Dream', className: 'brand-dream' },
       { text: 'IT', className: 'brand-it' },
       { text: ' Biz', className: 'brand-dream' },
-      { text: ' : ', className: 'brand-colon' },
+      { text: ' - ', className: 'brand-colon' },
       { text: 'Papers', className: 'brand-it' }
     ]
   },
