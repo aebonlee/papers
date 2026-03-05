@@ -82,6 +82,26 @@ const samplePosts = [
     views: 67,
     replies: 3,
     createdAt: '2026-02-15'
+  },
+  {
+    id: '7',
+    title: '🎉 KCI 등재지에 첫 논문이 게재되었습니다!',
+    content: '2년간 준비한 교육공학 분야 논문이 드디어 KCI 등재지에 게재 승인되었습니다. 심사 과정에서 3차례 수정을 거쳤고, 이 커뮤니티에서 받은 피드백이 큰 도움이 되었습니다. 감사합니다!',
+    category: 'showcase',
+    author: { name: '윤게재', email: 'publish@example.com' },
+    views: 245,
+    replies: 18,
+    createdAt: '2026-02-12'
+  },
+  {
+    id: '8',
+    title: '📅 2026년 상반기 주요 학술지 투고 마감일 안내',
+    content: '2026년 상반기 주요 학술지 투고 마감일을 정리했습니다.\n- 한국교육학연구: 3월 31일\n- 경영학연구: 4월 15일\n- 한국심리학회지: 5월 1일\n투고 준비 중이신 분들 참고하세요.',
+    category: 'schedule',
+    author: { name: '조일정', email: 'schedule@example.com' },
+    views: 189,
+    replies: 6,
+    createdAt: '2026-02-10'
   }
 ];
 

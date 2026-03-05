@@ -6,8 +6,8 @@ import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { getPosts } from '../utils/communityStorage';
 
-const categoryIcons = { qna: '❓', review: '📋', study: '📚' };
-const categoryColors = { qna: '#0046C8', review: '#C87200', study: '#00855A' };
+const categoryIcons = { qna: '❓', review: '📋', study: '📚', showcase: '🎉', schedule: '📅' };
+const categoryColors = { qna: '#0046C8', review: '#C87200', study: '#00855A', showcase: '#FFB800', schedule: '#00A0B0' };
 
 const Community = () => {
   const { t } = useLanguage();
@@ -28,7 +28,9 @@ const Community = () => {
     { key: '', label: t('site.community.allPosts') },
     { key: 'qna', label: t('site.community.qna') },
     { key: 'review', label: t('site.community.review') },
-    { key: 'study', label: t('site.community.study') }
+    { key: 'study', label: t('site.community.study') },
+    { key: 'showcase', label: t('site.community.showcase') },
+    { key: 'schedule', label: t('site.community.schedule') }
   ];
 
   return (
@@ -66,7 +68,7 @@ const Community = () => {
           {posts.length > 0 ? (
             <div className="posts-list">
               {posts.map((post, i) => {
-                const catKey = post.category === 'qna' ? 'qna' : post.category === 'review' ? 'review' : 'study';
+                const catKey = post.category;
                 return (
                   <Link to={`/community/${post.id}`} className="post-card" key={post.id} data-aos="fade-up" data-aos-delay={i * 60}>
                     <div className="post-category" style={{ background: categoryColors[post.category] }}>

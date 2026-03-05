@@ -434,6 +434,49 @@ Supabase DB와 React 컴포넌트 간 데이터 형식 불일치 (양방향):
 
 ---
 
+## 2026-03-06 | 커뮤니티 게시판 2종 추가 (논문게재 자랑 + 게재일정안내)
+
+### 작업 내용
+
+기존 커뮤니티 3개 카테고리(Q&A, 논문 리뷰, 스터디 모집)에 **논문게재 자랑하기**(showcase)와 **논문게재일정안내**(schedule) 2개 카테고리를 추가하여 총 5개 카테고리로 확장.
+
+별도 테이블이나 페이지 없이 기존 `community_posts` 테이블의 category CHECK 제약을 확장하는 방식으로 구현.
+
+#### 1. DB 스키마 변경
+- `supabase/schema.sql` — category CHECK 제약에 `'showcase'`, `'schedule'` 추가
+- Supabase 실행용 SQL: `ALTER TABLE` → DROP/ADD CONSTRAINT
+
+#### 2. 번역 키 추가
+- `translations.js` — `site.community.showcase` / `site.community.schedule` (ko/en)
+
+#### 3. 프론트엔드 수정
+- **Community.jsx** — `categoryIcons`에 🎉/📅, `categoryColors`에 #FFB800/#00A0B0, 필터 버튼 2개 추가, catKey 매핑 간소화
+- **CommunityDetail.jsx** — `categoryColors` 2색 추가, catKey 매핑 간소화(`post.category` 직접 사용)
+- **CommunityWrite.jsx** — 카테고리 드롭다운에 2개 옵션 추가
+- **AdminCommunity.jsx** — 필터 배열에 2개 추가, `categoryLabel()` 함수에 2개 분기 추가
+- **AdminCommunityForm.jsx** — 카테고리 드롭다운에 2개 옵션 추가
+
+#### 4. 샘플 데이터
+- `communityStorage.js` — showcase(KCI 등재지 게재 자랑), schedule(상반기 학술지 투고 마감일) 샘플 각 1건 추가
+
+### 수정 파일 요약
+| 파일 | 변경 내용 |
+|------|-----------|
+| `supabase/schema.sql` | category CHECK 제약에 showcase, schedule 추가 |
+| `src/utils/translations.js` | showcase, schedule 번역 키 (ko/en) |
+| `src/pages/Community.jsx` | 아이콘, 색상, 필터 버튼 추가, catKey 간소화 |
+| `src/pages/CommunityDetail.jsx` | 색상 추가, catKey 간소화 |
+| `src/pages/CommunityWrite.jsx` | 카테고리 드롭다운 2개 추가 |
+| `src/pages/admin/AdminCommunity.jsx` | 필터 + categoryLabel 추가 |
+| `src/pages/admin/AdminCommunityForm.jsx` | 카테고리 드롭다운 2개 추가 |
+| `src/utils/communityStorage.js` | 샘플 데이터 2건 추가 |
+
+### 빌드 결과
+- Vite 빌드 성공 (2.55s)
+- 총 146개 모듈 변환
+
+---
+
 ### 다음 단계 (TODO)
 - [x] Supabase 테이블 스키마 설정 (research_projects, community_posts + 기존 comments 재사용)
 - [x] Supabase 연결 설정 (.env + SQL 실행 완료)
@@ -443,6 +486,7 @@ Supabase DB와 React 컴포넌트 간 데이터 형식 불일치 (양방향):
 - [x] Supabase CRUD 데이터 정규화 (snake_case ↔ camelCase 변환)
 - [x] 논문지도 신청 Supabase 저장 + 관리자 페이지
 - [x] 로고 2줄 리디자인
+- [x] 커뮤니티 게시판 2종 추가 (논문게재 자랑 + 게재일정안내)
 - [ ] 검색 기능 연동
 - [ ] 학습 자료 PDF/영상 업로드 기능
 - [ ] 논문 진행률 트래커 기능 검토

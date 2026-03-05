@@ -27,6 +27,8 @@ const AdminCommunity = () => {
   const categoryLabel = (cat) => {
     if (cat === 'qna') return 'Q&A';
     if (cat === 'review') return lang === 'ko' ? '논문 리뷰' : 'Paper Review';
+    if (cat === 'showcase') return lang === 'ko' ? '논문게재 자랑' : 'Paper Showcase';
+    if (cat === 'schedule') return lang === 'ko' ? '게재일정안내' : 'Publication Schedule';
     return lang === 'ko' ? '스터디' : 'Study';
   };
 
@@ -40,7 +42,7 @@ const AdminCommunity = () => {
         </div>
 
         <div className="admin-filters">
-          {['', 'qna', 'review', 'study'].map(c => (
+          {['', 'qna', 'review', 'study', 'showcase', 'schedule'].map(c => (
             <button
               key={c}
               className={`admin-filter-btn ${categoryFilter === c ? 'active' : ''}`}

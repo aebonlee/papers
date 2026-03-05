@@ -5,7 +5,7 @@ import SEOHead from '../components/SEOHead';
 import CommentSection from '../components/CommentSection';
 import { getPostById } from '../utils/communityStorage';
 
-const categoryColors = { qna: '#0046C8', review: '#C87200', study: '#00855A' };
+const categoryColors = { qna: '#0046C8', review: '#C87200', study: '#00855A', showcase: '#FFB800', schedule: '#00A0B0' };
 
 const CommunityDetail = () => {
   const { postId } = useParams();
@@ -44,7 +44,7 @@ const CommunityDetail = () => {
     );
   }
 
-  const catKey = post.category === 'qna' ? 'qna' : post.category === 'review' ? 'review' : 'study';
+  const catKey = post.category;
 
   return (
     <>
