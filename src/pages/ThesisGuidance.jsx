@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useAuth } from '../contexts/AuthContext';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
+import { createApplication } from '../utils/thesisGuidanceStorage';
 
 const ThesisGuidance = () => {
   const { t } = useLanguage();
+  const { user } = useAuth();
   useAOS();
 
   const [form, setForm] = useState({
@@ -24,10 +27,18 @@ const ThesisGuidance = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    // Simulate submission
-    await new Promise(resolve => setTimeout(resolve, 1200));
-    setSubmitting(false);
-    setSubmitted(true);
+    try {
+      await createApplication({
+        ...form,
+        applicant_id: user?.id,
+        applicant_email: user?.email,
+      });
+      setSubmitted(true);
+    } catch (err) {
+      console.error('Guidance application error:', err);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {

@@ -248,8 +248,12 @@
         width: 100%;
     }
 
-    .logo h1 {
+    .brand-main {
         font-size: 22px;
+    }
+
+    .brand-sub {
+        font-size: 10px;
     }
 
     .nav-actions {

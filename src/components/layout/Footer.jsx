@@ -11,11 +11,8 @@ const Footer = () => {
         <div className="footer-content">
           <div className="footer-brand">
             <h3>
-              {site.brand.parts.map((part, i) => (
-                <span key={i} className={part.className}>
-                  {part.text}
-                </span>
-              ))}
+              <span className="brand-main" style={{ fontSize: '22px' }}>{site.brand.main}</span>
+              <span className="brand-sub" style={{ display: 'block', fontSize: '11px', fontWeight: 500, marginTop: '2px' }}>{site.brand.sub}</span>
             </h3>
             <p>{t('footer.tagline')}</p>
             <div className="company-info">

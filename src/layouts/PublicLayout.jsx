@@ -55,6 +55,8 @@ const AdminProjects = lazy(() => import('../pages/admin/AdminProjects'));
 const AdminProjectForm = lazy(() => import('../pages/admin/AdminProjectForm'));
 const AdminCommunity = lazy(() => import('../pages/admin/AdminCommunity'));
 const AdminCommunityForm = lazy(() => import('../pages/admin/AdminCommunityForm'));
+const AdminThesisGuidance = lazy(() => import('../pages/admin/AdminThesisGuidance'));
+const AdminThesisGuidanceForm = lazy(() => import('../pages/admin/AdminThesisGuidanceForm'));
 
 const Loading = () => (
   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
@@ -122,6 +124,8 @@ const PublicLayout = () => {
             <Route path="/admin/community" element={<AdminGuard><AdminCommunity /></AdminGuard>} />
             <Route path="/admin/community/new" element={<AdminGuard><AdminCommunityForm /></AdminGuard>} />
             <Route path="/admin/community/edit/:id" element={<AdminGuard><AdminCommunityForm /></AdminGuard>} />
+            <Route path="/admin/guidance" element={<AdminGuard><AdminThesisGuidance /></AdminGuard>} />
+            <Route path="/admin/guidance/edit/:id" element={<AdminGuard><AdminThesisGuidanceForm /></AdminGuard>} />
 
             {/* 404 */}
             <Route path="*" element={<NotFound />} />

@@ -471,7 +471,15 @@ export const translations = {
         projectForm: '프로젝트',
         communityForm: '게시글',
         createProject: '프로젝트 만들기',
-        writePost: '글쓰기'
+        writePost: '글쓰기',
+        guidance: '논문지도 관리',
+        totalGuidance: '논문지도 신청',
+        guidanceStatus: {
+          pending: '대기중',
+          reviewing: '검토중',
+          accepted: '승인',
+          rejected: '반려'
+        }
       }
     }
   },
@@ -851,7 +859,15 @@ export const translations = {
         projectForm: 'Project',
         communityForm: 'Post',
         createProject: 'Create Project',
-        writePost: 'Write Post'
+        writePost: 'Write Post',
+        guidance: 'Guidance Management',
+        totalGuidance: 'Guidance Applications',
+        guidanceStatus: {
+          pending: 'Pending',
+          reviewing: 'Reviewing',
+          accepted: 'Accepted',
+          rejected: 'Rejected'
+        }
       }
     }
   }

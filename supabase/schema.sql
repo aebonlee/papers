@@ -80,6 +80,42 @@ CREATE POLICY "community_posts_delete_owner_or_admin" ON community_posts
     OR auth.jwt() ->> 'email' IN ('aebon@kakao.com', 'aebon@kyonggi.ac.kr')
   );
 
+-- 3. Thesis Guidance Applications 테이블
+CREATE TABLE IF NOT EXISTS thesis_guidance_applications (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  name TEXT NOT NULL,
+  major TEXT NOT NULL,
+  topic TEXT NOT NULL,
+  schedule TEXT NOT NULL,
+  message TEXT,
+  status TEXT NOT NULL DEFAULT 'pending'
+    CHECK (status IN ('pending','reviewing','accepted','rejected')),
+  applicant_id UUID REFERENCES auth.users(id),
+  applicant_email TEXT,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- Thesis Guidance Applications RLS
+ALTER TABLE thesis_guidance_applications ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "thesis_guidance_applications_select_all" ON thesis_guidance_applications
+  FOR SELECT USING (true);
+
+CREATE POLICY "thesis_guidance_applications_insert_auth" ON thesis_guidance_applications
+  FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+
+CREATE POLICY "thesis_guidance_applications_update_owner_or_admin" ON thesis_guidance_applications
+  FOR UPDATE USING (
+    auth.uid() = applicant_id
+    OR auth.jwt() ->> 'email' IN ('aebon@kakao.com', 'aebon@kyonggi.ac.kr')
+  );
+
+CREATE POLICY "thesis_guidance_applications_delete_owner_or_admin" ON thesis_guidance_applications
+  FOR DELETE USING (
+    auth.uid() = applicant_id
+    OR auth.jwt() ->> 'email' IN ('aebon@kakao.com', 'aebon@kyonggi.ac.kr')
+  );
+
 -- ============================================
 -- Indexes
 -- ============================================
@@ -87,3 +123,4 @@ CREATE POLICY "community_posts_delete_owner_or_admin" ON community_posts
 CREATE INDEX IF NOT EXISTS idx_research_projects_field ON research_projects(field);
 CREATE INDEX IF NOT EXISTS idx_research_projects_status ON research_projects(status);
 CREATE INDEX IF NOT EXISTS idx_community_posts_category ON community_posts(category);
+CREATE INDEX IF NOT EXISTS idx_thesis_guidance_applications_status ON thesis_guidance_applications(status);

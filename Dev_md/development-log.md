@@ -348,6 +348,92 @@ Supabase DB와 React 컴포넌트 간 데이터 형식 불일치 (양방향):
 
 ---
 
+## 2026-03-06 | 논문지도 신청 Supabase 저장 & 관리자 페이지 구현
+
+### 작업 내용
+
+기존 `/lab/guidance` 논문지도 신청 폼이 `setTimeout` 시뮬레이션만 수행하던 것을 실제 Supabase에 저장하도록 변경하고, 관리자가 신청 목록을 조회·상태 변경·삭제할 수 있는 어드민 페이지를 추가.
+
+#### 1. Supabase SQL 스키마 (`supabase/schema.sql`)
+- **thesis_guidance_applications** 테이블 추가
+  - id(uuid), name, major, topic, schedule, message, status(pending/reviewing/accepted/rejected), applicant_id(FK→auth.users), applicant_email, created_at
+- **RLS 정책 4개**: SELECT 누구나, INSERT 인증 사용자, UPDATE/DELETE 신청자 또는 관리자
+- **인덱스**: `idx_thesis_guidance_applications_status`
+
+#### 2. Storage 유틸 생성 (`src/utils/thesisGuidanceStorage.js`)
+- `communityStorage.js` 패턴 복제
+- `normalizeApplication(row)` — snake_case → camelCase
+- `toSupabaseRow(data)` — 유효 컬럼만 추출
+- `sampleApplications[]` — Supabase 미연결 시 폴백 데이터 3건
+- CRUD 함수: `getApplications(filter)`, `getApplicationById(id)`, `createApplication(data)`, `updateApplication(id, updates)`, `deleteApplication(id)`, `getApplicationsCount()`
+
+#### 3. ThesisGuidance.jsx 수정
+- `setTimeout` 시뮬레이션 제거
+- `createApplication()` 호출로 실제 Supabase 저장
+- `useAuth` 연동으로 `applicant_id`, `applicant_email` 자동 첨부
+
+#### 4. 관리자 페이지 생성 (2개)
+| 페이지 | 경로 | 기능 |
+|--------|------|------|
+| `AdminThesisGuidance.jsx` | `/admin/guidance` | 신청 목록 + 상태 필터(전체/대기중/검토중/승인/반려) + 삭제 |
+| `AdminThesisGuidanceForm.jsx` | `/admin/guidance/edit/:id` | 신청 상세 보기(읽기 전용) + 상태 변경(드롭다운) |
+
+#### 5. 기존 파일 수정
+- **`AdminSidebar.jsx`** — 논문지도 관리 메뉴 + pen/edit SVG 아이콘 추가
+- **`AdminDashboard.jsx`** — 4번째 stat 카드(논문지도 신청 수) 추가, `getApplicationsCount()` import
+- **`PublicLayout.jsx`** — lazy import 2개 + AdminGuard 라우트 2개 추가
+- **`translations.js`** — `site.admin.guidance`, `totalGuidance`, `guidanceStatus`(pending/reviewing/accepted/rejected) 키 추가 (ko/en)
+
+### 생성/수정 파일 요약
+| 구분 | 파일 |
+|------|------|
+| 신규 | `src/utils/thesisGuidanceStorage.js` |
+| 신규 | `src/pages/admin/AdminThesisGuidance.jsx` |
+| 신규 | `src/pages/admin/AdminThesisGuidanceForm.jsx` |
+| 수정 | `supabase/schema.sql` — thesis_guidance_applications 테이블 + RLS + 인덱스 |
+| 수정 | `src/pages/ThesisGuidance.jsx` — setTimeout → createApplication() |
+| 수정 | `src/components/AdminSidebar.jsx` — 논문지도 관리 메뉴 추가 |
+| 수정 | `src/pages/admin/AdminDashboard.jsx` — 4번째 stat 카드 |
+| 수정 | `src/layouts/PublicLayout.jsx` — 라우트 2개 추가 |
+| 수정 | `src/utils/translations.js` — guidance admin 번역 키 |
+
+### 빌드 결과
+- Vite 빌드 성공 (3.36s)
+- 총 146개 모듈 변환
+
+---
+
+## 2026-03-06 | 로고 2줄 리디자인 (Papers + DreamIT Biz)
+
+### 작업 내용
+
+상단 로고를 기존 1줄(`DreamIT Biz - Papers`)에서 2줄 구조로 변경.
+- 1줄: **Papers** (26px, bold, primary-blue)
+- 2줄: **DreamIT Biz** (11px, 일반, secondary color)
+- nav-height(80px) 내에서 수직 정렬
+
+#### 변경 사항
+- **`src/config/site.js`** — `brand.parts[]` 배열 → `brand.main: 'Papers'` + `brand.sub: 'DreamIT Biz'` 구조로 변경
+- **`src/components/layout/Navbar.jsx`** — `<h1>` + `<span>` 2줄 렌더링
+- **`src/components/layout/Footer.jsx`** — 동일하게 2줄 구조 적용
+- **`src/styles/navbar.css`** — `.brand-main` (26px, font-weight 800) + `.brand-sub` (11px, font-weight 500) 스타일, flex-direction column
+- **`src/styles/responsive.css`** — 모바일 대응 (22px / 10px)
+
+### 수정 파일
+| 파일 | 변경 내용 |
+|------|-----------|
+| `src/config/site.js` | brand 구조 변경 (parts → main/sub) |
+| `src/components/layout/Navbar.jsx` | 2줄 로고 렌더링 |
+| `src/components/layout/Footer.jsx` | 2줄 로고 렌더링 |
+| `src/styles/navbar.css` | brand-main / brand-sub 스타일 |
+| `src/styles/responsive.css` | 모바일 로고 사이즈 |
+
+### 빌드 결과
+- Vite 빌드 성공 (4.57s)
+- 총 146개 모듈 변환
+
+---
+
 ### 다음 단계 (TODO)
 - [x] Supabase 테이블 스키마 설정 (research_projects, community_posts + 기존 comments 재사용)
 - [x] Supabase 연결 설정 (.env + SQL 실행 완료)
@@ -355,6 +441,8 @@ Supabase DB와 React 컴포넌트 간 데이터 형식 불일치 (양방향):
 - [x] 커뮤니티 글쓰기 기능 구현
 - [x] 관리자 대시보드 (프로젝트/커뮤니티 관리)
 - [x] Supabase CRUD 데이터 정규화 (snake_case ↔ camelCase 변환)
+- [x] 논문지도 신청 Supabase 저장 + 관리자 페이지
+- [x] 로고 2줄 리디자인
 - [ ] 검색 기능 연동
 - [ ] 학습 자료 PDF/영상 업로드 기능
 - [ ] 논문 진행률 트래커 기능 검토

@@ -79,13 +79,8 @@ const Navbar = () => {
         <div className="nav-wrapper">
           <div className="logo">
             <Link to="/">
-              <h1>
-                {site.brand.parts.map((part, i) => (
-                  <span key={i} className={part.className}>
-                    {part.text}
-                  </span>
-                ))}
-              </h1>
+              <h1 className="brand-main">{site.brand.main}</h1>
+              <span className="brand-sub">{site.brand.sub}</span>
             </Link>
           </div>
 

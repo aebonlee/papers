@@ -18,13 +18,8 @@ const site = {
 
   // 브랜드 로고 텍스트
   brand: {
-    parts: [
-      { text: 'Dream', className: 'brand-dream' },
-      { text: 'IT', className: 'brand-it' },
-      { text: ' Biz', className: 'brand-dream' },
-      { text: ' - ', className: 'brand-colon' },
-      { text: 'Papers', className: 'brand-it' }
-    ]
+    main: 'Papers',
+    sub: 'DreamIT Biz',
   },
 
   // 테마 컬러
