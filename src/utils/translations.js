@@ -180,7 +180,7 @@ export const translations = {
         reference: '참고문헌 관리',
         statistics: '통계분석',
         ethics: '연구윤리',
-        fieldResources: '분야별 자료',
+        fieldResources: '전공별 자료',
         humanities: '인문사회',
         naturalScience: '자연과학',
         engineering: '공학',
@@ -197,7 +197,7 @@ export const translations = {
         // Feature cards
         featureGuide: '논문작성 가이드',
         featureGuideDesc: '논문 구조, 연구방법론, 학술적 글쓰기, 참고문헌 관리, 통계분석, 연구윤리까지 체계적으로 학습하세요.',
-        featureFields: '분야별 자료',
+        featureFields: '전공별 자료',
         featureFieldsDesc: '인문사회, 자연과학, 공학, 의학/보건, 예술/체육 등 전공별 맞춤 논문작성 자료를 제공합니다.',
         featureProjects: '연구 프로젝트',
         featureProjectsDesc: '동료 연구자들과 함께 주제별 논문 프로젝트를 진행하고 피드백을 주고받으세요.',
@@ -299,7 +299,7 @@ export const translations = {
         ]
       },
       fields: {
-        title: '분야별 자료',
+        title: '전공별 자료',
         subtitle: '전공 분야에 맞는 논문작성 가이드와 참고 자료',
         desc: '각 학문 분야의 특성에 맞춘 논문작성 방법, 주요 학술지, 참고 자료를 제공합니다.',
         humanities: {

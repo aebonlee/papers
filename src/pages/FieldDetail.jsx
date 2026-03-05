@@ -89,7 +89,7 @@ const FieldDetail = () => {
           <h2>404</h2>
           <p>{lang === 'ko' ? '해당 분야를 찾을 수 없습니다.' : 'Field not found.'}</p>
           <Link to="/fields" className="btn btn-primary" style={{ marginTop: '20px' }}>
-            {lang === 'ko' ? '분야별 자료로 돌아가기' : 'Back to Fields'}
+            {lang === 'ko' ? '전공별 자료로 돌아가기' : 'Back to Fields'}
           </Link>
         </div>
       </section>
@@ -140,7 +140,7 @@ const FieldDetail = () => {
 
           <div className="text-center mt-4">
             <Link to="/fields" className="btn btn-secondary">
-              {lang === 'ko' ? '← 분야별 자료로 돌아가기' : '← Back to Fields'}
+              {lang === 'ko' ? '← 전공별 자료로 돌아가기' : '← Back to Fields'}
             </Link>
           </div>
         </div>
