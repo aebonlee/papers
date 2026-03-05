@@ -292,6 +292,62 @@ Supabase DB와 React 컴포넌트 간 데이터 형식 불일치 (양방향):
 
 ---
 
+## 2026-03-06 | 온라인연구실 메뉴 추가
+
+### 작업 내용
+
+상단 네비게이션에 "온라인연구실" 메뉴를 새로 추가. 기존 "논문작성 가이드"(`/guide` + dropdown) 패턴을 그대로 따라 구현.
+
+#### 1. 메뉴 등록
+- `src/config/site.js` — `menuItems` 배열에 `/lab` 메뉴 + 4개 하위 드롭다운 추가
+- `footerLinks`에도 온라인연구실 바로가기 추가
+
+#### 2. 번역 키 추가
+- `src/utils/translations.js` — 한국어/영어 모두 추가
+  - `site.nav.researchLab`, `onlineLectures`, `liveLectures`, `lectureMaterials`, `thesisGuidance`
+  - `site.lab.*` 페이지별 title, subtitle, desc 및 폼/UI 관련 키 전체
+
+#### 3. 페이지 생성 (5개)
+| 페이지 | 경로 | 설명 |
+|--------|------|------|
+| `ResearchLab.jsx` | `/lab` | 랜딩 — 4개 하위 카드 그리드 (WritingGuide 패턴) |
+| `OnlineLectures.jsx` | `/lab/lectures` | 유튜브 영상 카드 목록 (썸네일+제목, iframe embed) |
+| `LiveLectures.jsx` | `/lab/live` | 실시간 강의 일정 카드 (날짜, 시간, 주제, 접속링크) |
+| `LectureMaterials.jsx` | `/lab/materials` | 논문 강의 자료 목록 (카테고리 필터, 다운로드 링크) |
+| `ThesisGuidance.jsx` | `/lab/guidance` | 논문지도 신청 폼 (AuthGuard, 이름/전공/주제/희망일정) |
+
+#### 4. 라우트 등록
+- `src/layouts/PublicLayout.jsx` — lazy import 5개 + Route 5개 추가
+- `/lab/guidance`는 `AuthGuard`로 보호
+
+#### 5. CSS 추가
+- `src/styles/site.css` — 새로운 스타일 클래스 추가:
+  - `.video-grid`, `.video-card`, `.video-thumbnail`, `.play-overlay`, `.video-wrapper` — 유튜브 영상 그리드 (3열)
+  - `.schedule-list`, `.schedule-card`, `.schedule-date-badge` — 실시간 강의 일정
+  - `.material-grid`, `.material-card` — 자료 카드 (2열)
+  - `.guidance-form`, `.form-group` — 논문지도 신청 폼
+  - 반응형: 768px → 2열/1열, 480px → 1열
+
+### 생성/수정 파일 요약
+| 구분 | 파일 |
+|------|------|
+| 신규 | `src/pages/ResearchLab.jsx` |
+| 신규 | `src/pages/OnlineLectures.jsx` |
+| 신규 | `src/pages/LiveLectures.jsx` |
+| 신규 | `src/pages/LectureMaterials.jsx` |
+| 신규 | `src/pages/ThesisGuidance.jsx` |
+| 수정 | `src/config/site.js` — menuItems + footerLinks |
+| 수정 | `src/utils/translations.js` — nav + lab 번역 키 |
+| 수정 | `src/layouts/PublicLayout.jsx` — 라우트 5개 추가 |
+| 수정 | `src/styles/site.css` — 영상/일정/자료/폼 스타일 추가 |
+
+### 빌드 결과
+- Vite 빌드 성공 (3.27s)
+- 총 143개 모듈 변환
+- dist/ 출력 완료
+
+---
+
 ### 다음 단계 (TODO)
 - [x] Supabase 테이블 스키마 설정 (research_projects, community_posts + 기존 comments 재사용)
 - [x] Supabase 연결 설정 (.env + SQL 실행 완료)

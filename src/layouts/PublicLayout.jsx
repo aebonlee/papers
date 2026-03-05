@@ -26,6 +26,13 @@ const ReferenceManagement = lazy(() => import('../pages/ReferenceManagement'));
 const StatisticalAnalysis = lazy(() => import('../pages/StatisticalAnalysis'));
 const ResearchEthics = lazy(() => import('../pages/ResearchEthics'));
 
+// 온라인연구실
+const ResearchLab = lazy(() => import('../pages/ResearchLab'));
+const OnlineLectures = lazy(() => import('../pages/OnlineLectures'));
+const LiveLectures = lazy(() => import('../pages/LiveLectures'));
+const LectureMaterials = lazy(() => import('../pages/LectureMaterials'));
+const ThesisGuidance = lazy(() => import('../pages/ThesisGuidance'));
+
 // 분야별 자료
 const FieldResources = lazy(() => import('../pages/FieldResources'));
 const FieldDetail = lazy(() => import('../pages/FieldDetail'));
@@ -85,6 +92,13 @@ const PublicLayout = () => {
             <Route path="/guide/reference" element={<ReferenceManagement />} />
             <Route path="/guide/statistics" element={<StatisticalAnalysis />} />
             <Route path="/guide/ethics" element={<ResearchEthics />} />
+
+            {/* 온라인연구실 */}
+            <Route path="/lab" element={<ResearchLab />} />
+            <Route path="/lab/lectures" element={<OnlineLectures />} />
+            <Route path="/lab/live" element={<LiveLectures />} />
+            <Route path="/lab/materials" element={<LectureMaterials />} />
+            <Route path="/lab/guidance" element={<AuthGuard><ThesisGuidance /></AuthGuard>} />
 
             {/* 분야별 자료 */}
             <Route path="/fields" element={<FieldResources />} />

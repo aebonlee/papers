@@ -186,7 +186,12 @@ export const translations = {
         engineering: '공학',
         medical: '의학/보건',
         arts: '예술/체육',
-        projects: '연구 프로젝트'
+        projects: '연구 프로젝트',
+        researchLab: '온라인연구실',
+        onlineLectures: '온라인강의실',
+        liveLectures: '실시간강의',
+        lectureMaterials: '논문강의자료',
+        thesisGuidance: '논문지도 신청'
       },
       home: {
         title: 'Papers',
@@ -297,6 +302,56 @@ export const translations = {
           { title: 'IRB 승인', content: '인간 대상 연구는 반드시 기관생명윤리위원회(IRB)의 사전 승인을 받아야 합니다. 연구 참여자의 동의, 개인정보 보호가 필수입니다.', icon: '5' },
           { title: '이해충돌 공개', content: '연구 결과에 영향을 미칠 수 있는 재정적, 개인적 이해관계를 투명하게 공개해야 합니다.', icon: '6' }
         ]
+      },
+      lab: {
+        title: '온라인연구실',
+        subtitle: '논문작성 학습을 위한 온라인 강의와 지도',
+        desc: '유튜브 강의, 실시간 세미나, 강의자료, 논문지도 신청까지 — 온라인으로 연구역량을 키워보세요.',
+        lectures: {
+          title: '온라인강의실',
+          subtitle: '논문작성 관련 유튜브 강의를 시청하세요',
+          desc: '전문가의 논문작성 강의를 유튜브 영상으로 학습할 수 있습니다.'
+        },
+        live: {
+          title: '실시간강의',
+          subtitle: '라이브 세미나 및 강의 일정을 확인하세요',
+          desc: '실시간으로 진행되는 논문작성 세미나와 강의에 참여하세요.',
+          noSchedule: '현재 예정된 실시간 강의가 없습니다.',
+          upcoming: '예정된 강의',
+          joinLive: '강의 참여하기',
+          date: '날짜',
+          time: '시간',
+          topic: '주제',
+          instructor: '강사'
+        },
+        materials: {
+          title: '논문강의자료',
+          subtitle: '논문작성에 필요한 학습 자료를 다운로드하세요',
+          desc: '카테고리별로 정리된 논문강의 자료를 제공합니다.',
+          all: '전체',
+          download: '다운로드',
+          view: '보기',
+          noMaterials: '해당 카테고리에 자료가 없습니다.'
+        },
+        guidance: {
+          title: '논문지도 신청',
+          subtitle: '전문가의 1:1 논문지도를 신청하세요',
+          desc: '논문 주제 선정부터 완성까지 전문가의 맞춤 지도를 받을 수 있습니다.',
+          name: '이름',
+          namePlaceholder: '이름을 입력하세요',
+          major: '전공',
+          majorPlaceholder: '전공 분야를 입력하세요',
+          topic: '논문 주제',
+          topicPlaceholder: '논문 주제 또는 연구 분야를 입력하세요',
+          schedule: '희망 일정',
+          schedulePlaceholder: '희망하는 지도 일정을 입력하세요',
+          message: '추가 메시지',
+          messagePlaceholder: '추가로 전달할 내용이 있으면 입력하세요',
+          submit: '신청하기',
+          submitting: '신청 중...',
+          success: '논문지도 신청이 완료되었습니다.',
+          successDesc: '담당자가 확인 후 연락드리겠습니다.'
+        }
       },
       fields: {
         title: '전공별 자료',
@@ -608,7 +663,12 @@ export const translations = {
         engineering: 'Engineering',
         medical: 'Medical / Health',
         arts: 'Arts & Sports',
-        projects: 'Projects'
+        projects: 'Projects',
+        researchLab: 'Research Lab',
+        onlineLectures: 'Online Lectures',
+        liveLectures: 'Live Lectures',
+        lectureMaterials: 'Lecture Materials',
+        thesisGuidance: 'Thesis Guidance'
       },
       home: {
         title: 'Papers',
@@ -662,6 +722,56 @@ export const translations = {
       ethics: {
         title: 'Research Ethics',
         subtitle: 'Ethics guidelines for responsible research'
+      },
+      lab: {
+        title: 'Research Lab',
+        subtitle: 'Online lectures and guidance for thesis writing',
+        desc: 'From YouTube lectures to live seminars, materials, and thesis guidance — build your research skills online.',
+        lectures: {
+          title: 'Online Lectures',
+          subtitle: 'Watch YouTube lectures on thesis writing',
+          desc: 'Learn thesis writing through expert video lectures on YouTube.'
+        },
+        live: {
+          title: 'Live Lectures',
+          subtitle: 'Check live seminar and lecture schedules',
+          desc: 'Join live thesis writing seminars and lectures in real time.',
+          noSchedule: 'No live lectures are currently scheduled.',
+          upcoming: 'Upcoming Lectures',
+          joinLive: 'Join Lecture',
+          date: 'Date',
+          time: 'Time',
+          topic: 'Topic',
+          instructor: 'Instructor'
+        },
+        materials: {
+          title: 'Lecture Materials',
+          subtitle: 'Download learning materials for thesis writing',
+          desc: 'We provide categorized lecture materials for thesis writing.',
+          all: 'All',
+          download: 'Download',
+          view: 'View',
+          noMaterials: 'No materials in this category.'
+        },
+        guidance: {
+          title: 'Thesis Guidance',
+          subtitle: 'Apply for 1:1 thesis guidance from an expert',
+          desc: 'Get personalized guidance from topic selection to thesis completion.',
+          name: 'Name',
+          namePlaceholder: 'Enter your name',
+          major: 'Major',
+          majorPlaceholder: 'Enter your major',
+          topic: 'Thesis Topic',
+          topicPlaceholder: 'Enter your thesis topic or research area',
+          schedule: 'Preferred Schedule',
+          schedulePlaceholder: 'Enter your preferred guidance schedule',
+          message: 'Additional Message',
+          messagePlaceholder: 'Enter any additional information',
+          submit: 'Apply',
+          submitting: 'Submitting...',
+          success: 'Your thesis guidance application has been submitted.',
+          successDesc: 'We will contact you after review.'
+        }
       },
       fields: {
         title: 'Resources by Field',

@@ -58,6 +58,17 @@ const site = {
         { path: '/fields/arts', labelKey: 'site.nav.arts' }
       ]
     },
+    {
+      labelKey: 'site.nav.researchLab',
+      path: '/lab',
+      activePath: '/lab',
+      dropdown: [
+        { path: '/lab/lectures', labelKey: 'site.nav.onlineLectures' },
+        { path: '/lab/live', labelKey: 'site.nav.liveLectures' },
+        { path: '/lab/materials', labelKey: 'site.nav.lectureMaterials' },
+        { path: '/lab/guidance', labelKey: 'site.nav.thesisGuidance' }
+      ]
+    },
     { path: '/projects', labelKey: 'site.nav.projects', activePath: '/projects' },
     { path: '/community', labelKey: 'nav.community', activePath: '/community' }
   ],
@@ -67,6 +78,7 @@ const site = {
     { path: '/', labelKey: 'nav.home' },
     { path: '/guide', labelKey: 'site.nav.writingGuide' },
     { path: '/fields', labelKey: 'site.nav.fieldResources' },
+    { path: '/lab', labelKey: 'site.nav.researchLab' },
     { path: '/projects', labelKey: 'site.nav.projects' },
     { path: '/community', labelKey: 'nav.community' }
   ],
