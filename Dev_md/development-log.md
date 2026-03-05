@@ -92,6 +92,26 @@
 - 총 128개 모듈 변환
 - dist/ 출력 완료
 
+---
+
+## 2026-03-06 | 배포 수정 & 버그 픽스
+
+### 이슈
+- GitHub Pages에서 사이트 콘텐츠가 표시되지 않음 (빈 페이지)
+
+### 원인 분석
+1. **배포 워크플로 문제**: `actions/deploy-pages@v4`는 GitHub Pages 소스가 "GitHub Actions"로 설정되어야 동작. 현재 "Deploy from a branch"로 설정되어 소스 `index.html`이 직접 서빙되고 빌드된 JS 번들이 없음
+2. **LanguageContext `lang` 미제공**: 컨텍스트가 `language`만 제공하는데, 컴포넌트들이 `{ t, lang }`으로 구조분해. `lang`이 `undefined`가 되어 한국어/영어 분기가 올바르게 작동하지 않음
+
+### 수정 사항
+1. `.github/workflows/deploy.yml` — `peaceiris/actions-gh-pages@v4`로 변경하여 `gh-pages` 브랜치에 빌드 결과를 배포. "Deploy from a branch" 설정과 호환
+2. `src/contexts/LanguageContext.jsx` — `lang: language` 별칭 추가
+
+### GitHub Pages 설정 필요
+- **Settings → Pages → Source**: `gh-pages` 브랜치의 `/ (root)` 선택
+
+---
+
 ### 다음 단계 (TODO)
 - [ ] Supabase 테이블 스키마 설정 (projects, community_posts)
 - [ ] 프로젝트 생성/참여 기능 구현
