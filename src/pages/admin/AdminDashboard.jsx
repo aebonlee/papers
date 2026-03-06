@@ -56,7 +56,7 @@ const AdminDashboard = () => {
             <div className="stat-value">{stats.totalPosts}</div>
           </div>
           <div className="admin-stat-card">
-            <div className="stat-label">{lang === 'ko' ? '논문지도 신청' : 'Guidance Applications'}</div>
+            <div className="stat-label">{lang === 'ko' ? '논문 멘토링 신청' : 'Mentoring Applications'}</div>
             <div className="stat-value">{stats.totalGuidance}</div>
           </div>
           <div className="admin-stat-card">

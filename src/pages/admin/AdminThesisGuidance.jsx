@@ -46,7 +46,7 @@ const AdminThesisGuidance = () => {
       <AdminSidebar />
       <div className="admin-content">
         <div className="admin-content-header">
-          <h2>{lang === 'ko' ? '논문지도 관리' : 'Guidance Management'}</h2>
+          <h2>{lang === 'ko' ? '논문 멘토링 관리' : 'Mentoring Management'}</h2>
         </div>
 
         <div className="admin-filters">

@@ -191,7 +191,7 @@ export const translations = {
         onlineLectures: '온라인강의실',
         liveLectures: '실시간강의',
         lectureMaterials: '논문강의자료',
-        thesisGuidance: '논문지도 신청'
+        thesisGuidance: '논문 멘토링 신청'
       },
       home: {
         title: 'Papers',
@@ -306,7 +306,7 @@ export const translations = {
       lab: {
         title: '온라인연구실',
         subtitle: '논문작성 학습을 위한 온라인 강의와 지도',
-        desc: '유튜브 강의, 실시간 세미나, 강의자료, 논문지도 신청까지 — 온라인으로 연구역량을 키워보세요.',
+        desc: '유튜브 강의, 실시간 세미나, 강의자료, 논문 멘토링 신청까지 — 온라인으로 연구역량을 키워보세요.',
         lectures: {
           title: '온라인강의실',
           subtitle: '논문작성 관련 유튜브 강의를 시청하세요',
@@ -334,7 +334,7 @@ export const translations = {
           noMaterials: '해당 카테고리에 자료가 없습니다.'
         },
         guidance: {
-          title: '논문지도 신청',
+          title: '논문 멘토링 신청',
           subtitle: '전문가의 1:1 논문지도를 신청하세요',
           desc: '논문 주제 선정부터 완성까지 전문가의 맞춤 지도를 받을 수 있습니다.',
           name: '이름',
@@ -349,7 +349,7 @@ export const translations = {
           messagePlaceholder: '추가로 전달할 내용이 있으면 입력하세요',
           submit: '신청하기',
           submitting: '신청 중...',
-          success: '논문지도 신청이 완료되었습니다.',
+          success: '논문 멘토링 신청이 완료되었습니다.',
           successDesc: '담당자가 확인 후 연락드리겠습니다.'
         }
       },
@@ -476,8 +476,8 @@ export const translations = {
         writePost: '글쓰기',
         materials: '학습자료 관리',
         totalMaterials: '학습자료',
-        guidance: '논문지도 관리',
-        totalGuidance: '논문지도 신청',
+        guidance: '논문 멘토링 관리',
+        totalGuidance: '논문 멘토링 신청',
         guidanceStatus: {
           pending: '대기중',
           reviewing: '검토중',
@@ -680,7 +680,7 @@ export const translations = {
         onlineLectures: 'Online Lectures',
         liveLectures: 'Live Lectures',
         lectureMaterials: 'Lecture Materials',
-        thesisGuidance: 'Thesis Guidance'
+        thesisGuidance: 'Thesis Mentoring'
       },
       home: {
         title: 'Papers',
@@ -766,7 +766,7 @@ export const translations = {
           noMaterials: 'No materials in this category.'
         },
         guidance: {
-          title: 'Thesis Guidance',
+          title: 'Thesis Mentoring',
           subtitle: 'Apply for 1:1 thesis guidance from an expert',
           desc: 'Get personalized guidance from topic selection to thesis completion.',
           name: 'Name',

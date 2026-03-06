@@ -66,7 +66,7 @@ const AdminThesisGuidanceForm = () => {
       <AdminSidebar />
       <div className="admin-content">
         <form className="admin-form" onSubmit={handleSubmit}>
-          <h2>{lang === 'ko' ? '논문지도 신청 상세' : 'Guidance Application Detail'}</h2>
+          <h2>{lang === 'ko' ? '논문 멘토링 신청 상세' : 'Mentoring Application Detail'}</h2>
 
           <div className="board-form-group">
             <label>{lang === 'ko' ? '이름' : 'Name'}</label>

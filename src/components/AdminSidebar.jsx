@@ -10,7 +10,7 @@ const AdminSidebar = () => {
     { path: '/admin/projects', label: t('site.admin.projects'), icon: 'projects' },
     { path: '/admin/community', label: t('site.admin.community'), icon: 'community' },
     { path: '/admin/materials', label: lang === 'ko' ? '학습자료 관리' : 'Materials Management', icon: 'materials' },
-    { path: '/admin/guidance', label: lang === 'ko' ? '논문지도 관리' : 'Guidance Management', icon: 'guidance' },
+    { path: '/admin/guidance', label: lang === 'ko' ? '논문 멘토링 관리' : 'Mentoring Management', icon: 'guidance' },
   ];
 
   const isActive = (path) => {
