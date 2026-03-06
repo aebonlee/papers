@@ -173,6 +173,9 @@ export const translations = {
     // ─── 사이트 전용 키 ───
     site: {
       nav: {
+        aboutPapers: 'About Papers',
+        aboutIntent: '제작의도',
+        aboutUsage: '활용방법',
         writingGuide: '논문작성 가이드',
         paperStructure: '논문 구조',
         methodology: '연구방법론',
@@ -217,6 +220,30 @@ export const translations = {
         ctaTitle: '지금 바로 논문작성 학습을 시작하세요',
         ctaDesc: '체계적인 가이드와 동료 연구자들의 피드백으로 더 나은 논문을 작성할 수 있습니다.',
         ctaButton: '무료로 시작하기'
+      },
+      about: {
+        title: 'About Papers',
+        subtitle: 'Papers 플랫폼을 소개합니다',
+        desc: '대학원생의 성공적인 논문작성을 위한 학습과 협업의 공간, Papers를 만들게 된 이유와 활용 방법을 안내합니다.',
+        intentTitle: '제작의도',
+        intentSubtitle: 'Papers는 왜 만들어졌을까요?',
+        intentDesc: '대학원 과정에서 논문작성은 가장 중요하면서도 어려운 과제입니다. 많은 대학원생들이 논문 구조, 연구방법론, 학술적 글쓰기, 통계분석 등에서 어려움을 겪고 있습니다.',
+        intentSections: [
+          { title: '체계적인 학습 자료의 부재', content: '논문작성에 필요한 지식이 여러 곳에 흩어져 있어, 체계적으로 학습하기 어렵습니다. Papers는 논문 구조부터 연구윤리까지 단계별로 정리된 학습 로드맵을 제공합니다.' },
+          { title: '연구자 간 소통의 한계', content: '같은 고민을 가진 대학원생들이 서로 도움을 주고받을 수 있는 공간이 부족합니다. Papers의 커뮤니티와 연구 프로젝트 기능을 통해 연구자 간 협업과 피드백이 가능합니다.' },
+          { title: '전공별 맞춤 정보의 필요성', content: '인문사회, 자연과학, 공학, 의학, 예술 등 분야마다 논문작성 방식이 다릅니다. Papers는 전공별 특화된 가이드와 참고 자료를 제공합니다.' },
+          { title: '온라인 학습 환경의 확대', content: '시간과 장소에 구애받지 않고 학습할 수 있도록, 온라인 강의, 실시간 세미나, 강의자료 다운로드, 논문 멘토링 신청까지 온라인 연구실을 운영합니다.' }
+        ],
+        usageTitle: '활용방법',
+        usageSubtitle: 'Papers를 200% 활용하는 방법',
+        usageDesc: 'Papers의 다양한 기능을 활용하여 논문작성 역량을 효과적으로 키워보세요.',
+        usageSections: [
+          { title: '1단계: 논문작성 가이드로 기초 다지기', content: '논문 구조, 연구방법론, 학술적 글쓰기, 참고문헌 관리, 통계분석, 연구윤리까지 6개 영역을 단계별로 학습하세요. 처음 논문을 쓰는 대학원생도 쉽게 따라할 수 있습니다.' },
+          { title: '2단계: 전공별 자료로 심화 학습', content: '본인의 전공 분야(인문사회, 자연과학, 공학, 의학/보건, 예술/체육)에 맞는 논문작성 팁, 주요 학술지, 인용 형식 등을 확인하세요.' },
+          { title: '3단계: 온라인 연구실 활용', content: '유튜브 강의로 핵심 개념을 복습하고, 실시간 세미나에 참여하며, 필요한 강의자료를 다운로드하세요. 전문가의 1:1 논문 멘토링도 신청할 수 있습니다.' },
+          { title: '4단계: 커뮤니티에서 소통하기', content: 'Q&A 게시판에서 궁금한 점을 질문하고, 논문 리뷰를 요청하며, 스터디 그룹을 모집하세요. 논문 게재 소식도 공유할 수 있습니다.' },
+          { title: '5단계: 연구 프로젝트 참여', content: '관심 있는 연구 프로젝트에 참여하여 동료 연구자들과 함께 논문을 작성하고 피드백을 주고받으세요.' }
+        ]
       },
       guide: {
         title: '논문작성 가이드',
@@ -662,6 +689,9 @@ export const translations = {
     // ─── Site-specific keys ───
     site: {
       nav: {
+        aboutPapers: 'About Papers',
+        aboutIntent: 'Our Purpose',
+        aboutUsage: 'How to Use',
         writingGuide: 'Writing Guide',
         paperStructure: 'Paper Structure',
         methodology: 'Methodology',
@@ -703,6 +733,17 @@ export const translations = {
         ctaTitle: 'Start your thesis writing journey today',
         ctaDesc: 'Improve your writing with systematic guides and peer feedback.',
         ctaButton: 'Get Started Free'
+      },
+      about: {
+        title: 'About Papers',
+        subtitle: 'Introducing the Papers Platform',
+        desc: 'Learn why Papers was created and how to make the most of this learning and collaboration space for successful thesis writing.',
+        intentTitle: 'Our Purpose',
+        intentSubtitle: 'Why was Papers created?',
+        intentDesc: 'Thesis writing is the most important yet challenging task in graduate school. Many students struggle with paper structure, methodology, academic writing, and statistical analysis.',
+        usageTitle: 'How to Use',
+        usageSubtitle: 'Get the most out of Papers',
+        usageDesc: 'Use the various features of Papers to effectively build your thesis writing skills.'
       },
       guide: {
         title: 'Writing Guide',

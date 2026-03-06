@@ -17,6 +17,11 @@ const OrderConfirmation = lazy(() => import('../pages/OrderConfirmation'));
 const OrderHistory = lazy(() => import('../pages/OrderHistory'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 
+// About Papers
+const AboutPapers = lazy(() => import('../pages/AboutPapers'));
+const AboutIntent = lazy(() => import('../pages/AboutIntent'));
+const AboutUsage = lazy(() => import('../pages/AboutUsage'));
+
 // 논문작성 가이드
 const WritingGuide = lazy(() => import('../pages/WritingGuide'));
 const PaperStructure = lazy(() => import('../pages/PaperStructure'));
@@ -87,6 +92,11 @@ const PublicLayout = () => {
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-confirmation" element={<OrderConfirmation />} />
+
+            {/* About Papers */}
+            <Route path="/about" element={<AboutPapers />} />
+            <Route path="/about/intent" element={<AboutIntent />} />
+            <Route path="/about/usage" element={<AboutUsage />} />
 
             {/* 논문작성 가이드 */}
             <Route path="/guide" element={<WritingGuide />} />

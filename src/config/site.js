@@ -29,6 +29,15 @@ const site = {
   menuItems: [
     { path: '/', labelKey: 'nav.home' },
     {
+      labelKey: 'site.nav.aboutPapers',
+      path: '/about',
+      activePath: '/about',
+      dropdown: [
+        { path: '/about/intent', labelKey: 'site.nav.aboutIntent' },
+        { path: '/about/usage', labelKey: 'site.nav.aboutUsage' }
+      ]
+    },
+    {
       labelKey: 'site.nav.writingGuide',
       path: '/guide',
       activePath: '/guide',
