@@ -526,20 +526,18 @@ Supabase DB와 React 컴포넌트 간 데이터 형식 불일치 (양방향):
 
 ---
 
-## 2026-03-06 | 가이드 레이아웃 UX 개선 — 양쪽 패널 고정 독립 스크롤
+## 2026-03-06 | 가이드 레이아웃 — AOS 애니메이션 제거 + CSS 원복
 
 ### 개요
-인터랙티브 2컬럼 레이아웃에서 좌측 항목을 클릭하면 좌측 네비가 스크롤되어 사라지는 문제 수정. 양쪽 패널 모두 뷰포트 내에 고정되어 독립적으로 스크롤되도록 변경.
+좌측 항목 클릭 시 AOS fade 애니메이션으로 사라졌다 나타나는 문제 수정. 원래 디자인(1:1 그리드 + 우측 sticky) 유지하면서 클릭 인터랙션 시 fade 효과만 제거.
 
-### 변경 내용 (`src/styles/site.css`)
-- `.structure-layout`: `height: calc(100vh - 160px)` 고정 높이 설정
-- `.structure-nav`: `overflow-y: auto` 독립 스크롤, 좌측 너비 380px 고정
-- `.structure-detail`: `position: sticky` 제거 → `overflow-y: auto` 독립 스크롤
-- 양쪽 패널에 4px 슬림 스크롤바 스타일 추가 (`::-webkit-scrollbar`)
-- 반응형(768px 이하): 고정 높이 해제, 1컬럼 스택 유지
+### 변경 내용
+- **CSS**: 원래 디자인으로 원복 (1fr 1fr 그리드, 우측 `position: sticky`)
+- **JSX 6개 파일**: `data-aos="fade-up"`, `data-aos-delay`, `data-aos="fade-left"` 속성 제거
+  - PaperStructure, ResearchMethodology, AcademicWriting, ReferenceManagement, StatisticalAnalysis, ResearchEthics
 
 ### 빌드 결과
-- Vite 빌드 성공 (3.71s)
+- Vite 빌드 성공 (2.92s)
 
 ---
 

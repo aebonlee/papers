@@ -277,31 +277,15 @@
 /* ── Paper Structure ── */
 .structure-layout {
   display: grid;
-  grid-template-columns: 380px 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 32px;
-  height: calc(100vh - 160px);
-  min-height: 500px;
+  align-items: start;
 }
 
 .structure-nav {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  overflow-y: auto;
-  padding-right: 8px;
-}
-
-.structure-nav::-webkit-scrollbar {
-  width: 4px;
-}
-
-.structure-nav::-webkit-scrollbar-thumb {
-  background: var(--border-light);
-  border-radius: 4px;
-}
-
-.structure-nav::-webkit-scrollbar-thumb:hover {
-  background: var(--text-tertiary, #aaa);
+  gap: 12px;
 }
 
 .structure-nav-card {
@@ -363,21 +347,8 @@
 
 /* Detail Panel */
 .structure-detail {
-  overflow-y: auto;
-  padding-right: 8px;
-}
-
-.structure-detail::-webkit-scrollbar {
-  width: 4px;
-}
-
-.structure-detail::-webkit-scrollbar-thumb {
-  background: var(--border-light);
-  border-radius: 4px;
-}
-
-.structure-detail::-webkit-scrollbar-thumb:hover {
-  background: var(--text-tertiary, #aaa);
+  position: sticky;
+  top: 100px;
 }
 
 .structure-detail-inner {
@@ -1523,17 +1494,9 @@
   }
   .structure-layout {
     grid-template-columns: 1fr;
-    height: auto;
-    min-height: auto;
-  }
-  .structure-nav {
-    overflow-y: visible;
-    padding-right: 0;
-    max-height: none;
   }
   .structure-detail {
-    overflow-y: visible;
-    padding-right: 0;
+    position: static;
   }
   .structure-nav-card {
     flex-direction: column;

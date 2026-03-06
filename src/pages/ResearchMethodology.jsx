@@ -177,8 +177,6 @@ const ResearchMethodology = () => {
                   className={`structure-nav-card${activeIdx === i ? ' active' : ''}`}
                   key={i}
                   onClick={() => setActiveIdx(i)}
-                  data-aos="fade-up"
-                  data-aos-delay={i * 60}
                   style={activeIdx === i ? { borderColor: colors[i] } : {}}
                 >
                   <div className="structure-number" style={{ background: colors[i] }}>{i + 1}</div>
@@ -190,7 +188,7 @@ const ResearchMethodology = () => {
               ))}
             </div>
 
-            <div className="structure-detail" data-aos="fade-left">
+            <div className="structure-detail">
               <div className="structure-detail-inner">
                 <div className="structure-detail-header" style={{ borderBottomColor: colors[activeIdx] }}>
                   <span className="structure-detail-num" style={{ background: colors[activeIdx] }}>{activeIdx + 1}</span>

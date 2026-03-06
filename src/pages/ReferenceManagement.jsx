@@ -314,8 +314,6 @@ const ReferenceManagement = () => {
                   className={`structure-nav-card${activeIdx === i ? ' active' : ''}`}
                   key={i}
                   onClick={() => setActiveIdx(i)}
-                  data-aos="fade-up"
-                  data-aos-delay={i * 60}
                 >
                   <div className="structure-number">{i + 1}</div>
                   <div className="structure-body">
@@ -326,7 +324,7 @@ const ReferenceManagement = () => {
               ))}
             </div>
 
-            <div className="structure-detail" data-aos="fade-left">
+            <div className="structure-detail">
               <div className="structure-detail-inner">
                 <div className="structure-detail-header">
                   <span className="structure-detail-num">{activeIdx + 1}</span>
