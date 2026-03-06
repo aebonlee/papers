@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
+import { getMaterials } from '../utils/materialStorage';
 
 const categories = [
   { key: 'all', labelKo: '전체', labelEn: 'All' },
@@ -11,77 +12,34 @@ const categories = [
   { key: 'statistics', labelKo: '통계분석', labelEn: 'Statistics' }
 ];
 
-const materials = [
-  {
-    id: 1,
-    category: 'structure',
-    titleKo: '학위논문 구조 가이드 (PDF)',
-    titleEn: 'Thesis Structure Guide (PDF)',
-    descKo: '학위논문의 기본 구성과 각 장별 작성 요령을 정리한 자료입니다.',
-    descEn: 'A guide to the basic structure and writing tips for each chapter of a thesis.',
-    type: 'pdf',
-    link: '#'
-  },
-  {
-    id: 2,
-    category: 'methodology',
-    titleKo: '연구방법론 비교 차트',
-    titleEn: 'Research Methodology Comparison Chart',
-    descKo: '양적·질적·혼합 연구방법의 특징을 한눈에 비교할 수 있는 차트입니다.',
-    descEn: 'A chart comparing the characteristics of quantitative, qualitative, and mixed methods.',
-    type: 'pdf',
-    link: '#'
-  },
-  {
-    id: 3,
-    category: 'writing',
-    titleKo: '학술 논문 작성 체크리스트',
-    titleEn: 'Academic Paper Writing Checklist',
-    descKo: '논문 제출 전 점검해야 할 사항들을 정리한 체크리스트입니다.',
-    descEn: 'A checklist of items to review before submitting your paper.',
-    type: 'pdf',
-    link: '#'
-  },
-  {
-    id: 4,
-    category: 'statistics',
-    titleKo: 'SPSS 기초 실습 자료',
-    titleEn: 'SPSS Basic Practice Materials',
-    descKo: 'SPSS를 활용한 기초 통계분석 실습 자료입니다.',
-    descEn: 'Basic statistical analysis practice materials using SPSS.',
-    type: 'pdf',
-    link: '#'
-  },
-  {
-    id: 5,
-    category: 'structure',
-    titleKo: '참고문헌 인용 형식 요약표',
-    titleEn: 'Citation Style Summary Table',
-    descKo: 'APA, MLA, Chicago, Vancouver 인용 형식을 비교 정리한 요약표입니다.',
-    descEn: 'A summary table comparing APA, MLA, Chicago, and Vancouver citation styles.',
-    type: 'pdf',
-    link: '#'
-  },
-  {
-    id: 6,
-    category: 'methodology',
-    titleKo: '설문지 설계 템플릿',
-    titleEn: 'Survey Design Template',
-    descKo: '양적 연구를 위한 설문지 설계 템플릿과 작성 가이드입니다.',
-    descEn: 'A survey design template and writing guide for quantitative research.',
-    type: 'doc',
-    link: '#'
-  }
-];
-
 const LectureMaterials = () => {
   const { t, lang } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('all');
+  const [materials, setMaterials] = useState([]);
+  const [loading, setLoading] = useState(true);
   useAOS();
 
-  const filtered = activeCategory === 'all'
-    ? materials
-    : materials.filter(m => m.category === activeCategory);
+  useEffect(() => {
+    const load = async () => {
+      setLoading(true);
+      const filter = activeCategory === 'all' ? {} : { category: activeCategory };
+      const data = await getMaterials(filter);
+      setMaterials(data);
+      setLoading(false);
+    };
+    load();
+  }, [activeCategory]);
+
+  const getIcon = (type) => {
+    if (type === 'video') return '🎬';
+    if (type === 'doc') return '📝';
+    return '📄';
+  };
+
+  const getActionLabel = (type) => {
+    if (type === 'video') return t('site.lab.materials.view');
+    return t('site.lab.materials.download');
+  };
 
   return (
     <>
@@ -114,21 +72,30 @@ const LectureMaterials = () => {
             </div>
           </div>
 
-          {filtered.length === 0 ? (
+          {loading ? (
+            <div style={{ display: 'flex', justifyContent: 'center', padding: '3rem' }}>
+              <div className="loading-spinner"></div>
+            </div>
+          ) : materials.length === 0 ? (
             <div className="empty-state">{t('site.lab.materials.noMaterials')}</div>
           ) : (
             <div className="material-grid">
-              {filtered.map((mat, i) => (
+              {materials.map((mat, i) => (
                 <div className="material-card" key={mat.id} data-aos="fade-up" data-aos-delay={i * 60}>
                   <div className="material-icon">
-                    {mat.type === 'pdf' ? '📄' : '📝'}
+                    {getIcon(mat.type)}
                   </div>
                   <div className="material-body">
-                    <h4>{lang === 'ko' ? mat.titleKo : mat.titleEn}</h4>
-                    <p>{lang === 'ko' ? mat.descKo : mat.descEn}</p>
+                    <h4>{lang === 'ko' ? (mat.titleKo || mat.title) : (mat.titleEn || mat.title_en || mat.title)}</h4>
+                    <p>{lang === 'ko' ? (mat.descKo || mat.description) : (mat.descEn || mat.description_en || mat.description)}</p>
                   </div>
-                  <a href={mat.link} className="btn btn-secondary material-download-btn" target="_blank" rel="noopener noreferrer">
-                    {t('site.lab.materials.download')}
+                  <a
+                    href={mat.fileUrl || mat.file_url || '#'}
+                    className="btn btn-secondary material-download-btn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {getActionLabel(mat.type)}
                   </a>
                 </div>
               ))}

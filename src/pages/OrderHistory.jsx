@@ -69,7 +69,7 @@ const OrderHistory = () => {
     <>
       <section className="page-header">
         <div className="container">
-          <h1 className="page-title">{t('auth.orderHistory')}</h1>
+          <h2>{t('auth.orderHistory')}</h2>
         </div>
       </section>
 

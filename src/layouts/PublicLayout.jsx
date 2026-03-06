@@ -55,6 +55,8 @@ const AdminProjects = lazy(() => import('../pages/admin/AdminProjects'));
 const AdminProjectForm = lazy(() => import('../pages/admin/AdminProjectForm'));
 const AdminCommunity = lazy(() => import('../pages/admin/AdminCommunity'));
 const AdminCommunityForm = lazy(() => import('../pages/admin/AdminCommunityForm'));
+const AdminMaterials = lazy(() => import('../pages/admin/AdminMaterials'));
+const AdminMaterialForm = lazy(() => import('../pages/admin/AdminMaterialForm'));
 const AdminThesisGuidance = lazy(() => import('../pages/admin/AdminThesisGuidance'));
 const AdminThesisGuidanceForm = lazy(() => import('../pages/admin/AdminThesisGuidanceForm'));
 
@@ -114,6 +116,7 @@ const PublicLayout = () => {
             {/* 커뮤니티 */}
             <Route path="/community" element={<Community />} />
             <Route path="/community/write" element={<AuthGuard><CommunityWrite /></AuthGuard>} />
+            <Route path="/community/edit/:postId" element={<AuthGuard><CommunityWrite /></AuthGuard>} />
             <Route path="/community/:postId" element={<CommunityDetail />} />
 
             {/* 관리자 */}
@@ -124,6 +127,9 @@ const PublicLayout = () => {
             <Route path="/admin/community" element={<AdminGuard><AdminCommunity /></AdminGuard>} />
             <Route path="/admin/community/new" element={<AdminGuard><AdminCommunityForm /></AdminGuard>} />
             <Route path="/admin/community/edit/:id" element={<AdminGuard><AdminCommunityForm /></AdminGuard>} />
+            <Route path="/admin/materials" element={<AdminGuard><AdminMaterials /></AdminGuard>} />
+            <Route path="/admin/materials/new" element={<AdminGuard><AdminMaterialForm /></AdminGuard>} />
+            <Route path="/admin/materials/edit/:id" element={<AdminGuard><AdminMaterialForm /></AdminGuard>} />
             <Route path="/admin/guidance" element={<AdminGuard><AdminThesisGuidance /></AdminGuard>} />
             <Route path="/admin/guidance/edit/:id" element={<AdminGuard><AdminThesisGuidanceForm /></AdminGuard>} />
 

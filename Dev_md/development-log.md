@@ -477,6 +477,55 @@ Supabase DB와 React 컴포넌트 간 데이터 형식 불일치 (양방향):
 
 ---
 
+## 2026-03-06 | 학습자료 관리 CRUD + 커뮤니티 사용자 수정/삭제 + UI 수정
+
+### 개요
+1. **학습자료 관리 기능** — Admin CRUD + 공개 페이지 동적화
+2. **커뮤니티 사용자 CRUD** — 로그인 사용자 본인 글 수정/삭제, 관리자 전체 관리
+3. **UI 수정** — 주문 이력 타이틀 흰색 적용, "논문게재 자랑" → "논문게재 알림" 명칭 변경
+
+### 1. 학습자료 관리 (Admin CRUD + 동적 페이지)
+
+#### DB 스키마
+- `lecture_materials` 테이블 추가 (category, type, file_url 등)
+- RLS: 전체 SELECT, 관리자만 INSERT/UPDATE/DELETE
+- 인덱스: `idx_lecture_materials_category`
+
+#### 신규 파일 (4개)
+| 파일 | 설명 |
+|------|------|
+| `src/components/FileUpload.jsx` | 범용 파일 업로드 컴포넌트 (드래그앤드롭, 20MB 제한) |
+| `src/utils/materialStorage.js` | CRUD 함수 + 6개 샘플 데이터 |
+| `src/pages/admin/AdminMaterials.jsx` | 관리자 자료 목록 (카테고리 필터 + 테이블) |
+| `src/pages/admin/AdminMaterialForm.jsx` | 자료 생성/수정 폼 (파일 업로드 / YouTube URL) |
+
+#### 수정 파일 (7개)
+| 파일 | 변경 |
+|------|------|
+| `supabase/schema.sql` | lecture_materials 테이블 + RLS + 인덱스 |
+| `src/utils/storage.js` | `uploadFile()` 범용 업로드 함수 추가 |
+| `src/components/AdminSidebar.jsx` | 학습자료 관리 메뉴 + 문서 아이콘 |
+| `src/layouts/PublicLayout.jsx` | AdminMaterials/AdminMaterialForm lazy import + 라우트 3개 |
+| `src/pages/admin/AdminDashboard.jsx` | 학습자료 stat 카드 추가 |
+| `src/pages/LectureMaterials.jsx` | 하드코딩 → getMaterials() 동적 로드 + video 아이콘 분기 |
+| `src/utils/translations.js` | materials, totalMaterials 번역 키 추가 |
+
+### 2. 커뮤니티 사용자 CRUD
+
+- `CommunityDetail.jsx` — 본인 글 또는 관리자일 때 수정/삭제 버튼 표시
+- `CommunityWrite.jsx` — 글쓰기 + 수정 모드 통합 (`/community/edit/:postId`)
+- `PublicLayout.jsx` — `/community/edit/:postId` 라우트 추가 (AuthGuard)
+
+### 3. UI 수정
+- `OrderHistory.jsx` — page-header 내 `h1` → `h2` 변경 (흰색 텍스트 적용)
+- "논문게재 자랑" → "논문게재 알림" 명칭 변경 (translations, AdminCommunity, AdminCommunityForm, CommunityWrite)
+
+### 빌드 결과
+- Vite 빌드 성공 (3.36s)
+- 총 151개 모듈 변환
+
+---
+
 ### 다음 단계 (TODO)
 - [x] Supabase 테이블 스키마 설정 (research_projects, community_posts + 기존 comments 재사용)
 - [x] Supabase 연결 설정 (.env + SQL 실행 완료)
@@ -486,9 +535,10 @@ Supabase DB와 React 컴포넌트 간 데이터 형식 불일치 (양방향):
 - [x] Supabase CRUD 데이터 정규화 (snake_case ↔ camelCase 변환)
 - [x] 논문지도 신청 Supabase 저장 + 관리자 페이지
 - [x] 로고 2줄 리디자인
-- [x] 커뮤니티 게시판 2종 추가 (논문게재 자랑 + 게재일정안내)
+- [x] 커뮤니티 게시판 2종 추가 (논문게재 알림 + 게재일정안내)
+- [x] 학습자료 관리 Admin CRUD + 공개 페이지 동적화
+- [x] 커뮤니티 사용자 수정/삭제 기능
 - [ ] 검색 기능 연동
-- [ ] 학습 자료 PDF/영상 업로드 기능
 - [ ] 논문 진행률 트래커 기능 검토
 - [ ] 프로젝트 참여 신청 기능
 - [ ] 댓글 수 자동 업데이트 트리거

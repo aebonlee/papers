@@ -431,7 +431,7 @@ export const translations = {
         qna: 'Q&A',
         review: '논문 리뷰',
         study: '스터디 모집',
-        showcase: '논문게재 자랑',
+        showcase: '논문게재 알림',
         schedule: '게재일정안내',
         writePost: '글쓰기',
         noPosts: '게시글이 없습니다.',
@@ -474,6 +474,8 @@ export const translations = {
         communityForm: '게시글',
         createProject: '프로젝트 만들기',
         writePost: '글쓰기',
+        materials: '학습자료 관리',
+        totalMaterials: '학습자료',
         guidance: '논문지도 관리',
         totalGuidance: '논문지도 신청',
         guidanceStatus: {
@@ -864,6 +866,8 @@ export const translations = {
         communityForm: 'Post',
         createProject: 'Create Project',
         writePost: 'Write Post',
+        materials: 'Materials Management',
+        totalMaterials: 'Materials',
         guidance: 'Guidance Management',
         totalGuidance: 'Guidance Applications',
         guidanceStatus: {

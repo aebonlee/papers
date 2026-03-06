@@ -5,27 +5,29 @@ import AdminSidebar from '../../components/AdminSidebar';
 import { getProjects, getProjectsCount } from '../../utils/projectStorage';
 import { getPosts, getPostsCount } from '../../utils/communityStorage';
 import { getApplicationsCount } from '../../utils/thesisGuidanceStorage';
+import { getMaterialsCount } from '../../utils/materialStorage';
 import '../../styles/admin.css';
 
 const statusColors = { recruiting: '#00855A', in_progress: '#0046C8', completed: '#6B7280' };
 
 const AdminDashboard = () => {
   const { t, lang } = useLanguage();
-  const [stats, setStats] = useState({ totalProjects: 0, recruitingProjects: 0, totalPosts: 0, totalGuidance: 0 });
+  const [stats, setStats] = useState({ totalProjects: 0, recruitingProjects: 0, totalPosts: 0, totalGuidance: 0, totalMaterials: 0 });
   const [recentProjects, setRecentProjects] = useState([]);
   const [recentPosts, setRecentPosts] = useState([]);
 
   useEffect(() => {
     const load = async () => {
-      const [projects, posts, projectCount, postCount, guidanceCount] = await Promise.all([
+      const [projects, posts, projectCount, postCount, guidanceCount, materialsCount] = await Promise.all([
         getProjects(),
         getPosts(),
         getProjectsCount(),
         getPostsCount(),
         getApplicationsCount(),
+        getMaterialsCount(),
       ]);
       const recruiting = projects.filter(p => p.status === 'recruiting').length;
-      setStats({ totalProjects: projectCount, recruitingProjects: recruiting, totalPosts: postCount, totalGuidance: guidanceCount });
+      setStats({ totalProjects: projectCount, recruitingProjects: recruiting, totalPosts: postCount, totalGuidance: guidanceCount, totalMaterials: materialsCount });
       setRecentProjects(projects.slice(0, 5));
       setRecentPosts(posts.slice(0, 5));
     };
@@ -56,6 +58,10 @@ const AdminDashboard = () => {
           <div className="admin-stat-card">
             <div className="stat-label">{lang === 'ko' ? '논문지도 신청' : 'Guidance Applications'}</div>
             <div className="stat-value">{stats.totalGuidance}</div>
+          </div>
+          <div className="admin-stat-card">
+            <div className="stat-label">{lang === 'ko' ? '학습자료' : 'Materials'}</div>
+            <div className="stat-value">{stats.totalMaterials}</div>
           </div>
         </div>
 

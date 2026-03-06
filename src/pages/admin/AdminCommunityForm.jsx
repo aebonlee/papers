@@ -76,7 +76,7 @@ const AdminCommunityForm = () => {
     { value: 'qna', label: 'Q&A' },
     { value: 'review', label: lang === 'ko' ? '논문 리뷰' : 'Paper Review' },
     { value: 'study', label: lang === 'ko' ? '스터디 모집' : 'Study Groups' },
-    { value: 'showcase', label: lang === 'ko' ? '논문게재 자랑' : 'Paper Showcase' },
+    { value: 'showcase', label: lang === 'ko' ? '논문게재 알림' : 'Paper Showcase' },
     { value: 'schedule', label: lang === 'ko' ? '게재일정안내' : 'Publication Schedule' },
   ];
 

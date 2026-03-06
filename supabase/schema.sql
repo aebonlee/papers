@@ -116,6 +116,40 @@ CREATE POLICY "thesis_guidance_applications_delete_owner_or_admin" ON thesis_gui
     OR auth.jwt() ->> 'email' IN ('aebon@kakao.com', 'aebon@kyonggi.ac.kr')
   );
 
+-- 4. Lecture Materials 테이블
+CREATE TABLE IF NOT EXISTS lecture_materials (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  title TEXT NOT NULL,
+  title_en TEXT,
+  description TEXT,
+  description_en TEXT,
+  category TEXT NOT NULL CHECK (category IN ('structure','methodology','writing','statistics')),
+  type TEXT NOT NULL DEFAULT 'pdf' CHECK (type IN ('pdf','doc','video')),
+  file_url TEXT,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- Lecture Materials RLS
+ALTER TABLE lecture_materials ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "lecture_materials_select_all" ON lecture_materials
+  FOR SELECT USING (true);
+
+CREATE POLICY "lecture_materials_insert_admin" ON lecture_materials
+  FOR INSERT WITH CHECK (
+    auth.jwt() ->> 'email' IN ('aebon@kakao.com', 'aebon@kyonggi.ac.kr')
+  );
+
+CREATE POLICY "lecture_materials_update_admin" ON lecture_materials
+  FOR UPDATE USING (
+    auth.jwt() ->> 'email' IN ('aebon@kakao.com', 'aebon@kyonggi.ac.kr')
+  );
+
+CREATE POLICY "lecture_materials_delete_admin" ON lecture_materials
+  FOR DELETE USING (
+    auth.jwt() ->> 'email' IN ('aebon@kakao.com', 'aebon@kyonggi.ac.kr')
+  );
+
 -- ============================================
 -- Indexes
 -- ============================================
@@ -124,3 +158,4 @@ CREATE INDEX IF NOT EXISTS idx_research_projects_field ON research_projects(fiel
 CREATE INDEX IF NOT EXISTS idx_research_projects_status ON research_projects(status);
 CREATE INDEX IF NOT EXISTS idx_community_posts_category ON community_posts(category);
 CREATE INDEX IF NOT EXISTS idx_thesis_guidance_applications_status ON thesis_guidance_applications(status);
+CREATE INDEX IF NOT EXISTS idx_lecture_materials_category ON lecture_materials(category);

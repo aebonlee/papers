@@ -35,6 +35,35 @@ export async function uploadImage(file, folder = 'uploads') {
 }
 
 /**
+ * 범용 파일 업로드 → 공개 URL 반환 (PDF, 문서 등)
+ * @param {File} file - 업로드할 파일
+ * @param {string} folder - 폴더 경로 (기본: 'materials')
+ * @returns {string} 공개 URL
+ */
+export async function uploadFile(file, folder = 'materials') {
+  const client = getSupabase();
+  if (!client) throw new Error('Supabase not configured');
+
+  const ext = file.name.split('.').pop();
+  const fileName = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+
+  const { error } = await client.storage
+    .from(BUCKET)
+    .upload(fileName, file, {
+      cacheControl: '3600',
+      upsert: false
+    });
+
+  if (error) throw error;
+
+  const { data: urlData } = client.storage
+    .from(BUCKET)
+    .getPublicUrl(fileName);
+
+  return urlData.publicUrl;
+}
+
+/**
  * Storage에서 파일 삭제
  * @param {string} publicUrl - 삭제할 파일의 공개 URL
  */
