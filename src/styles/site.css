@@ -275,35 +275,105 @@
 }
 
 /* ── Paper Structure ── */
-.structure-list {
-  max-width: 800px;
-  margin: 0 auto;
+.structure-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.structure-nav {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
 }
 
-.structure-card {
+.structure-nav-card {
   display: flex;
-  gap: 24px;
+  gap: 16px;
   background: var(--bg-white);
-  border: 1px solid var(--border-light);
+  border: 2px solid var(--border-light);
   border-radius: var(--radius-lg);
-  padding: 32px;
+  padding: 20px 24px;
   transition: var(--transition-base);
+  cursor: pointer;
 }
 
-.structure-card:hover {
+.structure-nav-card:hover {
   box-shadow: var(--shadow-md);
   border-color: var(--primary-blue-light);
 }
 
+.structure-nav-card.active {
+  border-color: var(--primary-blue);
+  background: var(--primary-blue-bg, rgba(0, 70, 200, 0.04));
+  box-shadow: var(--shadow-md);
+}
+
 .structure-number {
   flex-shrink: 0;
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   background: var(--primary-gradient);
   color: var(--text-white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.structure-nav-card.active .structure-number {
+  background: var(--primary-blue);
+}
+
+.structure-body h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.structure-body p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Detail Panel */
+.structure-detail {
+  position: sticky;
+  top: 100px;
+}
+
+.structure-detail-inner {
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: var(--shadow-md);
+}
+
+.structure-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--primary-blue);
+}
+
+.structure-detail-num {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  background: var(--primary-blue);
+  color: #fff;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -312,17 +382,67 @@
   font-weight: 800;
 }
 
-.structure-body h3 {
-  font-size: 20px;
-  font-weight: 700;
+.structure-detail-header h3 {
+  font-size: 22px;
+  font-weight: 800;
   color: var(--text-primary);
-  margin-bottom: 8px;
 }
 
-.structure-body p {
+.structure-detail-section {
+  margin-bottom: 24px;
+}
+
+.structure-detail-section:last-child {
+  margin-bottom: 0;
+}
+
+.structure-detail-section h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary-blue);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.structure-detail-section p {
   font-size: 15px;
   color: var(--text-secondary);
   line-height: 1.8;
+}
+
+.structure-detail-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.structure-detail-section ul li {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  padding-left: 20px;
+  position: relative;
+}
+
+.structure-detail-section ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary-blue-light, #4d8aff);
+}
+
+.structure-detail-section ul.structure-tips li::before {
+  background: var(--success-green, #22c55e);
+  border-radius: 2px;
 }
 
 /* ── Research Methodology ── */
@@ -1372,11 +1492,17 @@
   .fields-grid {
     grid-template-columns: 1fr;
   }
-  .structure-card {
+  .structure-layout {
+    grid-template-columns: 1fr;
+  }
+  .structure-detail {
+    position: static;
+  }
+  .structure-nav-card {
     flex-direction: column;
     text-align: center;
   }
-  .structure-number {
+  .structure-nav-card .structure-number {
     margin: 0 auto;
   }
   .ethics-card {

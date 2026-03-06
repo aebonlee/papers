@@ -526,6 +526,41 @@ Supabase DB와 React 컴포넌트 간 데이터 형식 불일치 (양방향):
 
 ---
 
+## 2026-03-06 | 논문 구조 페이지 인터랙티브 상세 패널
+
+### 개요
+`/guide/structure` (논문 구조) 페이지를 2컬럼 인터랙티브 레이아웃으로 리디자인
+
+### 변경 내용
+
+#### PaperStructure.jsx — 전면 리디자인
+- **좌측 패널**: 6개 섹션 카드 (서론, 이론적 배경, 연구방법, 연구결과, 논의 및 결론, 참고문헌)
+  - 클릭 시 활성 상태(`active`) 전환, 우측 상세 패널 업데이트
+- **우측 패널** (`sticky`): 선택된 섹션의 상세 정보 표시
+  - 섹션 목적 설명
+  - 핵심 구성 요소 목록
+  - 작성 팁 목록
+- 한국어/영어 전체 상세 데이터 내장 (각 6개 섹션 × 3개 하위 항목)
+
+#### site.css — 구조 스타일 전면 교체
+- `.structure-layout`: CSS Grid 2컬럼 (1fr 1fr)
+- `.structure-nav-card`: 클릭 가능한 카드 + `.active` 스타일
+- `.structure-detail`: sticky 포지셔닝 우측 패널
+- `.structure-detail-section`: h4 제목 + ul 리스트 (파란점/녹색 팁 마커)
+- 반응형: 768px 이하에서 1컬럼 스택
+
+### 수정 파일
+| 파일 | 변경 |
+|------|------|
+| `src/pages/PaperStructure.jsx` | 전면 리디자인 — 2컬럼 + 클릭 상세 패널 |
+| `src/styles/site.css` | structure 관련 CSS 전면 교체 + 반응형 |
+
+### 빌드 결과
+- Vite 빌드 성공 (3.13s)
+- PaperStructure 번들: 14.77 kB (gzip: 5.85 kB)
+
+---
+
 ## 2026-03-06 | About Papers 메뉴 + 메뉴 명칭 변경
 
 ### 개요
