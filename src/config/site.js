@@ -27,7 +27,6 @@ const site = {
 
   // 네비게이션 메뉴
   menuItems: [
-    { path: '/', labelKey: 'nav.home' },
     {
       labelKey: 'site.nav.aboutPapers',
       path: '/about',
