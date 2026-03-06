@@ -526,6 +526,44 @@ Supabase DB와 React 컴포넌트 간 데이터 형식 불일치 (양방향):
 
 ---
 
+## 2026-03-06 | About Papers 메뉴 + 메뉴 명칭 변경
+
+### 개요
+1. **About Papers 메뉴 신규 추가** — 홈과 논문작성 가이드 사이에 드롭다운 메뉴 배치
+2. **메뉴 명칭 변경** — "논문지도 신청" → "논문 멘토링 신청", "논문게재 자랑" → "논문게재 알림"
+
+### 1. About Papers (신규)
+
+#### 네비게이션 구조
+홈 → **About Papers** → 논문작성 가이드 → 전공별 자료 → ...
+
+#### 신규 페이지 (3개)
+| 파일 | 경로 | 설명 |
+|------|------|------|
+| `AboutPapers.jsx` | `/about` | 랜딩 페이지 (제작의도·활용방법 카드) |
+| `AboutIntent.jsx` | `/about/intent` | 제작의도 (4개 섹션: 학습자료 부재, 소통 한계, 전공별 필요, 온라인 학습) |
+| `AboutUsage.jsx` | `/about/usage` | 활용방법 (5단계: 기초→심화→연구실→커뮤니티→프로젝트) |
+
+#### 수정 파일
+| 파일 | 변경 |
+|------|------|
+| `src/config/site.js` | menuItems에 About Papers 드롭다운 추가 |
+| `src/layouts/PublicLayout.jsx` | lazy import 3개 + 라우트 3개 |
+| `src/utils/translations.js` | about 네비 키 3개 + about 섹션 번역 (ko/en) |
+
+### 2. 메뉴 명칭 변경
+
+| 변경 전 | 변경 후 | 영향 파일 |
+|---------|---------|-----------|
+| 논문지도 신청 | 논문 멘토링 신청 | translations.js, AdminSidebar, AdminDashboard, AdminThesisGuidance, AdminThesisGuidanceForm |
+| 논문게재 자랑 | 논문게재 알림 | translations.js, AdminCommunity, AdminCommunityForm, CommunityWrite |
+
+### 빌드 결과
+- Vite 빌드 성공 (3.19s)
+- 총 154개 모듈 변환
+
+---
+
 ### 다음 단계 (TODO)
 - [x] Supabase 테이블 스키마 설정 (research_projects, community_posts + 기존 comments 재사용)
 - [x] Supabase 연결 설정 (.env + SQL 실행 완료)
@@ -538,6 +576,8 @@ Supabase DB와 React 컴포넌트 간 데이터 형식 불일치 (양방향):
 - [x] 커뮤니티 게시판 2종 추가 (논문게재 알림 + 게재일정안내)
 - [x] 학습자료 관리 Admin CRUD + 공개 페이지 동적화
 - [x] 커뮤니티 사용자 수정/삭제 기능
+- [x] About Papers 메뉴 추가 (제작의도 + 활용방법)
+- [x] 메뉴 명칭 변경 (논문 멘토링, 논문게재 알림)
 - [ ] 검색 기능 연동
 - [ ] 논문 진행률 트래커 기능 검토
 - [ ] 프로젝트 참여 신청 기능
