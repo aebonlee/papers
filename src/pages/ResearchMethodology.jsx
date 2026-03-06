@@ -1,54 +1,161 @@
+import { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 
-const methods = {
+const detailData = {
   ko: [
     {
       title: '양적 연구 (Quantitative Research)',
       content: '수치 데이터를 수집하고 통계적으로 분석하여 변인 간의 관계를 검증합니다. 설문조사, 실험연구, 종단연구 등이 대표적입니다.',
-      items: ['설문조사 설계', '실험연구 설계', '표본추출 방법', '변인의 조작적 정의'],
-      color: '#0046C8'
+      details: {
+        purpose: '양적 연구의 특징',
+        purposeDesc: '가설을 설정하고 객관적 데이터를 통해 검증하는 연역적 접근법입니다. 대규모 표본에서 수집한 수치 데이터를 통계적으로 분석하여 일반화 가능한 결론을 도출합니다.',
+        elements: '주요 연구 설계',
+        elementList: [
+          '설문조사 연구: 표준화된 설문지로 대규모 데이터 수집, 횡단/종단 설계 가능',
+          '실험 연구: 독립변인 조작 → 종속변인 변화 관찰, 인과관계 검증에 최적',
+          '준실험 연구: 무선배정이 불가능할 때 사용, 비동등 통제집단 설계 등',
+          '종단 연구: 동일 대상을 장기간 추적 관찰, 발달적 변화 분석',
+          '메타분석: 기존 양적 연구들의 효과 크기를 종합적으로 분석'
+        ],
+        tips: '설계 시 핵심 체크포인트',
+        tipList: [
+          '표본 크기 산출: G*Power 등을 활용한 통계적 검정력 분석',
+          '변인의 조작적 정의: 추상적 개념을 측정 가능한 형태로 정의',
+          '신뢰도·타당도 확보: Cronbach α ≥ .70, 구인타당도 검증',
+          '연구윤리: IRB 승인, 동의서, 익명성 보장 절차 마련'
+        ]
+      }
     },
     {
       title: '질적 연구 (Qualitative Research)',
       content: '현상의 의미와 맥락을 깊이 있게 이해하기 위한 연구방법입니다. 인터뷰, 관찰, 문헌분석 등을 통해 풍부한 서술적 데이터를 수집합니다.',
-      items: ['심층면담 기법', '참여관찰', '근거이론(Grounded Theory)', '현상학적 연구'],
-      color: '#00855A'
+      details: {
+        purpose: '질적 연구의 특징',
+        purposeDesc: '연구 참여자의 관점에서 현상을 이해하는 귀납적 접근법입니다. 소수의 사례를 심층적으로 탐구하여 풍부한 맥락적 이해를 제공합니다.',
+        elements: '주요 연구 전통',
+        elementList: [
+          '근거이론 (Grounded Theory): 데이터에서 이론을 생성, 개방·축·선택 코딩 과정',
+          '현상학적 연구: 체험의 본질적 의미를 탐구, Moustakas/van Manen 접근',
+          '사례연구 (Case Study): 특정 사례의 심층 분석, 단일/다중 사례 설계',
+          '문화기술지 (Ethnography): 문화적 맥락 속 행동 패턴 이해, 장기 현장 연구',
+          '내러티브 연구: 개인의 이야기를 통한 경험 탐구, 생애사/자전적 방법'
+        ],
+        tips: '질적 연구의 엄밀성 확보',
+        tipList: [
+          '삼각검증 (Triangulation): 다양한 자료원·방법·연구자로 교차 확인',
+          '참여자 확인 (Member Check): 분석 결과를 참여자에게 검토 요청',
+          '풍부한 기술 (Thick Description): 맥락과 의미를 상세히 서술',
+          '감사 추적 (Audit Trail): 연구 과정과 의사결정을 투명하게 기록'
+        ]
+      }
     },
     {
       title: '혼합 연구 (Mixed Methods)',
       content: '양적 연구와 질적 연구를 결합하여 연구 문제를 다각도로 탐구합니다. 순차적 설계, 동시적 설계 등 다양한 혼합 전략이 있습니다.',
-      items: ['순차적 탐색 설계', '순차적 설명 설계', '동시적 삼각검증', '변환 설계'],
-      color: '#8B1AC8'
+      details: {
+        purpose: '혼합 연구의 특징',
+        purposeDesc: '양적·질적 방법의 장점을 결합하여 연구 문제를 보다 포괄적으로 이해합니다. 한 방법의 약점을 다른 방법으로 보완하는 상호보완적 접근입니다.',
+        elements: '주요 혼합 설계 유형',
+        elementList: [
+          '순차적 설명 설계: 양적 → 질적 순서, 양적 결과를 질적으로 심층 설명',
+          '순차적 탐색 설계: 질적 → 양적 순서, 질적 탐색 후 양적 검증/일반화',
+          '동시적 삼각검증: 양적·질적 동시 수행, 결과를 비교·통합하여 타당도 강화',
+          '동시적 내재 설계: 한 방법 안에 다른 방법 내재, 주 방법 보완 목적',
+          '변환 설계: 사회정의 관점이 전체 설계를 안내, 참여적 연구에 적합'
+        ],
+        tips: '혼합 연구 수행 시 고려사항',
+        tipList: [
+          '혼합의 근거: 왜 양적·질적 모두 필요한지 명확히 정당화',
+          '통합 시점: 데이터 수집, 분석, 해석 중 어디서 통합할지 결정',
+          '우선순위: 양적·질적 중 어느 쪽에 더 비중을 둘 것인지 설정',
+          '연구자 역량: 두 방법론 모두에 대한 충분한 이해와 훈련 필요'
+        ]
+      }
     }
   ],
   en: [
     {
       title: 'Quantitative Research',
       content: 'Collects numerical data and uses statistical analysis to test relationships between variables. Includes surveys, experiments, and longitudinal studies.',
-      items: ['Survey design', 'Experimental design', 'Sampling methods', 'Operational definitions'],
-      color: '#0046C8'
+      details: {
+        purpose: 'Characteristics of Quantitative Research',
+        purposeDesc: 'A deductive approach that sets hypotheses and tests them through objective data. Analyzes numerical data from large samples statistically to derive generalizable conclusions.',
+        elements: 'Major Research Designs',
+        elementList: [
+          'Survey Research: Large-scale data collection via standardized questionnaires, cross-sectional/longitudinal designs',
+          'Experimental Research: Manipulating independent variables → observing dependent variable changes, optimal for causality testing',
+          'Quasi-Experimental: Used when random assignment is not possible, non-equivalent control group designs',
+          'Longitudinal Research: Tracking the same subjects over extended periods, developmental change analysis',
+          'Meta-Analysis: Comprehensive analysis of effect sizes across existing quantitative studies'
+        ],
+        tips: 'Key Design Checkpoints',
+        tipList: [
+          'Sample Size Calculation: Statistical power analysis using tools like G*Power',
+          'Operational Definitions: Defining abstract concepts in measurable terms',
+          'Reliability & Validity: Cronbach α ≥ .70, construct validity verification',
+          'Research Ethics: IRB approval, consent forms, anonymity procedures'
+        ]
+      }
     },
     {
       title: 'Qualitative Research',
       content: 'Seeks deep understanding of meaning and context through interviews, observations, and document analysis.',
-      items: ['In-depth interviews', 'Participant observation', 'Grounded Theory', 'Phenomenological research'],
-      color: '#00855A'
+      details: {
+        purpose: 'Characteristics of Qualitative Research',
+        purposeDesc: 'An inductive approach that understands phenomena from participants\' perspectives. Provides rich contextual understanding through in-depth exploration of a small number of cases.',
+        elements: 'Major Research Traditions',
+        elementList: [
+          'Grounded Theory: Generating theory from data through open, axial, and selective coding',
+          'Phenomenological Research: Exploring essential meanings of lived experience (Moustakas/van Manen approach)',
+          'Case Study: In-depth analysis of specific cases, single/multiple case designs',
+          'Ethnography: Understanding behavioral patterns within cultural contexts, long-term field research',
+          'Narrative Research: Exploring experiences through personal stories, life history/autobiographical methods'
+        ],
+        tips: 'Ensuring Rigor in Qualitative Research',
+        tipList: [
+          'Triangulation: Cross-verification using multiple data sources, methods, and researchers',
+          'Member Checking: Asking participants to review analysis results',
+          'Thick Description: Detailed description of context and meaning',
+          'Audit Trail: Transparent documentation of research process and decisions'
+        ]
+      }
     },
     {
       title: 'Mixed Methods',
       content: 'Combines quantitative and qualitative approaches to explore research problems from multiple angles.',
-      items: ['Sequential exploratory', 'Sequential explanatory', 'Concurrent triangulation', 'Transformative design'],
-      color: '#8B1AC8'
+      details: {
+        purpose: 'Characteristics of Mixed Methods',
+        purposeDesc: 'Combines the strengths of both quantitative and qualitative methods for a more comprehensive understanding. A complementary approach where one method compensates for the other\'s limitations.',
+        elements: 'Major Mixed Method Designs',
+        elementList: [
+          'Sequential Explanatory: Quantitative → Qualitative, in-depth explanation of quantitative results',
+          'Sequential Exploratory: Qualitative → Quantitative, qualitative exploration followed by quantitative verification',
+          'Concurrent Triangulation: Both conducted simultaneously, comparing and integrating results for validity',
+          'Concurrent Embedded: One method embedded within another, supplementary purpose',
+          'Transformative Design: Social justice perspective guides the entire design, suitable for participatory research'
+        ],
+        tips: 'Considerations for Mixed Methods',
+        tipList: [
+          'Justification: Clearly justify why both methods are needed',
+          'Integration Point: Decide where to integrate — data collection, analysis, or interpretation',
+          'Priority: Determine which method receives greater emphasis',
+          'Researcher Competence: Sufficient understanding and training in both methodologies required'
+        ]
+      }
     }
   ]
 };
 
 const ResearchMethodology = () => {
   const { t, lang } = useLanguage();
+  const [activeIdx, setActiveIdx] = useState(0);
   useAOS();
-  const data = methods[lang] || methods.ko;
+
+  const sections = detailData[lang] || detailData.en;
+  const active = sections[activeIdx];
+  const colors = ['#0046C8', '#00855A', '#8B1AC8'];
 
   return (
     <>
@@ -63,18 +170,57 @@ const ResearchMethodology = () => {
 
       <section className="section">
         <div className="container">
-          <div className="methods-grid">
-            {data.map((method, i) => (
-              <div className="method-card" key={i} data-aos="fade-up" data-aos-delay={i * 120} style={{ '--method-color': method.color }}>
-                <h3>{method.title}</h3>
-                <p>{method.content}</p>
-                <ul className="method-items">
-                  {method.items.map((item, j) => (
-                    <li key={j}>{item}</li>
-                  ))}
-                </ul>
+          <div className="structure-layout">
+            <div className="structure-nav">
+              {sections.map((sec, i) => (
+                <div
+                  className={`structure-nav-card${activeIdx === i ? ' active' : ''}`}
+                  key={i}
+                  onClick={() => setActiveIdx(i)}
+                  data-aos="fade-up"
+                  data-aos-delay={i * 60}
+                  style={activeIdx === i ? { borderColor: colors[i] } : {}}
+                >
+                  <div className="structure-number" style={{ background: colors[i] }}>{i + 1}</div>
+                  <div className="structure-body">
+                    <h3>{sec.title}</h3>
+                    <p>{sec.content}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="structure-detail" data-aos="fade-left">
+              <div className="structure-detail-inner">
+                <div className="structure-detail-header" style={{ borderBottomColor: colors[activeIdx] }}>
+                  <span className="structure-detail-num" style={{ background: colors[activeIdx] }}>{activeIdx + 1}</span>
+                  <h3>{active.title}</h3>
+                </div>
+
+                <div className="structure-detail-section">
+                  <h4>{active.details.purpose}</h4>
+                  <p>{active.details.purposeDesc}</p>
+                </div>
+
+                <div className="structure-detail-section">
+                  <h4>{active.details.elements}</h4>
+                  <ul>
+                    {active.details.elementList.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="structure-detail-section">
+                  <h4>{active.details.tips}</h4>
+                  <ul className="structure-tips">
+                    {active.details.tipList.map((tip, i) => (
+                      <li key={i}>{tip}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>

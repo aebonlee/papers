@@ -526,6 +526,43 @@ Supabase DB와 React 컴포넌트 간 데이터 형식 불일치 (양방향):
 
 ---
 
+## 2026-03-06 | 논문작성 가이드 전체 페이지 인터랙티브 고도화
+
+### 개요
+논문작성 가이드 하위 5개 페이지를 인터랙티브 2컬럼 레이아웃(좌측 네비 + 우측 상세 패널)으로 고도화. 이전에 완료한 PaperStructure와 동일한 UX 패턴 적용.
+
+### 고도화된 페이지 (5개)
+
+| 페이지 | 파일 | 항목 수 | 상세 내용 |
+|--------|------|---------|-----------|
+| 연구방법론 | `ResearchMethodology.jsx` | 3개 | 양적·질적·혼합 연구 — 각 연구 설계, 엄밀성 확보, 수행 고려사항 |
+| 학술적 글쓰기 | `AcademicWriting.jsx` | 6개 | 객관적 어조, 단락 구성, 논리적 전개, 인용, 학술 용어, 퇴고 |
+| 참고문헌 관리 | `ReferenceManagement.jsx` | 6개 | APA/MLA/Chicago/Vancouver 인용 형식 + Zotero/Mendeley·EndNote 도구 |
+| 통계분석 | `StatisticalAnalysis.jsx` | 6개 | 기술통계, t-검정, ANOVA, 상관분석, 회귀분석, 카이제곱 검정 |
+| 연구윤리 | `ResearchEthics.jsx` | 6개 | 표절, 데이터 조작, 중복 게재, 저자 자격, IRB 승인, 이해충돌 |
+
+### 공통 변경 사항
+- `useState`로 선택된 섹션 인덱스 관리
+- 좌측: `.structure-nav-card` 클릭 시 `.active` 상태 전환
+- 우측: `.structure-detail` sticky 패널에 목적·구성요소·작성팁 3섹션 표시
+- 한국어/영어 전체 상세 데이터 내장
+- PaperStructure에서 추가한 CSS 클래스 재사용 (추가 CSS 불필요)
+
+### 수정 파일 (5개)
+| 파일 | 변경 |
+|------|------|
+| `src/pages/ResearchMethodology.jsx` | 3개 연구방법 인터랙티브 상세 패널 |
+| `src/pages/AcademicWriting.jsx` | 6개 글쓰기 팁 인터랙티브 상세 패널 |
+| `src/pages/ReferenceManagement.jsx` | 4개 인용형식 + 2개 도구 인터랙티브 상세 패널 |
+| `src/pages/StatisticalAnalysis.jsx` | 6개 통계 기법 인터랙티브 상세 패널 |
+| `src/pages/ResearchEthics.jsx` | 6개 연구윤리 원칙 인터랙티브 상세 패널 |
+
+### 빌드 결과
+- Vite 빌드 성공 (3.11s)
+- 각 페이지 번들 크기: 10~17 kB (gzip: 4~7 kB)
+
+---
+
 ## 2026-03-06 | 논문 구조 페이지 인터랙티브 상세 패널
 
 ### 개요
