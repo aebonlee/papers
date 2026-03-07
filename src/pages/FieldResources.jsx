@@ -2,17 +2,10 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
-
-const fields = [
-  { key: 'humanities', icon: '📖', path: '/fields/humanities', color: '#C8102E' },
-  { key: 'naturalScience', icon: '🔬', path: '/fields/natural-science', color: '#0046C8' },
-  { key: 'engineering', icon: '⚙️', path: '/fields/engineering', color: '#C87200' },
-  { key: 'medical', icon: '🏥', path: '/fields/medical', color: '#00855A' },
-  { key: 'arts', icon: '🎨', path: '/fields/arts', color: '#8B1AC8' }
-];
+import { categories } from '../data/fieldDetailData';
 
 const FieldResources = () => {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   useAOS();
 
   return (
@@ -29,16 +22,34 @@ const FieldResources = () => {
       <section className="section">
         <div className="container">
           <p className="field-intro">{t('site.fields.desc')}</p>
-          <div className="fields-grid">
-            {fields.map((field, i) => (
-              <Link to={field.path} className="field-card" key={field.key} data-aos="fade-up" data-aos-delay={i * 100} style={{ '--field-color': field.color }}>
-                <div className="field-icon">{field.icon}</div>
-                <h3>{t(`site.fields.${field.key}.name`)}</h3>
-                <p>{t(`site.fields.${field.key}.desc`)}</p>
-                <span className="field-link">{t('common.learnMore')} →</span>
-              </Link>
-            ))}
-          </div>
+
+          {categories.map((cat) => (
+            <div className="field-category-section" key={cat.key}>
+              <div className="field-category-header" style={{ borderLeftColor: cat.color }}>
+                <span className="field-category-icon">{cat.icon}</span>
+                <h3 style={{ color: cat.color }}>{cat.name[lang] || cat.name.en}</h3>
+              </div>
+              <div className="fields-grid fields-grid-sub">
+                {cat.fields.map((field, i) => (
+                  <Link
+                    to={`/fields/${field.id}`}
+                    className="field-card field-card-sub"
+                    key={field.id}
+                    data-aos="fade-up"
+                    data-aos-delay={i * 60}
+                    style={{ '--field-color': cat.color }}
+                  >
+                    <div className="field-icon-sub">{field.icon}</div>
+                    <div className="field-card-body">
+                      <h4>{field.name[lang] || field.name.en}</h4>
+                      <p>{field.desc[lang] || field.desc.en}</p>
+                    </div>
+                    <span className="field-link">{lang === 'ko' ? '자세히 →' : 'Details →'}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
     </>

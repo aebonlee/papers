@@ -798,6 +798,73 @@
   font-size: 14px;
 }
 
+/* ── Field Category Sections ── */
+.field-category-section {
+  margin-bottom: 48px;
+}
+
+.field-category-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-left: 16px;
+  border-left: 4px solid;
+}
+
+.field-category-icon {
+  font-size: 28px;
+}
+
+.field-category-header h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.fields-grid-sub {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.field-card-sub {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+  text-align: left;
+}
+
+.field-icon-sub {
+  font-size: 32px;
+  flex-shrink: 0;
+}
+
+.field-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.field-card-sub h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.field-card-sub p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+
+.field-card-sub .field-link {
+  font-size: 12px;
+  flex-shrink: 0;
+  align-self: center;
+}
+
 /* ── Field Detail ── */
 .field-detail-section {
   margin-bottom: 48px;

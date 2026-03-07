@@ -526,6 +526,52 @@ Supabase DB와 React 컴포넌트 간 데이터 형식 불일치 (양방향):
 
 ---
 
+## 2026-03-07 | 전공별 자료 24개 세부 전공 확장
+
+### 개요
+기존 5개 대분류(인문사회, 자연과학, 공학, 의학/보건, 예술/체육)를 24개 세부 전공으로 확장. 각 전공별 4개 상세 섹션 × 한/영 = 총 192개 콘텐츠 블록.
+
+### 세부 전공 (24개)
+| 분류 | 세부 전공 |
+|------|-----------|
+| 인문사회 (7) | 교육학, 평생교육, 사회복지학, 심리학, 경영학, 행정학, 문학/어문학 |
+| 자연과학 (5) | 수학, 물리학, 화학, 생물학, 지구/환경과학 |
+| 공학 (5) | 컴퓨터공학, 전자/전기공학, 기계공학, 건축/토목, 산업공학 |
+| 의학/보건 (4) | 의학, 간호학, 약학, 보건학 |
+| 예술/체육 (3) | 미술/디자인, 음악학, 체육/스포츠과학 |
+
+### 변경 내용
+
+#### 신규 파일 (5개 데이터 파일)
+| 파일 | 내용 |
+|------|------|
+| `src/data/fieldDetailData.js` | categories 배열, subFieldColors 맵, humanitiesKo 데이터 + 전체 import 통합 |
+| `src/data/fieldData_science_eng_ko.js` | 자연과학+공학 한국어 데이터 (10개 전공) |
+| `src/data/fieldData_medical_arts_ko.js` | 의학/보건+예술/체육 한국어 데이터 (7개 전공) |
+| `src/data/fieldData_humanities_en.js` | 인문사회 영어 데이터 (7개 전공) |
+| `src/data/fieldData_science_eng_en.js` | 자연과학+공학 영어 데이터 (10개 전공) |
+| `src/data/fieldData_medical_arts_en.js` | 의학/보건+예술/체육 영어 데이터 (7개 전공) |
+
+#### 수정 파일 (3개)
+| 파일 | 변경 |
+|------|------|
+| `src/pages/FieldResources.jsx` | 카테고리별 그룹 카드 레이아웃으로 전면 재작성 |
+| `src/pages/FieldDetail.jsx` | 24개 서브필드 ID 처리, 대분류→첫 번째 세부전공 리다이렉트, import 기반 |
+| `src/styles/site.css` | `.field-category-section`, `.field-category-header`, `.fields-grid-sub`, `.field-card-sub` 등 카테고리 그룹 CSS 추가 |
+
+### 아키텍처
+- 데이터를 6개 파일로 분할하여 관리 편의성 확보
+- `fieldDetailData.js`에서 spread operator로 전체 통합
+- `categories` 배열로 FieldResources 페이지 자동 구성
+- `subFieldColors` 맵으로 서브필드별 테마 컬러 자동 매핑
+- 대분류 URL (`/fields/humanities`) → 첫 번째 세부전공 (`/fields/education`) 자동 리다이렉트
+
+### 빌드 결과
+- Vite 빌드 성공 (3.21s)
+- fieldDetailData 번들: 370.59 kB (gzip: 116.38 kB)
+
+---
+
 ## 2026-03-07 | 전공별 자료 상세 페이지 인터랙티브 고도화
 
 ### 개요
