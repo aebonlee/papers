@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C D:/papers/templete show HEAD:src/utils/supabase.js)",
+      "Bash(git -C D:/papers/templete show HEAD:src/utils/auth.js)",
+      "Bash(git -C D:/papers/templete show HEAD:src/utils/portone.js)",
+      "Bash(git -C D:/papers/templete show HEAD:src/utils/translations.js)",
+      "Bash(git -C D:/papers/templete show HEAD:src/styles/animations.css)"
+    ]
+  }
+}
