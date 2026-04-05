@@ -65,7 +65,7 @@ const CommunityWrite = () => {
         });
         navigate('/community');
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Post save error:', err);
     } finally {
       setLoading(false);

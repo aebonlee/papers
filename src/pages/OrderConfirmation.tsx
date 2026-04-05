@@ -34,7 +34,7 @@ const OrderConfirmation = () => {
           setLoading(false);
           return;
         }
-      } catch (err) {
+      } catch (err: any) {
         console.warn('Failed to fetch order from DB:', err);
       }
 

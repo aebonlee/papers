@@ -25,7 +25,7 @@ const OrderHistory = () => {
     try {
       const data = await getOrdersByUser(user.id);
       setOrders(data);
-    } catch (err) {
+    } catch (err: any) {
       console.error('OrderHistory load error:', err);
       setError(true);
       showToast(t('auth.orderLoadError'), 'error');

@@ -20,7 +20,7 @@ const ForgotPassword = () => {
     try {
       await resetPassword(email);
       setSent(true);
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message || 'Failed to send reset email');
     } finally {
       setLoading(false);

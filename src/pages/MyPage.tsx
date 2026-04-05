@@ -36,7 +36,7 @@ const MyPage = () => {
       await refreshProfile();
       setEditing(false);
       setMessage(t('auth.profileUpdated'));
-    } catch (err) {
+    } catch (err: any) {
       setMessage(err.message);
     } finally {
       setSaving(false);

@@ -47,7 +47,7 @@ const AdminThesisGuidanceForm = () => {
     try {
       await updateApplication(id, { status: form.status });
       navigate('/admin/guidance');
-    } catch (err) {
+    } catch (err: any) {
       console.error('Application update error:', err);
     } finally {
       setLoading(false);

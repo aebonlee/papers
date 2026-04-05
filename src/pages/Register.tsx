@@ -36,7 +36,7 @@ const Register = () => {
     try {
       await signUp(form.email, form.password, form.displayName);
       setSuccess(true);
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message || t('auth.signUpError'));
     } finally {
       setLoading(false);

@@ -127,7 +127,7 @@ const sampleMaterials = [
 export async function getMaterials(filter = {}) {
   const supabase = getSupabase();
   if (supabase) {
-    let query = supabase.from('lecture_materials').select('*').order('created_at', { ascending: false });
+    let query = supabase.from('pp_lecture_materials').select('*').order('created_at', { ascending: false });
     if (filter.category) query = query.eq('category', filter.category);
     const { data } = await query;
     return (data || []).map(normalizeMaterial);
@@ -141,7 +141,7 @@ export async function getMaterials(filter = {}) {
 export async function getMaterialById(id) {
   const supabase = getSupabase();
   if (supabase) {
-    const { data } = await supabase.from('lecture_materials').select('*').eq('id', id).single();
+    const { data } = await supabase.from('pp_lecture_materials').select('*').eq('id', id).single();
     return normalizeMaterial(data);
   }
   return sampleMaterials.find(m => m.id === id) || null;
@@ -151,7 +151,7 @@ export async function createMaterial(material) {
   const supabase = getSupabase();
   if (supabase) {
     const row = toSupabaseRow(material);
-    const { data, error } = await supabase.from('lecture_materials').insert(row).select().single();
+    const { data, error } = await supabase.from('pp_lecture_materials').insert(row).select().single();
     if (error) throw error;
     return normalizeMaterial(data);
   }
@@ -180,7 +180,7 @@ export async function updateMaterial(id, updates) {
     if (updates.category !== undefined) row.category = updates.category;
     if (updates.type !== undefined) row.type = updates.type;
     if (updates.file_url !== undefined) row.file_url = updates.file_url;
-    const { data, error } = await supabase.from('lecture_materials').update(row).eq('id', id).select().single();
+    const { data, error } = await supabase.from('pp_lecture_materials').update(row).eq('id', id).select().single();
     if (error) throw error;
     return normalizeMaterial(data);
   }
@@ -195,7 +195,7 @@ export async function updateMaterial(id, updates) {
 export async function deleteMaterial(id) {
   const supabase = getSupabase();
   if (supabase) {
-    const { error } = await supabase.from('lecture_materials').delete().eq('id', id);
+    const { error } = await supabase.from('pp_lecture_materials').delete().eq('id', id);
     if (error) throw error;
     return true;
   }
@@ -207,7 +207,7 @@ export async function deleteMaterial(id) {
 export async function getMaterialsCount() {
   const supabase = getSupabase();
   if (supabase) {
-    const { count } = await supabase.from('lecture_materials').select('*', { count: 'exact', head: true });
+    const { count } = await supabase.from('pp_lecture_materials').select('*', { count: 'exact', head: true });
     return count || 0;
   }
   return sampleMaterials.length;

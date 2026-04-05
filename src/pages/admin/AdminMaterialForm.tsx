@@ -60,7 +60,7 @@ const AdminMaterialForm = () => {
         await createMaterial(form);
       }
       navigate('/admin/materials');
-    } catch (err) {
+    } catch (err: any) {
       console.error('Material save error:', err);
     } finally {
       setLoading(false);

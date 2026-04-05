@@ -39,7 +39,7 @@ const CommunityDetail = () => {
     try {
       await deletePost(post.id);
       navigate('/community');
-    } catch (err) {
+    } catch (err: any) {
       console.error('Delete error:', err);
     }
   };

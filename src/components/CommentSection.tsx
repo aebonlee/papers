@@ -16,7 +16,7 @@ const CommentSection = ({ postId, postType }) => {
       try {
         const data = await getComments(postId, postType);
         setComments(data);
-      } catch (err) {
+      } catch (err: any) {
         console.error('Comments load error:', err);
       } finally {
         setLoading(false);
@@ -40,7 +40,7 @@ const CommentSection = ({ postId, postType }) => {
         setComments((prev) => [...prev, newComment]);
         setContent('');
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Comment submit error:', err);
     } finally {
       setSubmitting(false);
@@ -54,7 +54,7 @@ const CommentSection = ({ postId, postType }) => {
       if (success) {
         setComments((prev) => prev.filter((c) => c.id !== commentId));
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Comment delete error:', err);
     }
   };

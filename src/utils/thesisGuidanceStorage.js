@@ -63,7 +63,7 @@ const sampleApplications = [
 export async function getApplications(filter = {}) {
   const supabase = getSupabase();
   if (supabase) {
-    let query = supabase.from('thesis_guidance_applications').select('*').order('created_at', { ascending: false });
+    let query = supabase.from('pp_thesis_guidance_applications').select('*').order('created_at', { ascending: false });
     if (filter.status) query = query.eq('status', filter.status);
     const { data } = await query;
     return (data || []).map(normalizeApplication);
@@ -77,7 +77,7 @@ export async function getApplications(filter = {}) {
 export async function getApplicationById(id) {
   const supabase = getSupabase();
   if (supabase) {
-    const { data } = await supabase.from('thesis_guidance_applications').select('*').eq('id', id).single();
+    const { data } = await supabase.from('pp_thesis_guidance_applications').select('*').eq('id', id).single();
     return normalizeApplication(data);
   }
   return sampleApplications.find(a => a.id === id) || null;
@@ -87,7 +87,7 @@ export async function createApplication(data) {
   const supabase = getSupabase();
   if (supabase) {
     const row = toSupabaseRow(data);
-    const { data: result, error } = await supabase.from('thesis_guidance_applications').insert(row).select().single();
+    const { data: result, error } = await supabase.from('pp_thesis_guidance_applications').insert(row).select().single();
     if (error) throw error;
     return normalizeApplication(result);
   }
@@ -106,7 +106,7 @@ export async function updateApplication(id, updates) {
     if (updates.schedule !== undefined) row.schedule = updates.schedule;
     if (updates.message !== undefined) row.message = updates.message;
     if (updates.status !== undefined) row.status = updates.status;
-    const { data, error } = await supabase.from('thesis_guidance_applications').update(row).eq('id', id).select().single();
+    const { data, error } = await supabase.from('pp_thesis_guidance_applications').update(row).eq('id', id).select().single();
     if (error) throw error;
     return normalizeApplication(data);
   }
@@ -121,7 +121,7 @@ export async function updateApplication(id, updates) {
 export async function deleteApplication(id) {
   const supabase = getSupabase();
   if (supabase) {
-    const { error } = await supabase.from('thesis_guidance_applications').delete().eq('id', id);
+    const { error } = await supabase.from('pp_thesis_guidance_applications').delete().eq('id', id);
     if (error) throw error;
     return true;
   }
@@ -133,7 +133,7 @@ export async function deleteApplication(id) {
 export async function getApplicationsCount() {
   const supabase = getSupabase();
   if (supabase) {
-    const { count } = await supabase.from('thesis_guidance_applications').select('*', { count: 'exact', head: true });
+    const { count } = await supabase.from('pp_thesis_guidance_applications').select('*', { count: 'exact', head: true });
     return count || 0;
   }
   return sampleApplications.length;

@@ -51,7 +51,7 @@ export const createOrder = async (orderData) => {
   if (orderData.user_id) orderPayload.user_id = orderData.user_id;
 
   const { data: order, error: orderError } = await client
-    .from('orders')
+    .from('pp_orders')
     .insert(orderPayload)
     .select()
     .single();
@@ -61,7 +61,7 @@ export const createOrder = async (orderData) => {
   // Insert order items
   if (orderData.items && orderData.items.length > 0) {
     const { error: itemsError } = await client
-      .from('order_items')
+      .from('pp_order_items')
       .insert(
         orderData.items.map(item => ({
           order_id: order.id,
@@ -90,7 +90,7 @@ export const getOrderByNumber = async (orderNumber) => {
   }
 
   const { data: orders, error } = await client
-    .from('orders')
+    .from('pp_orders')
     .select('*')
     .eq('order_number', orderNumber)
     .limit(1);
@@ -102,7 +102,7 @@ export const getOrderByNumber = async (orderNumber) => {
 
   // Fetch order items
   const { data: items } = await client
-    .from('order_items')
+    .from('pp_order_items')
     .select('*')
     .eq('order_id', order.id);
 
@@ -148,7 +148,7 @@ export const updateOrderStatus = async (orderId, status, paymentId, cancelReason
 
   try {
     const { data, error } = await client
-      .from('orders')
+      .from('pp_orders')
       .update({ ...updatePayload, ...extras })
       .eq('id', orderId)
       .select();
@@ -158,7 +158,7 @@ export const updateOrderStatus = async (orderId, status, paymentId, cancelReason
   } catch {
     // Fallback: update without optional columns
     const { data, error } = await client
-      .from('orders')
+      .from('pp_orders')
       .update(updatePayload)
       .eq('id', orderId)
       .select();
@@ -201,8 +201,8 @@ export const getOrdersByUser = async (userId) => {
   if (!client) return [];
 
   const { data, error } = await client
-    .from('orders')
-    .select('*, order_items(*)')
+    .from('pp_orders')
+    .select('*, pp_order_items(*)')
     .eq('user_id', userId)
     .order('created_at', { ascending: false });
 

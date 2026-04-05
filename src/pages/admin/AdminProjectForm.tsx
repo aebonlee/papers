@@ -79,7 +79,7 @@ const AdminProjectForm = () => {
         });
       }
       navigate('/admin/projects');
-    } catch (err) {
+    } catch (err: any) {
       console.error('Project save error:', err);
     } finally {
       setLoading(false);

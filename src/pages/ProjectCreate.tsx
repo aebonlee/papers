@@ -45,7 +45,7 @@ const ProjectCreate = () => {
         deadline: form.deadline || null,
       });
       navigate('/projects');
-    } catch (err) {
+    } catch (err: any) {
       console.error('Project create error:', err);
     } finally {
       setLoading(false);

@@ -42,7 +42,7 @@ const SearchModal = ({ isOpen, onClose }) => {
     try {
       const data = await searchAll(q);
       setResults(data);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Search error:', err);
     } finally {
       setLoading(false);

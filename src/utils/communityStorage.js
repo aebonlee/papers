@@ -108,7 +108,7 @@ const samplePosts = [
 export async function getPosts(filter = {}) {
   const supabase = getSupabase();
   if (supabase) {
-    let query = supabase.from('community_posts').select('*').order('created_at', { ascending: false });
+    let query = supabase.from('pp_community_posts').select('*').order('created_at', { ascending: false });
     if (filter.category) query = query.eq('category', filter.category);
     const { data } = await query;
     return (data || []).map(normalizePost);
@@ -122,7 +122,7 @@ export async function getPosts(filter = {}) {
 export async function getPostById(id) {
   const supabase = getSupabase();
   if (supabase) {
-    const { data } = await supabase.from('community_posts').select('*').eq('id', id).single();
+    const { data } = await supabase.from('pp_community_posts').select('*').eq('id', id).single();
     return normalizePost(data);
   }
   return samplePosts.find(p => p.id === id) || null;
@@ -132,7 +132,7 @@ export async function createPost(post) {
   const supabase = getSupabase();
   if (supabase) {
     const row = toSupabaseRow(post);
-    const { data, error } = await supabase.from('community_posts').insert(row).select().single();
+    const { data, error } = await supabase.from('pp_community_posts').insert(row).select().single();
     if (error) throw error;
     return normalizePost(data);
   }
@@ -152,7 +152,7 @@ export async function updatePost(id, updates) {
       row.author_name = updates.author_name || updates.author?.name;
     if (updates.author_email !== undefined || updates.author?.email !== undefined)
       row.author_email = updates.author_email || updates.author?.email;
-    const { data, error } = await supabase.from('community_posts').update(row).eq('id', id).select().single();
+    const { data, error } = await supabase.from('pp_community_posts').update(row).eq('id', id).select().single();
     if (error) throw error;
     return normalizePost(data);
   }
@@ -167,7 +167,7 @@ export async function updatePost(id, updates) {
 export async function deletePost(id) {
   const supabase = getSupabase();
   if (supabase) {
-    const { error } = await supabase.from('community_posts').delete().eq('id', id);
+    const { error } = await supabase.from('pp_community_posts').delete().eq('id', id);
     if (error) throw error;
     return true;
   }
@@ -179,7 +179,7 @@ export async function deletePost(id) {
 export async function getPostsCount() {
   const supabase = getSupabase();
   if (supabase) {
-    const { count } = await supabase.from('community_posts').select('*', { count: 'exact', head: true });
+    const { count } = await supabase.from('pp_community_posts').select('*', { count: 'exact', head: true });
     return count || 0;
   }
   return samplePosts.length;

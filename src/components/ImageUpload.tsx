@@ -32,7 +32,7 @@ const ImageUpload = ({ value, onChange, folder = 'uploads' }) => {
       setProgress(100);
       onChange(url);
       showToast(t('auth.uploadComplete') || '업로드 완료', 'success');
-    } catch (err) {
+    } catch (err: any) {
       clearInterval(progressInterval);
       console.error('Upload error:', err);
       showToast(err.message, 'error');

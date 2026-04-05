@@ -34,7 +34,7 @@ const ThesisGuidance = () => {
         applicant_email: user?.email,
       });
       setSubmitted(true);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Guidance application error:', err);
     } finally {
       setSubmitting(false);

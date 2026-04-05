@@ -32,7 +32,7 @@ export async function getProducts(includeInactive = false) {
   if (!client) return fallbackProducts;
 
   let query = client
-    .from('products')
+    .from('pp_products')
     .select('*')
     .order('sort_order', { ascending: true })
     .order('id', { ascending: true });
@@ -55,7 +55,7 @@ export async function getProduct(id) {
   const client = getSupabase();
   if (!client) return null;
   const { data, error } = await client
-    .from('products')
+    .from('pp_products')
     .select('*')
     .eq('id', Number(id))
     .single();
@@ -71,7 +71,7 @@ export async function createProduct(productData) {
   const client = getSupabase();
   if (!client) return null;
   const { data, error } = await client
-    .from('products')
+    .from('pp_products')
     .insert({
       slug: productData.slug,
       category: productData.category,
@@ -107,7 +107,7 @@ export async function updateProduct(id, updates) {
   if (updates.sortOrder !== undefined) payload.sort_order = updates.sortOrder;
 
   const { data, error } = await client
-    .from('products')
+    .from('pp_products')
     .update(payload)
     .eq('id', Number(id))
     .select()

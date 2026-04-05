@@ -31,7 +31,7 @@ const FileUpload = ({ value, onChange, folder = 'materials', accept = '.pdf,.doc
       setProgress(100);
       onChange(url);
       showToast(t('auth.uploadComplete') || '업로드 완료', 'success');
-    } catch (err) {
+    } catch (err: any) {
       clearInterval(progressInterval);
       console.error('Upload error:', err);
       showToast(err.message, 'error');

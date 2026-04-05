@@ -169,7 +169,7 @@ const Checkout = () => {
       clearCart();
       navigate(`/order-confirmation?orderNumber=${orderNumber}`, { state: confirmState });
 
-    } catch (err) {
+    } catch (err: any) {
       console.error('Checkout error:', err);
       setError(isEn ? 'An error occurred. Please try again.' : '오류가 발생했습니다. 다시 시도해주세요.');
       setProcessing(false);
