@@ -37,7 +37,7 @@ const FieldResources = () => {
                     key={field.id}
                     data-aos="fade-up"
                     data-aos-delay={i * 60}
-                    style={{ '--field-color': cat.color }}
+                    style={{ '--field-color': cat.color } as React.CSSProperties}
                   >
                     <div className="field-icon-sub">{field.icon}</div>
                     <div className="field-card-body">

@@ -76,7 +76,7 @@ const ProjectDetail = () => {
               {/* Discussion */}
               <div className="detail-card">
                 <h3>{t('site.projects.discussion')}</h3>
-                <CommentSection contentType="project" contentId={projectId} />
+                <CommentSection postType="project" postId={projectId} />
               </div>
             </div>
 

@@ -90,7 +90,7 @@ const AdminProjects = () => {
                   </td>
                 </tr>
               )) : (
-                <tr><td colSpan="6" className="admin-empty">{t('site.admin.noData')}</td></tr>
+                <tr><td colSpan={6} className="admin-empty">{t('site.admin.noData')}</td></tr>
               )}
             </tbody>
           </table>

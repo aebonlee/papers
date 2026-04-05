@@ -176,7 +176,7 @@ const OrderConfirmation = () => {
                   </tbody>
                   <tfoot>
                     <tr>
-                      <td colSpan="3">{t('order.totalAmount')}</td>
+                      <td colSpan={3}>{t('order.totalAmount')}</td>
                       <td className="order-total-cell">{formatPrice(order.total_amount)}</td>
                     </tr>
                   </tfoot>

@@ -104,7 +104,7 @@ const CommunityDetail = () => {
           )}
 
           <div className="post-detail-comments">
-            <CommentSection contentType="community" contentId={postId} />
+            <CommentSection postType="community" postId={postId} />
           </div>
 
           <div className="text-center mt-4">

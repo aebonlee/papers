@@ -3,7 +3,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
 import { getComments, createComment, deleteComment } from '../utils/commentStorage';
 
-const CommentSection = ({ postId, postType }) => {
+const CommentSection = ({ postId, postType }: any) => {
   const { t } = useLanguage();
   const { user, isAdmin, profile } = useAuth();
   const [comments, setComments] = useState([]);
@@ -115,7 +115,7 @@ const CommentSection = ({ postId, postType }) => {
         <form className="comment-form" onSubmit={handleSubmit}>
           <textarea
             className="comment-textarea"
-            rows="3"
+            rows={3}
             placeholder={t('comments.placeholder')}
             value={content}
             onChange={(e) => setContent(e.target.value)}

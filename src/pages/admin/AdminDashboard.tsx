@@ -99,7 +99,7 @@ const AdminDashboard = () => {
                   <td>{project.createdAt || project.created_at?.split('T')[0]}</td>
                 </tr>
               )) : (
-                <tr><td colSpan="4" className="admin-empty">{t('site.admin.noData')}</td></tr>
+                <tr><td colSpan={4} className="admin-empty">{t('site.admin.noData')}</td></tr>
               )}
             </tbody>
           </table>
@@ -133,7 +133,7 @@ const AdminDashboard = () => {
                   <td>{post.createdAt || post.created_at?.split('T')[0]}</td>
                 </tr>
               )) : (
-                <tr><td colSpan="4" className="admin-empty">{t('site.admin.noData')}</td></tr>
+                <tr><td colSpan={4} className="admin-empty">{t('site.admin.noData')}</td></tr>
               )}
             </tbody>
           </table>

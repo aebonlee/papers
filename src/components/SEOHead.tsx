@@ -1,7 +1,7 @@
 import { useLanguage } from '../contexts/LanguageContext';
 import site from '../config/site';
 
-const SEOHead = ({ title, description, path = '', ogImage, noindex = false }) => {
+const SEOHead = ({ title, description, path = '', ogImage, noindex = false }: any) => {
   const SITE = `${site.name} | ${site.nameKo}`;
   const BASE = site.url;
   const DEFAULT_DESC = site.description;

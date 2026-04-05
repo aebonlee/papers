@@ -3,7 +3,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useToast } from '../contexts/ToastContext';
 import { uploadFile } from '../utils/storage';
 
-const FileUpload = ({ value, onChange, folder = 'materials', accept = '.pdf,.doc,.docx,.ppt,.pptx' }) => {
+const FileUpload = ({ value, onChange, folder = 'materials', accept = '.pdf,.doc,.docx,.ppt,.pptx' }: any) => {
   const { t, lang } = useLanguage();
   const { showToast } = useToast();
   const [uploading, setUploading] = useState(false);

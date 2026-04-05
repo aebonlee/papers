@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 
-const ThemeContext = createContext();
+const ThemeContext = createContext<any>(null);
 
 const getTimeBasedTheme = () => {
   const hour = new Date().getHours();

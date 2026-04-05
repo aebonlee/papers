@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
-const AuthGuard = ({ children }) => {
+const AuthGuard = ({ children }: any) => {
   const { isLoggedIn, loading } = useAuth();
   const location = useLocation();
 

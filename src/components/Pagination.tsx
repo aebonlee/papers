@@ -1,4 +1,4 @@
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+const Pagination = ({ currentPage, totalPages, onPageChange }: any) => {
   if (totalPages <= 1) return null;
 
   const getPageNumbers = () => {

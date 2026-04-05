@@ -86,7 +86,7 @@ const AdminMaterials = () => {
                   </td>
                 </tr>
               )) : (
-                <tr><td colSpan="5" className="admin-empty">{t('site.admin.noData')}</td></tr>
+                <tr><td colSpan={5} className="admin-empty">{t('site.admin.noData')}</td></tr>
               )}
             </tbody>
           </table>

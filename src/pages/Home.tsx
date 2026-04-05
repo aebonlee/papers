@@ -5,7 +5,7 @@ import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import site from '../config/site';
 
-const FeatureCard = ({ icon, title, desc, link, delay }) => (
+const FeatureCard = ({ icon, title, desc, link, delay }: any) => (
   <Link to={link} className="feature-card" data-aos="fade-up" data-aos-delay={delay}>
     <div className="feature-icon">{icon}</div>
     <h3>{title}</h3>
@@ -14,7 +14,7 @@ const FeatureCard = ({ icon, title, desc, link, delay }) => (
   </Link>
 );
 
-const StatItem = ({ number, label, suffix = '+' }) => {
+const StatItem = ({ number, label, suffix = '+' }: any) => {
   const { count, ref } = useCountUp(number, 2000);
   return (
     <div className="stat-item" ref={ref}>

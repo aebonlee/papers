@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
-const AdminGuard = ({ children }) => {
+const AdminGuard = ({ children }: any) => {
   const { isLoggedIn, isAdmin, loading } = useAuth();
   const location = useLocation();
 

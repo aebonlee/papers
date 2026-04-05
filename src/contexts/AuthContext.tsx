@@ -3,7 +3,7 @@ import getSupabase from '../utils/supabase';
 import { getProfile, updateProfile, signOut as authSignOut } from '../utils/auth';
 import { ADMIN_EMAILS } from '../config/admin';
 
-const AuthContext = createContext();
+const AuthContext = createContext<any>(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -21,13 +21,13 @@ export const AuthProvider = ({ children }) => {
     if (p) {
       const updates = {};
       const currentDomain = window.location.hostname;
-      if (!p.signup_domain) updates.signup_domain = currentDomain;
+      if (!(p as any).signup_domain) (updates as any).signup_domain = currentDomain;
       // 현재 도메인이 visited_sites에 없으면 자동 추가
-      const sites = Array.isArray(p.visited_sites) ? p.visited_sites : [];
+      const sites = Array.isArray((p as any).visited_sites) ? (p as any).visited_sites : [];
       if (!sites.includes(currentDomain)) {
-        updates.visited_sites = [...sites, currentDomain];
+        (updates as any).visited_sites = [...sites, currentDomain];
       }
-      if (!p.role || p.role === 'user') updates.role = 'member';
+      if (!(p as any).role || (p as any).role === 'user') (updates as any).role = 'member';
       if (Object.keys(updates).length > 0) {
         try {
           const updated = await updateProfile(authUser.id, updates);
@@ -120,7 +120,7 @@ export const AuthProvider = ({ children }) => {
 
   const allEmails = [
     user?.email,
-    user?.user_metadata?.email,
+    (user?.user_metadata as any)?.email,
     user?.identities?.[0]?.identity_data?.email,
     profile?.email,
   ].filter(Boolean).map((e) => e.toLowerCase());

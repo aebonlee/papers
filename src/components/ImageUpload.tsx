@@ -3,7 +3,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useToast } from '../contexts/ToastContext';
 import { uploadImage } from '../utils/storage';
 
-const ImageUpload = ({ value, onChange, folder = 'uploads' }) => {
+const ImageUpload = ({ value, onChange, folder = 'uploads' }: any) => {
   const { t } = useLanguage();
   const { showToast } = useToast();
   const [uploading, setUploading] = useState(false);
