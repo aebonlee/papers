@@ -138,7 +138,7 @@ const Checkout = () => {
         return;
       }
 
-      // 3. Verify payment and update order status (non-blocking)
+      // 3. Verify payment and update order status
       try {
         await verifyPayment(paymentResult.paymentId, orderId);
       } catch {
@@ -146,6 +146,11 @@ const Checkout = () => {
           await updateOrderStatus(orderId, 'paid', paymentResult.paymentId);
         } catch (updateErr) {
           console.warn('Order status update failed (payment was successful):', updateErr);
+          try {
+            const pending = JSON.parse(localStorage.getItem('pp_pending_status') || '[]');
+            pending.push({ orderId, paymentId: paymentResult.paymentId, ts: Date.now() });
+            localStorage.setItem('pp_pending_status', JSON.stringify(pending));
+          } catch { /* quota 무시 */ }
         }
       }
 
