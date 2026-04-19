@@ -161,7 +161,7 @@ export const AuthProvider = ({ children }) => {
   ].filter(Boolean).map((e) => e.toLowerCase());
   const isAdmin = allEmails.some((e) => ADMIN_EMAILS.includes(e));
   const isLoggedIn = !!user;
-  const needsProfileCompletion = isLoggedIn && !!profile && (!profile.name || !profile.phone);
+  const needsProfileCompletion = isLoggedIn && !!profile && !profile.name;
 
 
   // 10분 무동작 세션 타임아웃
