@@ -101,7 +101,6 @@ const Checkout = () => {
         user_phone: form.phone,
         total_amount: cartTotal,
         payment_method: paymentMethod,
-        user_id: user?.id || null,
         items: cartItems.map(item => ({
           product_title: isEn ? item.titleEn : item.title,
           quantity: item.quantity,

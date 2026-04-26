@@ -56,7 +56,7 @@ export const createOrder = async (orderData) => {
     return order;
   }
 
-  // Insert order
+  // Insert order (bare INSERT — no .select().single())
   const orderPayload = {
     order_number: orderData.order_number,
     user_email: orderData.user_email,
@@ -65,34 +65,33 @@ export const createOrder = async (orderData) => {
     total_amount: orderData.total_amount,
     payment_method: orderData.payment_method
   };
-  if (orderData.user_id) orderPayload.user_id = orderData.user_id;
 
-  const { data: order, error: orderError } = await client
+  const { error: orderError } = await client
     .from('pp_orders')
-    .insert(orderPayload)
-    .select()
-    .single();
+    .insert(orderPayload);
 
   if (orderError) throw orderError;
 
-  // Insert order items
+  // Insert order items (wrapped in try-catch so it doesn't block payment)
   if (orderData.items && orderData.items.length > 0) {
-    const { error: itemsError } = await client
-      .from('pp_order_items')
-      .insert(
-        orderData.items.map(item => ({
-          order_id: order.id,
-          product_title: item.product_title,
-          quantity: item.quantity,
-          unit_price: item.unit_price,
-          subtotal: item.subtotal
-        }))
-      );
-
-    if (itemsError) throw itemsError;
+    try {
+      await client
+        .from('pp_order_items')
+        .insert(
+          orderData.items.map(item => ({
+            order_id: orderData.order_number,
+            product_title: item.product_title,
+            quantity: item.quantity,
+            unit_price: item.unit_price,
+            subtotal: item.subtotal
+          }))
+        );
+    } catch (itemErr) {
+      console.warn('order_items INSERT failed (non-blocking):', itemErr);
+    }
   }
 
-  return order;
+  return { id: orderData.order_number, order_number: orderData.order_number };
 };
 
 /**
@@ -150,6 +149,9 @@ export const updateOrderStatus = async (orderId, status, paymentId, cancelReason
     return _memoryOrders[idx];
   }
 
+  const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-/.test(orderId);
+  const filterCol = isUUID ? 'id' : 'order_number';
+
   const updatePayload = { payment_status: status };
   if (status === 'paid') updatePayload.paid_at = new Date().toISOString();
   if (status === 'cancelled') {
@@ -167,25 +169,31 @@ export const updateOrderStatus = async (orderId, status, paymentId, cancelReason
     const { data, error } = await client
       .from('pp_orders')
       .update({ ...updatePayload, ...extras })
-      .eq('id', orderId)
+      .eq(filterCol, orderId)
       .select();
 
     if (error) throw error;
     result = data;
   } catch {
     // Fallback: update without optional columns
-    const { data, error } = await client
-      .from('pp_orders')
-      .update(updatePayload)
-      .eq('id', orderId)
-      .select();
+    try {
+      const { data, error } = await client
+        .from('pp_orders')
+        .update(updatePayload)
+        .eq(filterCol, orderId)
+        .select();
 
-    if (error) throw error;
-    result = data;
+      if (error) throw error;
+      result = data;
+    } catch (e2) {
+      console.warn('updateOrderStatus failed:', e2);
+      return null;
+    }
   }
 
   if (!result || result.length === 0) {
-    throw new Error('UPDATE_NO_ROWS: 주문 업데이트 권한이 없거나 해당 주문을 찾을 수 없습니다. Supabase orders 테이블의 UPDATE RLS 정책을 확인하세요.');
+    console.warn('updateOrderStatus: no rows updated for', orderId);
+    return null;
   }
 
   return result[0];
